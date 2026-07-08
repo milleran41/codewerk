@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CodeWerk - программы, инструменты и цифровые проекты Andreas Miller.">
+    <title>CodeWerk | Andreas Miller</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="site-nav" aria-label="Главная навигация">
+        <a class="brand" href="#top" aria-label="CodeWerk, наверх">
+          <span class="brand-mark">CW</span>
+          <span>CodeWerk</span>
+        </a>
+        <div class="nav-links">
+          <button class="nav-button" type="button" data-modal-open="aboutModal">Обо мне</button>
+          <a href="#support">Поддержать</a>
+          <a href="#contacts">Контакты</a>
+        </div>
+      </nav>
+
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-lines" aria-hidden="true"></div>
+
+      <section class="hero-content" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">GitHub Pages portfolio</p>
+          <h1 id="hero-title">CodeWerk</h1>
+          <p class="hero-subtitle">Useful apps, tools and digital projects by Andreas Miller</p>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <img src="assets/hero-programmer.gif" alt="">
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="section projects-section" id="projects">
+        <div class="section-heading">
+          <p class="eyebrow">Published software</p>
+          <h2>Мои программы</h2>
+        </div>
+        <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
+        <noscript>
+          <p class="noscript">Для отображения карточек включите JavaScript или перенесите данные из projects.json в HTML вручную.</p>
+        </noscript>
+      </section>
+
+      <section class="section support" id="support">
+        <div class="support-panel">
+          <div>
+            <p class="eyebrow">Donate</p>
+            <h2>Поддержать разработчика</h2>
+            <p>Если мои программы оказались полезными, вы можете поддержать развитие проектов.</p>
+          </div>
+          <div class="support-donate">
+            <img class="donate-qr" src="assets/qr/donate.png" alt="QR-код для поддержки разработчика">
+            <div class="support-actions">
+              <!-- TODO: Замените ссылку PayPal на вашу реальную ссылку для поддержки, если понадобится. -->
+              <a class="button button-ghost" href="https://paypal.me/USERNAME" target="_blank" rel="noopener">PayPal</a>
+              <a class="button button-primary" href="https://ko-fi.com/linkora" target="_blank" rel="noopener">Ko-fi</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contacts" id="contacts">
+        <div class="section-heading">
+          <p class="eyebrow">Contact</p>
+          <h2>Контакты</h2>
+        </div>
+        <div class="contact-card">
+          <p><strong>Andreas Miller</strong></p>
+          <p>Email: <a href="mailto:linksaverpro.help@gmail.com">linksaverpro.help@gmail.com</a></p>
+          <p>GitHub: <a href="https://github.com/milleran41" target="_blank" rel="noopener">github.com/milleran41</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <a href="#top">CodeWerk</a>
+      <span>© <span id="year"></span> Andreas Miller. Static portfolio for GitHub Pages.</span>
+    </footer>
+
+    <div class="modal" id="aboutModal" aria-hidden="true">
+      <div class="modal-backdrop" data-modal-close></div>
+      <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
+        <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно">×</button>
+        <p class="eyebrow">Andreas Miller</p>
+        <h2 id="aboutModalTitle">Коротко обо мне</h2>
+        <p>
+          Я создаю практичные программы и цифровые инструменты, которые помогают быстрее
+          решать повседневные задачи: сохранять знания, работать с данными, управлять
+          ссылками и упрощать рутину.
+        </p>
+      </section>
+    </div>
+
+    <div class="modal" id="projectInfoModal" aria-hidden="true">
+      <div class="modal-backdrop" data-modal-close></div>
+      <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="projectInfoModalTitle">
+        <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно">×</button>
+        <p class="eyebrow">Installation</p>
+        <h2 id="projectInfoModalTitle">Как установить</h2>
+        <ol class="modal-list"></ol>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

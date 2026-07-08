@@ -1,0 +1,132 @@
+[
+  {
+    "id": "cookbook",
+    "title": "Taste & Trace / Кулинарная книга",
+    "status": "published",
+    "description": "Windows-программа для ведения личной кулинарной книги: рецепты, категории, заметки, фотографии и детали приготовления в одном месте.",
+    "features": [
+      "Личная база рецептов",
+      "Категории, заметки и фотографии",
+      "Хранение деталей приготовления",
+      "Портативная Windows-сборка",
+      "Проект подготовлен для дальнейшего развития"
+    ],
+    "screenshot": "assets/screenshots/cookbook.png",
+    "githubUrl": "https://github.com/milleran41/taste-and-trace-download",
+    "downloadUrl": "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.0/Taste.Trace-Portable-0.0.0-x64.exe",
+    "qrImage": "assets/qr/cookbook.png",
+    "qrTarget": "https://milleran41.github.io/codewerk/#cookbook"
+  },
+  {
+    "id": "timer",
+    "title": "Timer",
+    "status": "published",
+    "description": "Компактный настольный таймер для Windows с круговым индикатором прогресса, звуковыми уведомлениями и плавающим окном поверх остальных окон.",
+    "features": [
+      "Круговой индикатор прогресса",
+      "Звуковые уведомления",
+      "Плавающее окно always-on-top",
+      "Настройка времени двойным кликом",
+      "Готовый Windows .exe без установки"
+    ],
+    "screenshot": "https://raw.githubusercontent.com/milleran41/timer/main/screenshot.png",
+    "githubUrl": "https://github.com/milleran41/timer",
+    "downloadUrl": "https://github.com/milleran41/timer/raw/main/dist/timer.exe",
+    "qrImage": "assets/qr/timer.png",
+    "qrTarget": "https://milleran41.github.io/codewerk/#timer"
+  },
+  {
+    "id": "mixlab",
+    "title": "MixLab",
+    "status": "published",
+    "description": "Офлайн-инструмент для художников, дизайнеров и мастеров: выбор цвета с изображения и расчёт рецепта смешивания реальных красок по RYB-модели.",
+    "features": [
+      "Выбор цвета с изображения",
+      "Пипетка и 10x увеличитель",
+      "Рецепты смешивания пигментов",
+      "Ручной миксер цветов",
+      "12 языков интерфейса"
+    ],
+    "screenshot": "https://raw.githubusercontent.com/milleran41/MixLab/main/src/assets/screenshot.png",
+    "githubUrl": "https://github.com/milleran41/MixLab",
+    "downloadUrl": "https://github.com/milleran41/MixLab/raw/main/MixLab.exe",
+    "qrImage": "assets/qr/mixlab.png",
+    "qrTarget": "https://milleran41.github.io/codewerk/#mixlab"
+  },
+  {
+    "id": "calendar-germany",
+    "title": "Kalender Deutschland",
+    "status": "published",
+    "description": "Chrome-расширение с немецким календарём, праздниками по федеральным землям, интерактивной картой Германии и историческим разделом.",
+    "features": [
+      "Календарь Германии с национальными и региональными праздниками",
+      "Выбор федеральной земли",
+      "Интерактивная карта Германии",
+      "Исторический раздел с 16 периодами",
+      "Многоязычные исторические тексты"
+    ],
+    "screenshot": "https://raw.githubusercontent.com/milleran41/kalender-deutschland/main/assets/screenshots/calendar.png",
+    "githubUrl": "https://github.com/milleran41/kalender-deutschland",
+    "downloadUrl": "https://github.com/milleran41/kalender-deutschland/archive/refs/heads/main.zip",
+    "qrImage": "assets/qr/calendar-germany.png",
+    "qrTarget": "https://milleran41.github.io/codewerk/#calendar-germany",
+    "installTitle": "Как установить Kalender Deutschland в Chrome",
+    "installSteps": [
+      "Скачайте архив и распакуйте его в удобную папку.",
+      "После распаковки откройте папку kalender-deutschland-main. Внутри должен быть файл manifest.json.",
+      "Откройте Chrome и перейдите по адресу chrome://extensions/.",
+      "Включите переключатель Режим разработчика в правом верхнем углу.",
+      "Нажмите Загрузить распакованное расширение.",
+      "Выберите папку kalender-deutschland-main, а не сам ZIP-файл.",
+      "После установки значок расширения появится в Chrome. Если вы меняете файлы, нажмите Reload на карточке расширения."
+    ]
+  },
+  {
+    "id": "link-manager",
+    "title": "Linkora",
+    "status": "published",
+    "description": "Бесплатный офлайн-менеджер ссылок без рекламы, трекинга и облачного аккаунта. Ссылки сохраняются локально и остаются под вашим контролем.",
+    "features": [
+      "Категории и избранное",
+      "Drag and drop между категориями",
+      "Скриншоты, описания и hover-превью",
+      "Поиск, импорт и экспорт JSON",
+      "Веб-версия и портативная Windows-версия"
+    ],
+    "screenshot": "https://raw.githubusercontent.com/milleran41/linkora/main/assets/linkora-preview.jpg",
+    "githubUrl": "https://github.com/milleran41/linkora",
+    "downloadUrl": "https://raw.githubusercontent.com/milleran41/linkora/main/downloads/Linkora.exe",
+    "qrImage": "assets/qr/link-manager.png",
+    "qrTarget": "https://milleran41.github.io/codewerk/#link-manager"
+  },
+  {
+    "id": "linkvault",
+    "title": "LinkVault",
+    "status": "published",
+    "description": "Простое браузерное приложение для сохранения ссылок, заметок и скриншотов в локальной таблице без установки, сервера и аккаунта.",
+    "features": [
+      "Сохранение ссылок, описаний и скриншотов",
+      "Страницы и категории",
+      "Подсветка дубликатов",
+      "Локальное хранение через IndexedDB",
+      "JSON-резервные копии"
+    ],
+    "screenshot": "https://raw.githubusercontent.com/milleran41/MyLinks/main/assets/screenshot.png",
+    "githubUrl": "https://github.com/milleran41/MyLinks",
+    "downloadUrl": "https://github.com/milleran41/MyLinks/raw/main/LinkVault.zip",
+    "qrImage": "assets/qr/linkvault.png",
+    "qrTarget": "https://milleran41.github.io/codewerk/#linkvault"
+  },
+  {
+    "id": "transport",
+    "title": "Транспорт",
+    "status": "soon",
+    "description": "Добавьте описание из README, когда проект будет опубликован на GitHub.",
+    "features": [],
+    "screenshot": "assets/screenshots/transport.png",
+    "githubUrl": "https://github.com/milleran41/REPOSITORY",
+    "downloadUrl": "",
+    "qrImage": "assets/qr/transport.png",
+    "qrTarget": "https://milleran41.github.io/codewerk/#transport"
+  }
+]
