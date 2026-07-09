@@ -9,6 +9,7 @@ const emailPreviewText = document.querySelector("#emailPreviewText");
 const openGmailLink = document.querySelector("#openGmailLink");
 const copyEmailText = document.querySelector("#copyEmailText");
 const desktopEmailStorageKey = "codewerkDesktopEmail";
+let currentGmailLink = "";
 
 year.textContent = new Date().getFullYear();
 
@@ -262,8 +263,8 @@ const openEmailPreview = (project, recipient) => {
 
   const subject = buildEmailSubject(project);
   const body = buildEmailBody(project);
-  emailPreviewText.value = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
-  openGmailLink.href = buildGmailLink(project, recipient);
+  emailPreviewText.value = body;
+  currentGmailLink = buildGmailLink(project, recipient);
   copyEmailText.textContent = "Скопировать текст";
   openModal("emailPreviewModal");
 };
@@ -452,6 +453,11 @@ copyEmailText?.addEventListener("click", async () => {
     emailPreviewText.select();
     copyEmailText.textContent = "Выделено";
   }
+});
+
+openGmailLink?.addEventListener("click", () => {
+  if (!currentGmailLink) return;
+  window.open(currentGmailLink, "_blank", "noopener");
 });
 
 if (window.location.protocol === "file:") {
