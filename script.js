@@ -12,6 +12,8 @@ const copyEmailText = document.querySelector("#copyEmailText");
 const downloadLinkFile = document.querySelector("#downloadLinkFile");
 const shareLinkFile = document.querySelector("#shareLinkFile");
 const languageButtons = document.querySelectorAll("[data-lang]");
+const languageMenu = document.querySelector(".language-menu");
+const currentLanguageLabel = document.querySelector("#currentLanguageLabel");
 const desktopEmailStorageKey = "codewerkDesktopEmail";
 const languageStorageKey = "codewerkLanguage";
 let currentGmailLink = "";
@@ -20,6 +22,11 @@ let currentLinkFile = null;
 let currentProjects = [];
 
 const supportedLanguages = ["ru", "en", "de"];
+const languageLabels = {
+  ru: "RU",
+  en: "EN",
+  de: "DE"
+};
 const browserLanguage = (navigator.language || "ru").slice(0, 2);
 let currentLanguage =
   localStorage.getItem(languageStorageKey) ||
@@ -580,6 +587,10 @@ const applyStaticTranslations = () => {
     button.setAttribute("aria-pressed", String(isActive));
   });
 
+  if (currentLanguageLabel) {
+    currentLanguageLabel.textContent = languageLabels[currentLanguage] || currentLanguage.toUpperCase();
+  }
+
   updateEmailStatus();
 };
 
@@ -886,6 +897,7 @@ languageButtons.forEach((button) => {
     localStorage.setItem(languageStorageKey, currentLanguage);
     applyStaticTranslations();
     if (currentProjects.length) renderProjects(currentProjects);
+    languageMenu?.removeAttribute("open");
   });
 });
 

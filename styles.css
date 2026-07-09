@@ -145,7 +145,8 @@ img {
 
 .nav-links a,
 .nav-button,
-.language-switch button {
+.language-menu summary,
+.language-options button {
   padding: 10px 14px;
   border: 0;
   border-radius: 999px;
@@ -161,26 +162,58 @@ img {
 .nav-links a:focus-visible,
 .nav-button:hover,
 .nav-button:focus-visible,
-.language-switch button:hover,
-.language-switch button:focus-visible,
-.language-switch button.is-active {
+.language-menu summary:hover,
+.language-menu summary:focus-visible,
+.language-menu[open] summary,
+.language-options button:hover,
+.language-options button:focus-visible,
+.language-options button.is-active {
   color: var(--accent);
   background: rgba(199, 255, 57, 0.08);
 }
 
-.language-switch {
-  display: flex;
-  gap: 2px;
+.language-menu {
+  position: relative;
   padding-left: 6px;
   border-left: 1px solid rgba(199, 255, 57, 0.22);
 }
 
-.language-switch button {
-  padding: 10px 9px;
+.language-menu summary {
+  display: block;
+  min-width: 52px;
+  list-style: none;
+  text-align: center;
+}
+
+.language-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.language-menu summary,
+.language-options button {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.02em;
+}
+
+.language-options {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 10;
+  display: grid;
+  min-width: 148px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(16, 8, 25, 0.96);
+  box-shadow: var(--shadow);
+}
+
+.language-options button {
+  width: 100%;
+  text-align: left;
 }
 
 .hero-content {
