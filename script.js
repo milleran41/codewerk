@@ -234,35 +234,6 @@ const buildMailLink = (project, recipient) => {
   return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 };
 
-const shareProjectLink = async (project, button) => {
-  const projectUrl = getProjectPageUrl(project.id);
-  const originalText = button.textContent;
-
-  try {
-    if (navigator.share) {
-      await navigator.share({
-        title: project.title,
-        text: `Ссылка на программу ${project.title}`,
-        url: projectUrl
-      });
-      return;
-    }
-
-    await navigator.clipboard.writeText(projectUrl);
-    button.textContent = "Ссылка скопирована";
-    window.setTimeout(() => {
-      button.textContent = originalText;
-    }, 2200);
-  } catch (error) {
-    if (error.name === "AbortError") return;
-
-    button.textContent = projectUrl;
-    window.setTimeout(() => {
-      button.textContent = originalText;
-    }, 4200);
-  }
-};
-
 const openProjectInstructions = (project) => {
   const modal = document.querySelector("#projectInfoModal");
   const title = modal?.querySelector("#projectInfoModalTitle");
@@ -329,13 +300,7 @@ const buildProjectCard = (project) => {
   github.target = "_blank";
   github.rel = "noopener";
 
-  const share = createElement("button", "button button-ghost", "Поделиться ссылкой");
-  share.type = "button";
-  share.addEventListener("click", () => {
-    shareProjectLink(project, share);
-  });
-
-  actions.append(download, github, share);
+  actions.append(download, github);
 
   if (project.installSteps?.length) {
     const install = createElement("button", "button button-ghost", "Как установить");
