@@ -11,10 +11,229 @@ const openMailAppLink = document.querySelector("#openMailAppLink");
 const copyEmailText = document.querySelector("#copyEmailText");
 const downloadLinkFile = document.querySelector("#downloadLinkFile");
 const shareLinkFile = document.querySelector("#shareLinkFile");
+const languageButtons = document.querySelectorAll("[data-lang]");
 const desktopEmailStorageKey = "codewerkDesktopEmail";
+const languageStorageKey = "codewerkLanguage";
 let currentGmailLink = "";
 let currentMailLink = "";
 let currentLinkFile = null;
+let currentProjects = [];
+
+const supportedLanguages = ["ru", "en", "de"];
+const browserLanguage = (navigator.language || "ru").slice(0, 2);
+let currentLanguage =
+  localStorage.getItem(languageStorageKey) ||
+  (supportedLanguages.includes(browserLanguage) ? browserLanguage : "ru");
+
+const ui = {
+  ru: {
+    navAbout: "Обо мне",
+    navSupport: "Поддержать",
+    navContacts: "Контакты",
+    heroEyebrow: "GitHub Pages portfolio",
+    heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
+    requirements: "System requirements: Windows 10/11",
+    emailEyebrow: "Send to desktop",
+    emailTitle: "Email для ссылок",
+    emailText:
+      "Введите свой email один раз. Когда вы нажмёте “Открыть на компьютере”, сайт подготовит письмо на этот же адрес со ссылкой на выбранную программу.",
+    emailLabel: "Ваш email",
+    emailSave: "Сохранить",
+    emailStatusDefault: "Email хранится только в вашем браузере.",
+    emailStatusSaved: "Сохранён email для отправки ссылок: {email}",
+    emailInvalid: "Проверьте email: похоже, в адресе есть ошибка.",
+    emailRequired: "Сначала введите свой email, чтобы отправить ссылку себе на компьютер.",
+    projectsEyebrow: "Published software",
+    projectsTitle: "Мои программы",
+    noProjects: "Пока нет опубликованных проектов для отображения.",
+    loadError: "Не удалось загрузить список проектов. Проверьте файл data/projects.json.",
+    supportEyebrow: "Donate",
+    supportTitle: "Поддержать разработчика",
+    supportText: "Если мои программы оказались полезными, вы можете поддержать развитие проектов.",
+    contactsEyebrow: "Contact",
+    contactsTitle: "Контакты",
+    footerText: "Static portfolio for GitHub Pages.",
+    aboutTitle: "Коротко обо мне",
+    aboutText:
+      "Я создаю практичные программы и цифровые инструменты, которые помогают быстрее решать повседневные задачи: сохранять знания, работать с данными, управлять ссылками и упрощать рутину.",
+    installEyebrow: "Installation",
+    installTitleDefault: "Как установить",
+    installTitlePrefix: "Как установить",
+    emailModalEyebrow: "Send link",
+    emailModalTitle: "Письмо на компьютер",
+    emailModalHelp:
+      "Надёжный вариант для телефона: скачайте TXT-файл со ссылками или отправьте его себе через “Поделиться TXT”. На компьютере откройте файл и перейдите по ссылке Download. Если ссылка не нажимается, скопируйте её в адресную строку браузера.",
+    copyText: "Скопировать текст",
+    downloadTxt: "Скачать TXT",
+    shareTxt: "Поделиться TXT",
+    openGmail: "Открыть Gmail",
+    openMail: "Открыть почту",
+    closeLabel: "Закрыть окно",
+    published: "Published",
+    directLink: "Прямая ссылка на {title}",
+    screenshotAlt: "Скриншот программы {title}",
+    screenshotFallback: "Скриншот будет добавлен позже",
+    qrAlt: "QR-код для {title}",
+    qrFallback: "QR-код будет добавлен позже",
+    qrText: "QR-код открывает карточку программы: {url}",
+    download: "Скачать",
+    github: "Открыть на GitHub",
+    install: "Как установить",
+    openDesktop: "Открыть на компьютере",
+    openDesktopAria: "Отправить ссылку на {title} себе по email",
+    copied: "Скопировано",
+    selected: "Выделено",
+    txtDownloaded: "TXT скачан",
+    sent: "Отправлено",
+    textCopied: "Текст скопирован",
+    failed: "Не удалось",
+    projectPage: "Страница программы:",
+    downloadLine: "Скачать:",
+    howToDownload: "Как скачать:",
+    howToDownloadStep1: "Откройте этот файл на компьютере и используйте ссылку “Скачать” выше.",
+    howToDownloadStep2: "Если ссылка не нажимается, скопируйте её в адресную строку браузера.",
+    shareFileText: "Файл со ссылками для открытия на компьютере.",
+    localQrHint: "После публикации сайта: https://milleran41.github.io/ИМЯ-РЕПОЗИТОРИЯ/#{id}"
+  },
+  en: {
+    navAbout: "About",
+    navSupport: "Support",
+    navContacts: "Contacts",
+    heroEyebrow: "GitHub Pages portfolio",
+    heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
+    requirements: "System requirements: Windows 10/11",
+    emailEyebrow: "Send to desktop",
+    emailTitle: "Email for links",
+    emailText:
+      "Enter your email once. When you click “Open on computer”, the site prepares a message to the same address with a link to the selected app.",
+    emailLabel: "Your email",
+    emailSave: "Save",
+    emailStatusDefault: "The email is stored only in your browser.",
+    emailStatusSaved: "Saved email for sending links: {email}",
+    emailInvalid: "Please check the email address. Something looks wrong.",
+    emailRequired: "Enter your email first to send the link to your computer.",
+    projectsEyebrow: "Published software",
+    projectsTitle: "My programs",
+    noProjects: "There are no published projects to show yet.",
+    loadError: "Could not load the project list. Please check data/projects.json.",
+    supportEyebrow: "Donate",
+    supportTitle: "Support the developer",
+    supportText: "If my programs are useful to you, you can support the development of these projects.",
+    contactsEyebrow: "Contact",
+    contactsTitle: "Contacts",
+    footerText: "Static portfolio for GitHub Pages.",
+    aboutTitle: "About me",
+    aboutText:
+      "I create practical programs and digital tools that help solve everyday tasks faster: saving knowledge, working with data, managing links and simplifying routine work.",
+    installEyebrow: "Installation",
+    installTitleDefault: "How to install",
+    installTitlePrefix: "How to install",
+    emailModalEyebrow: "Send link",
+    emailModalTitle: "Message for your computer",
+    emailModalHelp:
+      "The reliable phone option: download the TXT file with links or send it to yourself with “Share TXT”. On your computer, open the file and use the Download link. If the link is not clickable, copy it into the browser address bar.",
+    copyText: "Copy text",
+    downloadTxt: "Download TXT",
+    shareTxt: "Share TXT",
+    openGmail: "Open Gmail",
+    openMail: "Open mail app",
+    closeLabel: "Close window",
+    published: "Published",
+    directLink: "Direct link to {title}",
+    screenshotAlt: "Screenshot of {title}",
+    screenshotFallback: "Screenshot will be added later",
+    qrAlt: "QR code for {title}",
+    qrFallback: "QR code will be added later",
+    qrText: "The QR code opens this app card: {url}",
+    download: "Download",
+    github: "Open on GitHub",
+    install: "How to install",
+    openDesktop: "Open on computer",
+    openDesktopAria: "Send a link to {title} to your email",
+    copied: "Copied",
+    selected: "Selected",
+    txtDownloaded: "TXT downloaded",
+    sent: "Sent",
+    textCopied: "Text copied",
+    failed: "Failed",
+    projectPage: "Project page:",
+    downloadLine: "Download:",
+    howToDownload: "How to download:",
+    howToDownloadStep1: "Open this file on your computer and use the Download link above.",
+    howToDownloadStep2: "If the link is not clickable, copy it and paste it into the browser address bar.",
+    shareFileText: "File with links for opening on a computer.",
+    localQrHint: "After publishing the site: https://milleran41.github.io/REPOSITORY-NAME/#{id}"
+  },
+  de: {
+    navAbout: "Über mich",
+    navSupport: "Unterstützen",
+    navContacts: "Kontakt",
+    heroEyebrow: "GitHub Pages Portfolio",
+    heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
+    requirements: "Systemanforderungen: Windows 10/11",
+    emailEyebrow: "An den Computer senden",
+    emailTitle: "E-Mail für Links",
+    emailText:
+      "Geben Sie Ihre E-Mail einmal ein. Wenn Sie “Auf dem Computer öffnen” klicken, bereitet die Seite eine Nachricht an diese Adresse mit dem Link zur ausgewählten App vor.",
+    emailLabel: "Ihre E-Mail",
+    emailSave: "Speichern",
+    emailStatusDefault: "Die E-Mail wird nur in Ihrem Browser gespeichert.",
+    emailStatusSaved: "Gespeicherte E-Mail für Links: {email}",
+    emailInvalid: "Bitte prüfen Sie die E-Mail-Adresse. Sie sieht nicht korrekt aus.",
+    emailRequired: "Geben Sie zuerst Ihre E-Mail ein, um den Link an Ihren Computer zu senden.",
+    projectsEyebrow: "Veröffentlichte Software",
+    projectsTitle: "Meine Programme",
+    noProjects: "Es gibt noch keine veröffentlichten Projekte zum Anzeigen.",
+    loadError: "Die Projektliste konnte nicht geladen werden. Bitte prüfen Sie data/projects.json.",
+    supportEyebrow: "Spenden",
+    supportTitle: "Entwickler unterstützen",
+    supportText: "Wenn meine Programme nützlich sind, können Sie die Weiterentwicklung unterstützen.",
+    contactsEyebrow: "Kontakt",
+    contactsTitle: "Kontakt",
+    footerText: "Statisches Portfolio für GitHub Pages.",
+    aboutTitle: "Kurz über mich",
+    aboutText:
+      "Ich entwickle praktische Programme und digitale Werkzeuge, die alltägliche Aufgaben schneller lösen: Wissen speichern, mit Daten arbeiten, Links verwalten und Routinearbeit vereinfachen.",
+    installEyebrow: "Installation",
+    installTitleDefault: "Installation",
+    installTitlePrefix: "Installation von",
+    emailModalEyebrow: "Link senden",
+    emailModalTitle: "Nachricht für den Computer",
+    emailModalHelp:
+      "Die zuverlässige Option für das Telefon: Laden Sie die TXT-Datei mit Links herunter oder senden Sie sie über “TXT teilen” an sich selbst. Öffnen Sie die Datei auf dem Computer und verwenden Sie den Download-Link. Wenn der Link nicht klickbar ist, kopieren Sie ihn in die Adressleiste des Browsers.",
+    copyText: "Text kopieren",
+    downloadTxt: "TXT herunterladen",
+    shareTxt: "TXT teilen",
+    openGmail: "Gmail öffnen",
+    openMail: "Mail-App öffnen",
+    closeLabel: "Fenster schließen",
+    published: "Veröffentlicht",
+    directLink: "Direkter Link zu {title}",
+    screenshotAlt: "Screenshot von {title}",
+    screenshotFallback: "Screenshot wird später hinzugefügt",
+    qrAlt: "QR-Code für {title}",
+    qrFallback: "QR-Code wird später hinzugefügt",
+    qrText: "Der QR-Code öffnet diese Programmkarte: {url}",
+    download: "Herunterladen",
+    github: "Auf GitHub öffnen",
+    install: "Installation",
+    openDesktop: "Auf dem Computer öffnen",
+    openDesktopAria: "Link zu {title} per E-Mail senden",
+    copied: "Kopiert",
+    selected: "Markiert",
+    txtDownloaded: "TXT heruntergeladen",
+    sent: "Gesendet",
+    textCopied: "Text kopiert",
+    failed: "Fehlgeschlagen",
+    projectPage: "Projektseite:",
+    downloadLine: "Download:",
+    howToDownload: "So laden Sie herunter:",
+    howToDownloadStep1: "Öffnen Sie diese Datei auf dem Computer und verwenden Sie den Download-Link oben.",
+    howToDownloadStep2: "Wenn der Link nicht klickbar ist, kopieren Sie ihn in die Adressleiste des Browsers.",
+    shareFileText: "Datei mit Links zum Öffnen auf dem Computer.",
+    localQrHint: "Nach der Veröffentlichung: https://milleran41.github.io/REPOSITORY-NAME/#{id}"
+  }
+};
 
 year.textContent = new Date().getFullYear();
 
@@ -147,6 +366,223 @@ const localProjectsFallback = [
   }
 ];
 
+const projectTranslations = {
+  en: {
+    cookbook: {
+      title: "Taste & Trace / Cookbook",
+      description:
+        "A Windows app for keeping a personal cookbook: recipes, categories, notes, photos and cooking details in one place.",
+      features: [
+        "Personal recipe database",
+        "Categories, notes and photos",
+        "Cooking details storage",
+        "Portable Windows build",
+        "Prepared for future development"
+      ]
+    },
+    timer: {
+      title: "Timer",
+      description:
+        "A compact desktop timer for Windows with a circular progress indicator, sound notifications and a floating always-on-top window.",
+      features: [
+        "Circular progress indicator",
+        "Sound notifications",
+        "Always-on-top floating window",
+        "Double-click time adjustment",
+        "Ready-to-use Windows .exe without installation"
+      ]
+    },
+    mixlab: {
+      title: "MixLab",
+      description:
+        "An offline tool for artists, designers and makers: pick a color from an image and calculate a real-paint mixing recipe using the RYB model.",
+      features: [
+        "Pick colors from an image",
+        "Eyedropper and 10x magnifier",
+        "Pigment mixing recipes",
+        "Manual color mixer",
+        "Interface in 12 languages"
+      ]
+    },
+    "calendar-germany": {
+      title: "Kalender Deutschland",
+      description:
+        "A Chrome extension with a German calendar, federal-state holidays, an interactive Germany map and a historical section.",
+      features: [
+        "German calendar with national and regional holidays",
+        "Federal state selection",
+        "Interactive map of Germany",
+        "Historical section with 16 periods",
+        "Multilingual historical texts"
+      ],
+      installTitle: "How to install Kalender Deutschland in Chrome",
+      installSteps: [
+        "Download the archive and unpack it into a convenient folder.",
+        "Open the unpacked kalender-deutschland-main folder. It must contain manifest.json.",
+        "Open Chrome and go to chrome://extensions/.",
+        "Enable Developer mode in the top right corner.",
+        "Click Load unpacked.",
+        "Select the kalender-deutschland-main folder, not the ZIP file.",
+        "The extension icon will appear in Chrome. If you change files, click Reload on the extension card."
+      ]
+    },
+    "link-manager": {
+      title: "Linkora",
+      description:
+        "A free offline link manager without ads, tracking or a cloud account. Your links are stored locally and remain under your control.",
+      features: [
+        "Categories and favorites",
+        "Drag and drop between categories",
+        "Screenshots, descriptions and hover previews",
+        "Search, JSON import and export",
+        "Web version and portable Windows version"
+      ]
+    },
+    linkvault: {
+      title: "LinkVault",
+      description:
+        "A simple browser app for saving links, notes and screenshots in a local table without installation, server or account.",
+      features: [
+        "Save links, descriptions and screenshots",
+        "Pages and categories",
+        "Duplicate highlighting",
+        "Local storage with IndexedDB",
+        "JSON backups"
+      ]
+    },
+    transport: {
+      title: "Transport",
+      description: "Add the README description when the project is published on GitHub.",
+      features: []
+    }
+  },
+  de: {
+    cookbook: {
+      title: "Taste & Trace / Kochbuch",
+      description:
+        "Eine Windows-App für ein persönliches Kochbuch: Rezepte, Kategorien, Notizen, Fotos und Zubereitungsdetails an einem Ort.",
+      features: [
+        "Persönliche Rezeptdatenbank",
+        "Kategorien, Notizen und Fotos",
+        "Speicherung von Zubereitungsdetails",
+        "Portable Windows-Version",
+        "Für die weitere Entwicklung vorbereitet"
+      ]
+    },
+    timer: {
+      title: "Timer",
+      description:
+        "Ein kompakter Desktop-Timer für Windows mit rundem Fortschrittsindikator, akustischen Benachrichtigungen und einem schwebenden Always-on-top-Fenster.",
+      features: [
+        "Runder Fortschrittsindikator",
+        "Akustische Benachrichtigungen",
+        "Schwebendes Always-on-top-Fenster",
+        "Zeiteinstellung per Doppelklick",
+        "Fertige Windows-.exe ohne Installation"
+      ]
+    },
+    mixlab: {
+      title: "MixLab",
+      description:
+        "Ein Offline-Werkzeug für Künstler, Designer und Handwerker: Farbe aus einem Bild auswählen und ein Mischrezept für echte Farben nach dem RYB-Modell berechnen.",
+      features: [
+        "Farben aus einem Bild auswählen",
+        "Pipette und 10-fache Lupe",
+        "Mischrezepte für Pigmente",
+        "Manueller Farbmischer",
+        "Oberfläche in 12 Sprachen"
+      ]
+    },
+    "calendar-germany": {
+      title: "Kalender Deutschland",
+      description:
+        "Eine Chrome-Erweiterung mit deutschem Kalender, Feiertagen nach Bundesländern, interaktiver Deutschlandkarte und historischem Bereich.",
+      features: [
+        "Deutschlandkalender mit nationalen und regionalen Feiertagen",
+        "Auswahl des Bundeslandes",
+        "Interaktive Deutschlandkarte",
+        "Historischer Bereich mit 16 Zeitperioden",
+        "Mehrsprachige historische Texte"
+      ],
+      installTitle: "Installation von Kalender Deutschland in Chrome",
+      installSteps: [
+        "Laden Sie das Archiv herunter und entpacken Sie es in einen passenden Ordner.",
+        "Öffnen Sie den entpackten Ordner kalender-deutschland-main. Darin muss die Datei manifest.json liegen.",
+        "Öffnen Sie Chrome und gehen Sie zu chrome://extensions/.",
+        "Aktivieren Sie oben rechts den Entwicklermodus.",
+        "Klicken Sie auf Entpackte Erweiterung laden.",
+        "Wählen Sie den Ordner kalender-deutschland-main aus, nicht die ZIP-Datei.",
+        "Das Erweiterungssymbol erscheint in Chrome. Wenn Sie Dateien ändern, klicken Sie auf der Erweiterungskarte auf Reload."
+      ]
+    },
+    "link-manager": {
+      title: "Linkora",
+      description:
+        "Ein kostenloser Offline-Linkmanager ohne Werbung, Tracking oder Cloud-Konto. Die Links werden lokal gespeichert und bleiben unter Ihrer Kontrolle.",
+      features: [
+        "Kategorien und Favoriten",
+        "Drag and Drop zwischen Kategorien",
+        "Screenshots, Beschreibungen und Hover-Vorschau",
+        "Suche, JSON-Import und -Export",
+        "Webversion und portable Windows-Version"
+      ]
+    },
+    linkvault: {
+      title: "LinkVault",
+      description:
+        "Eine einfache Browser-App zum Speichern von Links, Notizen und Screenshots in einer lokalen Tabelle ohne Installation, Server oder Konto.",
+      features: [
+        "Links, Beschreibungen und Screenshots speichern",
+        "Seiten und Kategorien",
+        "Hervorhebung von Duplikaten",
+        "Lokale Speicherung mit IndexedDB",
+        "JSON-Sicherungen"
+      ]
+    },
+    transport: {
+      title: "Transport",
+      description: "Fügen Sie die README-Beschreibung hinzu, sobald das Projekt auf GitHub veröffentlicht ist.",
+      features: []
+    }
+  }
+};
+
+const formatText = (value, replacements = {}) =>
+  Object.entries(replacements).reduce((text, [key, replacement]) => {
+    return text.replaceAll(`{${key}}`, replacement);
+  }, value || "");
+
+const t = (key, replacements) => {
+  const value = ui[currentLanguage]?.[key] || ui.ru[key] || key;
+  return formatText(value, replacements);
+};
+
+const translateProject = (project) => {
+  const copy = projectTranslations[currentLanguage]?.[project.id];
+  if (!copy) return project;
+  return { ...project, ...copy };
+};
+
+const applyStaticTranslations = () => {
+  document.documentElement.lang = currentLanguage;
+
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    element.textContent = t(element.dataset.i18n);
+  });
+
+  document.querySelectorAll("[data-i18n-aria-label]").forEach((element) => {
+    element.setAttribute("aria-label", t(element.dataset.i18nAriaLabel));
+  });
+
+  languageButtons.forEach((button) => {
+    const isActive = button.dataset.lang === currentLanguage;
+    button.classList.toggle("is-active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+
+  updateEmailStatus();
+};
+
 const createElement = (tag, className, text) => {
   const element = document.createElement(tag);
   if (className) element.className = className;
@@ -202,7 +638,7 @@ const getQrTargetText = (project) => {
     return getProjectPageUrl(project.id);
   }
 
-  return `После публикации сайта: https://milleran41.github.io/ИМЯ-РЕПОЗИТОРИЯ/#${project.id}`;
+  return t("localQrHint", { id: project.id });
 };
 
 const getRegisteredEmail = () => localStorage.getItem(desktopEmailStorageKey) || "";
@@ -214,16 +650,14 @@ const updateEmailStatus = () => {
   if (userEmail) userEmail.value = email;
   if (!emailStatus) return;
 
-  emailStatus.textContent = email
-    ? `Сохранён email для отправки ссылок: ${email}`
-    : "Email хранится только в вашем браузере.";
+  emailStatus.textContent = email ? t("emailStatusSaved", { email }) : t("emailStatusDefault");
 };
 
 const focusEmailRegistration = () => {
   document.querySelector("#email-registration")?.scrollIntoView({ behavior: "smooth", block: "center" });
   window.setTimeout(() => userEmail?.focus(), 450);
   if (emailStatus) {
-    emailStatus.textContent = "Сначала введите свой email, чтобы отправить ссылку себе на компьютер.";
+    emailStatus.textContent = t("emailRequired");
   }
 };
 
@@ -232,15 +666,15 @@ const buildEmailBody = (project) => {
   return [
     project.title,
     "",
-    "Project page:",
+    t("projectPage"),
     projectUrl,
     "",
-    "Download:",
+    t("downloadLine"),
     project.downloadUrl || project.githubUrl,
     "",
-    "How to download:",
-    "Open this file on your computer and use the Download link above.",
-    "If the link is not clickable, copy it and paste it into the browser address bar."
+    t("howToDownload"),
+    t("howToDownloadStep1"),
+    t("howToDownloadStep2")
   ].join("\n");
 };
 
@@ -283,9 +717,9 @@ const openEmailPreview = (project, recipient) => {
     name: getSafeFileName(project.title),
     text: `To: ${recipient}\nSubject: ${subject}\n\n${body}\n`
   };
-  copyEmailText.textContent = "Скопировать текст";
-  if (downloadLinkFile) downloadLinkFile.textContent = "Скачать TXT";
-  if (shareLinkFile) shareLinkFile.textContent = "Поделиться TXT";
+  copyEmailText.textContent = t("copyText");
+  if (downloadLinkFile) downloadLinkFile.textContent = t("downloadTxt");
+  if (shareLinkFile) shareLinkFile.textContent = t("shareTxt");
   openModal("emailPreviewModal");
 };
 
@@ -296,7 +730,7 @@ const openProjectInstructions = (project) => {
 
   if (!modal || !title || !list) return;
 
-  title.textContent = project.installTitle || `Как установить ${project.title}`;
+  title.textContent = project.installTitle || `${t("installTitlePrefix")} ${project.title}`;
   list.replaceChildren();
   project.installSteps.forEach((step) => {
     list.append(createElement("li", null, step));
@@ -312,19 +746,19 @@ const buildProjectCard = (project) => {
   media.append(
     buildImage(
       project.screenshot,
-      `Скриншот программы ${project.title}`,
-      "Скриншот будет добавлен позже",
+      t("screenshotAlt", { title: project.title }),
+      t("screenshotFallback"),
       "screenshot-wrap"
     )
   );
 
   const content = createElement("div", "project-content");
   const topline = createElement("div", "project-topline");
-  topline.append(createElement("span", "status", "Published"));
+  topline.append(createElement("span", "status", t("published")));
 
   const anchor = createElement("a", "anchor-link", `#${project.id}`);
   anchor.href = `#${project.id}`;
-  anchor.setAttribute("aria-label", `Прямая ссылка на ${project.title}`);
+  anchor.setAttribute("aria-label", t("directLink", { title: project.title }));
   topline.append(anchor);
 
   const title = createElement("h3", null, project.title);
@@ -336,7 +770,7 @@ const buildProjectCard = (project) => {
   });
 
   const actions = createElement("div", "project-actions");
-  const download = createElement("a", "button button-primary", "Скачать");
+  const download = createElement("a", "button button-primary", t("download"));
   download.href = project.downloadUrl || project.githubUrl;
   download.rel = "noopener";
 
@@ -350,7 +784,7 @@ const buildProjectCard = (project) => {
     download.target = "_blank";
   }
 
-  const github = createElement("a", "button button-ghost", "Открыть на GitHub");
+  const github = createElement("a", "button button-ghost", t("github"));
   github.href = project.githubUrl;
   github.target = "_blank";
   github.rel = "noopener";
@@ -358,7 +792,7 @@ const buildProjectCard = (project) => {
   actions.append(download, github);
 
   if (project.installSteps?.length) {
-    const install = createElement("button", "button button-ghost", "Как установить");
+    const install = createElement("button", "button button-ghost", t("install"));
     install.type = "button";
     install.addEventListener("click", () => openProjectInstructions(project));
     actions.append(install);
@@ -366,16 +800,16 @@ const buildProjectCard = (project) => {
 
   const qrBlock = createElement("div", "qr-block");
   qrBlock.append(
-    buildImage(project.qrImage, `QR-код для ${project.title}`, "QR-код будет добавлен позже", "qr-wrap")
+    buildImage(project.qrImage, t("qrAlt", { title: project.title }), t("qrFallback"), "qr-wrap")
   );
 
   const qrText = createElement("p", "qr-text");
-  qrText.textContent = `QR-код открывает карточку программы: ${getQrTargetText(project)}`;
+  qrText.textContent = t("qrText", { url: getQrTargetText(project) });
   qrBlock.append(qrText);
 
-  const sendToDesktop = createElement("button", "button button-ghost send-desktop", "Открыть на компьютере");
+  const sendToDesktop = createElement("button", "button button-ghost send-desktop", t("openDesktop"));
   sendToDesktop.type = "button";
-  sendToDesktop.setAttribute("aria-label", `Отправить ссылку на ${project.title} себе по email`);
+  sendToDesktop.setAttribute("aria-label", t("openDesktopAria", { title: project.title }));
   sendToDesktop.addEventListener("click", (event) => {
     event.preventDefault();
     const recipient = getRegisteredEmail();
@@ -394,11 +828,12 @@ const buildProjectCard = (project) => {
 };
 
 const renderProjects = (projects) => {
-  const publishedProjects = projects.filter((project) => project.status === "published");
+  currentProjects = projects;
+  const publishedProjects = projects.filter((project) => project.status === "published").map(translateProject);
   projectsGrid.replaceChildren();
 
   if (!publishedProjects.length) {
-    projectsGrid.append(createElement("p", "noscript", "Пока нет опубликованных проектов для отображения."));
+    projectsGrid.append(createElement("p", "noscript", t("noProjects")));
     return;
   }
 
@@ -442,6 +877,18 @@ modalCloseButtons.forEach((button) => {
   });
 });
 
+languageButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const language = button.dataset.lang;
+    if (!supportedLanguages.includes(language)) return;
+
+    currentLanguage = language;
+    localStorage.setItem(languageStorageKey, currentLanguage);
+    applyStaticTranslations();
+    if (currentProjects.length) renderProjects(currentProjects);
+  });
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
   document.querySelectorAll(".modal.is-open").forEach(closeModal);
@@ -452,7 +899,7 @@ emailForm?.addEventListener("submit", (event) => {
   const email = userEmail?.value.trim() || "";
 
   if (!isValidEmail(email)) {
-    if (emailStatus) emailStatus.textContent = "Проверьте email: похоже, в адресе есть ошибка.";
+    if (emailStatus) emailStatus.textContent = t("emailInvalid");
     userEmail?.focus();
     return;
   }
@@ -461,17 +908,17 @@ emailForm?.addEventListener("submit", (event) => {
   updateEmailStatus();
 });
 
-updateEmailStatus();
+applyStaticTranslations();
 
 copyEmailText?.addEventListener("click", async () => {
   if (!emailPreviewText) return;
 
   try {
     await navigator.clipboard.writeText(emailPreviewText.value);
-    copyEmailText.textContent = "Скопировано";
+    copyEmailText.textContent = t("copied");
   } catch {
     emailPreviewText.select();
-    copyEmailText.textContent = "Выделено";
+    copyEmailText.textContent = t("selected");
   }
 });
 
@@ -497,7 +944,7 @@ downloadLinkFile?.addEventListener("click", () => {
   link.click();
   link.remove();
   URL.revokeObjectURL(url);
-  downloadLinkFile.textContent = "TXT скачан";
+  downloadLinkFile.textContent = t("txtDownloaded");
 });
 
 shareLinkFile?.addEventListener("click", async () => {
@@ -509,10 +956,10 @@ shareLinkFile?.addEventListener("click", async () => {
     if (navigator.canShare?.({ files: [file] })) {
       await navigator.share({
         title: "CodeWerk download link",
-        text: "Файл со ссылками для открытия на компьютере.",
+        text: t("shareFileText"),
         files: [file]
       });
-      shareLinkFile.textContent = "Отправлено";
+      shareLinkFile.textContent = t("sent");
       return;
     }
 
@@ -521,15 +968,15 @@ shareLinkFile?.addEventListener("click", async () => {
         title: "CodeWerk download link",
         text: currentLinkFile.text
       });
-      shareLinkFile.textContent = "Отправлено";
+      shareLinkFile.textContent = t("sent");
       return;
     }
 
     await navigator.clipboard.writeText(currentLinkFile.text);
-    shareLinkFile.textContent = "Текст скопирован";
+    shareLinkFile.textContent = t("textCopied");
   } catch (error) {
     if (error.name === "AbortError") return;
-    shareLinkFile.textContent = "Не удалось";
+    shareLinkFile.textContent = t("failed");
   }
 });
 
@@ -544,7 +991,7 @@ if (window.location.protocol === "file:") {
     .then(renderProjects)
     .catch(() => {
       projectsGrid.replaceChildren(
-        createElement("p", "noscript", "Не удалось загрузить список проектов. Проверьте файл data/projects.json.")
+        createElement("p", "noscript", t("loadError"))
       );
     });
 }

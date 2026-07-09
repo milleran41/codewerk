@@ -144,7 +144,8 @@ img {
 }
 
 .nav-links a,
-.nav-button {
+.nav-button,
+.language-switch button {
   padding: 10px 14px;
   border: 0;
   border-radius: 999px;
@@ -159,9 +160,27 @@ img {
 .nav-links a:hover,
 .nav-links a:focus-visible,
 .nav-button:hover,
-.nav-button:focus-visible {
+.nav-button:focus-visible,
+.language-switch button:hover,
+.language-switch button:focus-visible,
+.language-switch button.is-active {
   color: var(--accent);
   background: rgba(199, 255, 57, 0.08);
+}
+
+.language-switch {
+  display: flex;
+  gap: 2px;
+  padding-left: 6px;
+  border-left: 1px solid rgba(199, 255, 57, 0.22);
+}
+
+.language-switch button {
+  padding: 10px 9px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .hero-content {

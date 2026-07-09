@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260709-6">
+    <link rel="stylesheet" href="styles.css?v=20260709-7">
   </head>
   <body>
     <header class="hero" id="top">
@@ -18,9 +18,14 @@
           <span>CodeWerk</span>
         </a>
         <div class="nav-links">
-          <button class="nav-button" type="button" data-modal-open="aboutModal">Обо мне</button>
-          <a href="#support">Поддержать</a>
-          <a href="#contacts">Контакты</a>
+          <button class="nav-button" type="button" data-modal-open="aboutModal" data-i18n="navAbout">Обо мне</button>
+          <a href="#support" data-i18n="navSupport">Поддержать</a>
+          <a href="#contacts" data-i18n="navContacts">Контакты</a>
+          <span class="language-switch" aria-label="Language">
+            <button type="button" data-lang="ru">RU</button>
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="de">DE</button>
+          </span>
         </div>
       </nav>
 
@@ -29,43 +34,43 @@
 
       <section class="hero-content" aria-labelledby="hero-title">
         <div class="hero-copy">
-          <p class="eyebrow">GitHub Pages portfolio</p>
+          <p class="eyebrow" data-i18n="heroEyebrow">GitHub Pages portfolio</p>
           <h1 id="hero-title">CodeWerk</h1>
-          <p class="hero-subtitle">Useful apps, tools and digital projects by Andreas Miller</p>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">Useful apps, tools and digital projects by Andreas Miller</p>
         </div>
         <div class="hero-visual" aria-hidden="true">
           <img src="assets/hero-programmer.gif" alt="">
         </div>
       </section>
-      <p class="hero-requirements">System requirements: Windows 10/11</p>
+      <p class="hero-requirements" data-i18n="requirements">System requirements: Windows 10/11</p>
     </header>
 
     <main>
       <section class="section email-registration" id="email-registration">
         <div class="email-panel">
           <div>
-            <p class="eyebrow">Send to desktop</p>
-            <h2>Email для ссылок</h2>
-            <p>
+            <p class="eyebrow" data-i18n="emailEyebrow">Send to desktop</p>
+            <h2 data-i18n="emailTitle">Email для ссылок</h2>
+            <p data-i18n="emailText">
               Введите свой email один раз. Когда вы нажмёте “Открыть на компьютере”,
               сайт подготовит письмо на этот же адрес со ссылкой на выбранную программу.
             </p>
           </div>
           <form class="email-form" id="emailForm">
-            <label for="userEmail">Ваш email</label>
+            <label for="userEmail" data-i18n="emailLabel">Ваш email</label>
             <div class="email-row">
               <input id="userEmail" name="email" type="email" placeholder="name@example.com" autocomplete="email" required>
-              <button class="button button-primary" type="submit">Сохранить</button>
+              <button class="button button-primary" type="submit" data-i18n="emailSave">Сохранить</button>
             </div>
-            <p class="email-status" id="emailStatus">Email хранится только в вашем браузере.</p>
+            <p class="email-status" id="emailStatus" data-i18n="emailStatusDefault">Email хранится только в вашем браузере.</p>
           </form>
         </div>
       </section>
 
       <section class="section projects-section" id="projects">
         <div class="section-heading">
-          <p class="eyebrow">Published software</p>
-          <h2>Мои программы</h2>
+          <p class="eyebrow" data-i18n="projectsEyebrow">Published software</p>
+          <h2 data-i18n="projectsTitle">Мои программы</h2>
         </div>
         <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
         <noscript>
@@ -76,9 +81,9 @@
       <section class="section support" id="support">
         <div class="support-panel">
           <div>
-            <p class="eyebrow">Donate</p>
-            <h2>Поддержать разработчика</h2>
-            <p>Если мои программы оказались полезными, вы можете поддержать развитие проектов.</p>
+            <p class="eyebrow" data-i18n="supportEyebrow">Donate</p>
+            <h2 data-i18n="supportTitle">Поддержать разработчика</h2>
+            <p data-i18n="supportText">Если мои программы оказались полезными, вы можете поддержать развитие проектов.</p>
           </div>
           <div class="support-donate">
             <img class="donate-qr" src="assets/qr/donate.png" alt="QR-код для поддержки разработчика">
@@ -93,8 +98,8 @@
 
       <section class="section contacts" id="contacts">
         <div class="section-heading">
-          <p class="eyebrow">Contact</p>
-          <h2>Контакты</h2>
+          <p class="eyebrow" data-i18n="contactsEyebrow">Contact</p>
+          <h2 data-i18n="contactsTitle">Контакты</h2>
         </div>
         <div class="contact-card">
           <p><strong>Andreas Miller</strong></p>
@@ -106,16 +111,16 @@
 
     <footer class="footer">
       <a href="#top">CodeWerk</a>
-      <span>© <span id="year"></span> Andreas Miller. Static portfolio for GitHub Pages.</span>
+      <span>© <span id="year"></span> Andreas Miller. <span data-i18n="footerText">Static portfolio for GitHub Pages.</span></span>
     </footer>
 
     <div class="modal" id="aboutModal" aria-hidden="true">
       <div class="modal-backdrop" data-modal-close></div>
       <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
-        <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно">×</button>
+        <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно" data-i18n-aria-label="closeLabel">×</button>
         <p class="eyebrow">Andreas Miller</p>
-        <h2 id="aboutModalTitle">Коротко обо мне</h2>
-        <p>
+        <h2 id="aboutModalTitle" data-i18n="aboutTitle">Коротко обо мне</h2>
+        <p data-i18n="aboutText">
           Я создаю практичные программы и цифровые инструменты, которые помогают быстрее
           решать повседневные задачи: сохранять знания, работать с данными, управлять
           ссылками и упрощать рутину.
@@ -126,9 +131,9 @@
     <div class="modal" id="projectInfoModal" aria-hidden="true">
       <div class="modal-backdrop" data-modal-close></div>
       <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="projectInfoModalTitle">
-        <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно">×</button>
-        <p class="eyebrow">Installation</p>
-        <h2 id="projectInfoModalTitle">Как установить</h2>
+        <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно" data-i18n-aria-label="closeLabel">×</button>
+        <p class="eyebrow" data-i18n="installEyebrow">Installation</p>
+        <h2 id="projectInfoModalTitle" data-i18n="installTitleDefault">Как установить</h2>
         <ol class="modal-list"></ol>
       </section>
     </div>
@@ -136,21 +141,21 @@
     <div class="modal" id="emailPreviewModal" aria-hidden="true">
       <div class="modal-backdrop" data-modal-close></div>
       <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="emailPreviewTitle">
-        <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно">×</button>
-        <p class="eyebrow">Send link</p>
-        <h2 id="emailPreviewTitle">Письмо на компьютер</h2>
-        <p class="modal-help">Надёжный вариант для телефона: скачайте TXT-файл со ссылками или отправьте его себе через “Поделиться TXT”. На компьютере откройте файл и перейдите по ссылке Download. Если ссылка не нажимается, скопируйте её в адресную строку браузера.</p>
+        <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно" data-i18n-aria-label="closeLabel">×</button>
+        <p class="eyebrow" data-i18n="emailModalEyebrow">Send link</p>
+        <h2 id="emailPreviewTitle" data-i18n="emailModalTitle">Письмо на компьютер</h2>
+        <p class="modal-help" data-i18n="emailModalHelp">Надёжный вариант для телефона: скачайте TXT-файл со ссылками или отправьте его себе через “Поделиться TXT”. На компьютере откройте файл и перейдите по ссылке Download. Если ссылка не нажимается, скопируйте её в адресную строку браузера.</p>
         <textarea class="email-preview-text" id="emailPreviewText" readonly></textarea>
         <div class="modal-actions">
-          <button class="button button-primary" type="button" id="copyEmailText">Скопировать текст</button>
-          <button class="button button-primary" type="button" id="downloadLinkFile">Скачать TXT</button>
-          <button class="button button-ghost" type="button" id="shareLinkFile">Поделиться TXT</button>
-          <button class="button button-ghost" type="button" id="openGmailLink">Открыть Gmail</button>
-          <button class="button button-ghost" type="button" id="openMailAppLink">Открыть почту</button>
+          <button class="button button-primary" type="button" id="copyEmailText" data-i18n="copyText">Скопировать текст</button>
+          <button class="button button-primary" type="button" id="downloadLinkFile" data-i18n="downloadTxt">Скачать TXT</button>
+          <button class="button button-ghost" type="button" id="shareLinkFile" data-i18n="shareTxt">Поделиться TXT</button>
+          <button class="button button-ghost" type="button" id="openGmailLink" data-i18n="openGmail">Открыть Gmail</button>
+          <button class="button button-ghost" type="button" id="openMailAppLink" data-i18n="openMail">Открыть почту</button>
         </div>
       </section>
     </div>
 
-    <script src="script.js?v=20260709-8"></script>
+    <script src="script.js?v=20260709-9"></script>
   </body>
 </html>
