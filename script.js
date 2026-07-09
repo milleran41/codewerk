@@ -7,9 +7,11 @@ const userEmail = document.querySelector("#userEmail");
 const emailStatus = document.querySelector("#emailStatus");
 const emailPreviewText = document.querySelector("#emailPreviewText");
 const openGmailLink = document.querySelector("#openGmailLink");
+const openMailAppLink = document.querySelector("#openMailAppLink");
 const copyEmailText = document.querySelector("#copyEmailText");
 const desktopEmailStorageKey = "codewerkDesktopEmail";
 let currentGmailLink = "";
+let currentMailLink = "";
 
 year.textContent = new Date().getFullYear();
 
@@ -250,12 +252,13 @@ const buildGmailLink = (project, recipient) => {
   const params = new URLSearchParams({
     view: "cm",
     fs: "1",
+    tf: "1",
     to: recipient,
     su: subject,
     body
   });
 
-  return `https://mail.google.com/mail/?${params.toString()}`;
+  return `https://mail.google.com/mail/u/0/?${params.toString()}`;
 };
 
 const openEmailPreview = (project, recipient) => {
@@ -265,6 +268,7 @@ const openEmailPreview = (project, recipient) => {
   const body = buildEmailBody(project);
   emailPreviewText.value = body;
   currentGmailLink = buildGmailLink(project, recipient);
+  currentMailLink = buildMailLink(project, recipient);
   copyEmailText.textContent = "Скопировать текст";
   openModal("emailPreviewModal");
 };
@@ -458,6 +462,11 @@ copyEmailText?.addEventListener("click", async () => {
 openGmailLink?.addEventListener("click", () => {
   if (!currentGmailLink) return;
   window.open(currentGmailLink, "_blank", "noopener");
+});
+
+openMailAppLink?.addEventListener("click", () => {
+  if (!currentMailLink) return;
+  window.location.href = currentMailLink;
 });
 
 if (window.location.protocol === "file:") {
