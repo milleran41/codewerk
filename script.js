@@ -2,6 +2,10 @@ const projectsGrid = document.querySelector("#projectsGrid");
 const year = document.querySelector("#year");
 const modalOpenButtons = document.querySelectorAll("[data-modal-open]");
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
+const emailForm = document.querySelector("#emailForm");
+const userEmail = document.querySelector("#userEmail");
+const emailStatus = document.querySelector("#emailStatus");
+const desktopEmailStorageKey = "codewerkDesktopEmail";
 
 year.textContent = new Date().getFullYear();
 
@@ -192,7 +196,29 @@ const getQrTargetText = (project) => {
   return `После публикации сайта: https://milleran41.github.io/ИМЯ-РЕПОЗИТОРИЯ/#${project.id}`;
 };
 
-const buildMailLink = (project) => {
+const getRegisteredEmail = () => localStorage.getItem(desktopEmailStorageKey) || "";
+
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+const updateEmailStatus = () => {
+  const email = getRegisteredEmail();
+  if (userEmail) userEmail.value = email;
+  if (!emailStatus) return;
+
+  emailStatus.textContent = email
+    ? `Сохранён email для отправки ссылок: ${email}`
+    : "Email хранится только в вашем браузере.";
+};
+
+const focusEmailRegistration = () => {
+  document.querySelector("#email-registration")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  window.setTimeout(() => userEmail?.focus(), 450);
+  if (emailStatus) {
+    emailStatus.textContent = "Сначала введите свой email, чтобы отправить ссылку себе на компьютер.";
+  }
+};
+
+const buildMailLink = (project, recipient) => {
   const projectUrl = getProjectPageUrl(project.id);
   const subject = `Открыть на компьютере: ${project.title}`;
   const body = [
@@ -205,7 +231,7 @@ const buildMailLink = (project) => {
     "Лучше открыть это письмо на компьютере, особенно если программа предназначена для Windows."
   ].join("\n");
 
-  return `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 };
 
 const openProjectInstructions = (project) => {
@@ -293,8 +319,18 @@ const buildProjectCard = (project) => {
   qrBlock.append(qrText);
 
   const sendToDesktop = createElement("a", "button button-ghost send-desktop", "Открыть на компьютере");
-  sendToDesktop.href = buildMailLink(project);
+  sendToDesktop.href = "#email-registration";
   sendToDesktop.setAttribute("aria-label", `Отправить ссылку на ${project.title} себе по email`);
+  sendToDesktop.addEventListener("click", (event) => {
+    const recipient = getRegisteredEmail();
+    if (!isValidEmail(recipient)) {
+      event.preventDefault();
+      focusEmailRegistration();
+      return;
+    }
+
+    sendToDesktop.href = buildMailLink(project, recipient);
+  });
 
   content.append(topline, title, description, features, actions, qrBlock, sendToDesktop);
   article.append(media, content);
@@ -355,6 +391,22 @@ document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
   document.querySelectorAll(".modal.is-open").forEach(closeModal);
 });
+
+emailForm?.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const email = userEmail?.value.trim() || "";
+
+  if (!isValidEmail(email)) {
+    if (emailStatus) emailStatus.textContent = "Проверьте email: похоже, в адресе есть ошибка.";
+    userEmail?.focus();
+    return;
+  }
+
+  localStorage.setItem(desktopEmailStorageKey, email);
+  updateEmailStatus();
+});
+
+updateEmailStatus();
 
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);

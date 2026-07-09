@@ -317,6 +317,73 @@ h2 {
   gap: 28px;
 }
 
+.email-registration {
+  padding-bottom: 28px;
+}
+
+.email-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+  gap: 28px;
+  align-items: center;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(96, 217, 255, 0.08), transparent 42%),
+    var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.email-panel h2 {
+  margin-bottom: 12px;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+}
+
+.email-panel p:not(.eyebrow),
+.email-status {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.email-form {
+  display: grid;
+  gap: 10px;
+}
+
+.email-form label {
+  color: var(--text);
+  font-weight: 800;
+}
+
+.email-row {
+  display: flex;
+  gap: 10px;
+}
+
+.email-row input {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--text);
+  background: rgba(5, 10, 20, 0.72);
+  font: inherit;
+}
+
+.email-row input:focus {
+  border-color: rgba(96, 217, 255, 0.62);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(96, 217, 255, 0.12);
+}
+
+.email-status {
+  margin: 0;
+  font-size: 0.92rem;
+}
+
 .project-card {
   display: grid;
   grid-template-columns: minmax(280px, 0.92fr) minmax(0, 1.08fr);
@@ -703,6 +770,7 @@ body.modal-open {
 
   .site-nav,
   .project-card,
+  .email-panel,
   .support-panel {
     grid-template-columns: 1fr;
   }
@@ -775,6 +843,10 @@ body.modal-open {
 
   .qr-block {
     grid-template-columns: 1fr;
+  }
+
+  .email-row {
+    flex-direction: column;
   }
 
   .qr-wrap {

@@ -40,6 +40,27 @@
     </header>
 
     <main>
+      <section class="section email-registration" id="email-registration">
+        <div class="email-panel">
+          <div>
+            <p class="eyebrow">Send to desktop</p>
+            <h2>Email для ссылок</h2>
+            <p>
+              Введите свой email один раз. Когда вы нажмёте “Открыть на компьютере”,
+              сайт подготовит письмо на этот же адрес со ссылкой на выбранную программу.
+            </p>
+          </div>
+          <form class="email-form" id="emailForm">
+            <label for="userEmail">Ваш email</label>
+            <div class="email-row">
+              <input id="userEmail" name="email" type="email" placeholder="name@example.com" autocomplete="email" required>
+              <button class="button button-primary" type="submit">Сохранить</button>
+            </div>
+            <p class="email-status" id="emailStatus">Email хранится только в вашем браузере.</p>
+          </form>
+        </div>
+      </section>
+
       <section class="section projects-section" id="projects">
         <div class="section-heading">
           <p class="eyebrow">Published software</p>
