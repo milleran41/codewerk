@@ -218,10 +218,9 @@ const focusEmailRegistration = () => {
   }
 };
 
-const buildMailLink = (project, recipient) => {
+const buildEmailBody = (project) => {
   const projectUrl = getProjectPageUrl(project.id);
-  const subject = `CodeWerk: ${project.title}`;
-  const body = [
+  return [
     project.title,
     "",
     "Project page:",
@@ -230,8 +229,27 @@ const buildMailLink = (project, recipient) => {
     "Download:",
     project.downloadUrl || project.githubUrl
   ].join("\n");
+};
+
+const buildMailLink = (project, recipient) => {
+  const subject = `CodeWerk: ${project.title}`;
+  const body = buildEmailBody(project);
 
   return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+};
+
+const buildGmailLink = (project, recipient) => {
+  const subject = `CodeWerk: ${project.title}`;
+  const body = buildEmailBody(project);
+  const params = new URLSearchParams({
+    view: "cm",
+    fs: "1",
+    to: recipient,
+    su: subject,
+    body
+  });
+
+  return `https://mail.google.com/mail/?${params.toString()}`;
 };
 
 const openProjectInstructions = (project) => {
@@ -329,7 +347,7 @@ const buildProjectCard = (project) => {
       return;
     }
 
-    window.location.href = buildMailLink(project, recipient);
+    window.location.href = buildGmailLink(project, recipient);
   });
 
   content.append(topline, title, description, features, actions, qrBlock, sendToDesktop);
