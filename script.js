@@ -231,7 +231,7 @@ const buildMailLink = (project, recipient) => {
     "Лучше открыть это письмо на компьютере, особенно если программа предназначена для Windows."
   ].join("\n");
 
-  return `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 };
 
 const openProjectInstructions = (project) => {
@@ -318,18 +318,18 @@ const buildProjectCard = (project) => {
   qrText.textContent = `QR-код открывает карточку программы: ${getQrTargetText(project)}`;
   qrBlock.append(qrText);
 
-  const sendToDesktop = createElement("a", "button button-ghost send-desktop", "Открыть на компьютере");
-  sendToDesktop.href = "#email-registration";
+  const sendToDesktop = createElement("button", "button button-ghost send-desktop", "Открыть на компьютере");
+  sendToDesktop.type = "button";
   sendToDesktop.setAttribute("aria-label", `Отправить ссылку на ${project.title} себе по email`);
   sendToDesktop.addEventListener("click", (event) => {
+    event.preventDefault();
     const recipient = getRegisteredEmail();
     if (!isValidEmail(recipient)) {
-      event.preventDefault();
       focusEmailRegistration();
       return;
     }
 
-    sendToDesktop.href = buildMailLink(project, recipient);
+    window.location.href = buildMailLink(project, recipient);
   });
 
   content.append(topline, title, description, features, actions, qrBlock, sendToDesktop);
