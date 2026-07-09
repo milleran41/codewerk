@@ -220,15 +220,15 @@ const focusEmailRegistration = () => {
 
 const buildMailLink = (project, recipient) => {
   const projectUrl = getProjectPageUrl(project.id);
-  const subject = `Открыть на компьютере: ${project.title}`;
+  const subject = `CodeWerk: ${project.title}`;
   const body = [
-    `Ссылка на программу "${project.title}":`,
+    project.title,
+    "",
+    "Project page:",
     projectUrl,
     "",
-    "Ссылка для скачивания:",
-    project.downloadUrl || project.githubUrl,
-    "",
-    "Лучше открыть это письмо на компьютере, особенно если программа предназначена для Windows."
+    "Download:",
+    project.downloadUrl || project.githubUrl
   ].join("\n");
 
   return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
