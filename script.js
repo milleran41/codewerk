@@ -236,7 +236,11 @@ const buildEmailBody = (project) => {
     projectUrl,
     "",
     "Download:",
-    project.downloadUrl || project.githubUrl
+    project.downloadUrl || project.githubUrl,
+    "",
+    "How to download:",
+    "Open this file on your computer and use the Download link above.",
+    "If the link is not clickable, copy it and paste it into the browser address bar."
   ].join("\n");
 };
 
