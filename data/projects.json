@@ -15,7 +15,7 @@
     "githubUrl": "https://github.com/milleran41/taste-and-trace-download",
     "downloadUrl": "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.0/Taste.Trace-Portable-0.0.0-x64.exe",
     "qrImage": "assets/qr/cookbook.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/#cookbook"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#cookbook"
   },
   {
     "id": "timer",
@@ -33,7 +33,7 @@
     "githubUrl": "https://github.com/milleran41/timer",
     "downloadUrl": "https://github.com/milleran41/timer/raw/main/dist/timer.exe",
     "qrImage": "assets/qr/timer.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/#timer"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#timer"
   },
   {
     "id": "mixlab",
@@ -51,7 +51,7 @@
     "githubUrl": "https://github.com/milleran41/MixLab",
     "downloadUrl": "https://github.com/milleran41/MixLab/raw/main/MixLab.exe",
     "qrImage": "assets/qr/mixlab.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/#mixlab"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#mixlab"
   },
   {
     "id": "calendar-germany",
@@ -69,7 +69,7 @@
     "githubUrl": "https://github.com/milleran41/kalender-deutschland",
     "downloadUrl": "https://github.com/milleran41/kalender-deutschland/archive/refs/heads/main.zip",
     "qrImage": "assets/qr/calendar-germany.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/#calendar-germany",
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#calendar-germany",
     "installTitle": "Как установить Kalender Deutschland в Chrome",
     "installSteps": [
       "Скачайте архив и распакуйте его в удобную папку.",
@@ -97,7 +97,7 @@
     "githubUrl": "https://github.com/milleran41/linkora",
     "downloadUrl": "https://raw.githubusercontent.com/milleran41/linkora/main/downloads/Linkora.exe",
     "qrImage": "assets/qr/link-manager.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/#link-manager"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#link-manager"
   },
   {
     "id": "linkvault",
@@ -115,7 +115,7 @@
     "githubUrl": "https://github.com/milleran41/MyLinks",
     "downloadUrl": "https://github.com/milleran41/MyLinks/raw/main/LinkVault.zip",
     "qrImage": "assets/qr/linkvault.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/#linkvault"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#linkvault"
   },
   {
     "id": "transport",
@@ -127,6 +127,6 @@
     "githubUrl": "https://github.com/milleran41/REPOSITORY",
     "downloadUrl": "",
     "qrImage": "assets/qr/transport.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/#transport"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#transport"
   }
 ]
