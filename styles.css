@@ -415,6 +415,10 @@ h2 {
   padding-bottom: 28px;
 }
 
+.updates-section {
+  padding-top: 28px;
+}
+
 .email-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
@@ -483,6 +487,28 @@ h2 {
   color: var(--muted-2);
   font-size: 0.88rem;
   line-height: 1.5;
+}
+
+.updates-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px;
+  border: 1px solid rgba(53, 242, 255, 0.3);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(53, 242, 255, 0.09), rgba(255, 79, 216, 0.06)),
+    var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.updates-panel p:not(.eyebrow) {
+  max-width: 720px;
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 .project-card {
@@ -913,11 +939,13 @@ body.modal-open {
   .site-nav,
   .project-card,
   .email-panel,
+  .updates-panel,
   .support-panel {
     grid-template-columns: 1fr;
   }
 
   .site-nav,
+  .updates-panel,
   .support-panel {
     align-items: flex-start;
     flex-direction: column;
@@ -983,6 +1011,7 @@ body.modal-open {
   }
 
   .project-card,
+  .updates-panel,
   .support-panel,
   .modal-dialog,
   .contact-card {
