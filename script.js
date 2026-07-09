@@ -9,9 +9,12 @@ const emailPreviewText = document.querySelector("#emailPreviewText");
 const openGmailLink = document.querySelector("#openGmailLink");
 const openMailAppLink = document.querySelector("#openMailAppLink");
 const copyEmailText = document.querySelector("#copyEmailText");
+const downloadLinkFile = document.querySelector("#downloadLinkFile");
+const shareLinkFile = document.querySelector("#shareLinkFile");
 const desktopEmailStorageKey = "codewerkDesktopEmail";
 let currentGmailLink = "";
 let currentMailLink = "";
+let currentLinkFile = null;
 
 year.textContent = new Date().getFullYear();
 
@@ -239,6 +242,9 @@ const buildEmailBody = (project) => {
 
 const buildEmailSubject = (project) => `CodeWerk: ${project.title}`;
 
+const getSafeFileName = (title) =>
+  `${title.toLowerCase().replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "codewerk"}-links.txt`;
+
 const buildMailLink = (project, recipient) => {
   const subject = buildEmailSubject(project);
   const body = buildEmailBody(project);
@@ -269,7 +275,13 @@ const openEmailPreview = (project, recipient) => {
   emailPreviewText.value = body;
   currentGmailLink = buildGmailLink(project, recipient);
   currentMailLink = buildMailLink(project, recipient);
+  currentLinkFile = {
+    name: getSafeFileName(project.title),
+    text: `To: ${recipient}\nSubject: ${subject}\n\n${body}\n`
+  };
   copyEmailText.textContent = "Скопировать текст";
+  if (downloadLinkFile) downloadLinkFile.textContent = "Скачать TXT";
+  if (shareLinkFile) shareLinkFile.textContent = "Поделиться TXT";
   openModal("emailPreviewModal");
 };
 
@@ -467,6 +479,54 @@ openGmailLink?.addEventListener("click", () => {
 openMailAppLink?.addEventListener("click", () => {
   if (!currentMailLink) return;
   window.location.href = currentMailLink;
+});
+
+downloadLinkFile?.addEventListener("click", () => {
+  if (!currentLinkFile) return;
+
+  const blob = new Blob([currentLinkFile.text], { type: "text/plain;charset=utf-8" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = currentLinkFile.name;
+  document.body.append(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  downloadLinkFile.textContent = "TXT скачан";
+});
+
+shareLinkFile?.addEventListener("click", async () => {
+  if (!currentLinkFile) return;
+
+  try {
+    const file = new File([currentLinkFile.text], currentLinkFile.name, { type: "text/plain" });
+
+    if (navigator.canShare?.({ files: [file] })) {
+      await navigator.share({
+        title: "CodeWerk download link",
+        text: "Файл со ссылками для открытия на компьютере.",
+        files: [file]
+      });
+      shareLinkFile.textContent = "Отправлено";
+      return;
+    }
+
+    if (navigator.share) {
+      await navigator.share({
+        title: "CodeWerk download link",
+        text: currentLinkFile.text
+      });
+      shareLinkFile.textContent = "Отправлено";
+      return;
+    }
+
+    await navigator.clipboard.writeText(currentLinkFile.text);
+    shareLinkFile.textContent = "Текст скопирован";
+  } catch (error) {
+    if (error.name === "AbortError") return;
+    shareLinkFile.textContent = "Не удалось";
+  }
 });
 
 if (window.location.protocol === "file:") {
