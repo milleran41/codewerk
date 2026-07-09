@@ -707,6 +707,36 @@ h2 {
   line-height: 1.8;
 }
 
+.modal-help {
+  margin-bottom: 16px;
+}
+
+.email-preview-text {
+  width: 100%;
+  min-height: 190px;
+  margin-top: 16px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--text);
+  background: rgba(5, 10, 20, 0.78);
+  font: 0.92rem/1.55 "JetBrains Mono", monospace;
+  resize: vertical;
+}
+
+.email-preview-text:focus {
+  border-color: rgba(199, 255, 57, 0.68);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(199, 255, 57, 0.12);
+}
+
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
+}
+
 .modal-list {
   display: grid;
   gap: 12px;

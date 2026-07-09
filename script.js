@@ -5,6 +5,9 @@ const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
 const emailForm = document.querySelector("#emailForm");
 const userEmail = document.querySelector("#userEmail");
 const emailStatus = document.querySelector("#emailStatus");
+const emailPreviewText = document.querySelector("#emailPreviewText");
+const openGmailLink = document.querySelector("#openGmailLink");
+const copyEmailText = document.querySelector("#copyEmailText");
 const desktopEmailStorageKey = "codewerkDesktopEmail";
 
 year.textContent = new Date().getFullYear();
@@ -231,15 +234,17 @@ const buildEmailBody = (project) => {
   ].join("\n");
 };
 
+const buildEmailSubject = (project) => `CodeWerk: ${project.title}`;
+
 const buildMailLink = (project, recipient) => {
-  const subject = `CodeWerk: ${project.title}`;
+  const subject = buildEmailSubject(project);
   const body = buildEmailBody(project);
 
   return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 };
 
 const buildGmailLink = (project, recipient) => {
-  const subject = `CodeWerk: ${project.title}`;
+  const subject = buildEmailSubject(project);
   const body = buildEmailBody(project);
   const params = new URLSearchParams({
     view: "cm",
@@ -250,6 +255,17 @@ const buildGmailLink = (project, recipient) => {
   });
 
   return `https://mail.google.com/mail/?${params.toString()}`;
+};
+
+const openEmailPreview = (project, recipient) => {
+  if (!emailPreviewText || !openGmailLink) return;
+
+  const subject = buildEmailSubject(project);
+  const body = buildEmailBody(project);
+  emailPreviewText.value = `To: ${recipient}\nSubject: ${subject}\n\n${body}`;
+  openGmailLink.href = buildGmailLink(project, recipient);
+  copyEmailText.textContent = "Скопировать текст";
+  openModal("emailPreviewModal");
 };
 
 const openProjectInstructions = (project) => {
@@ -347,7 +363,7 @@ const buildProjectCard = (project) => {
       return;
     }
 
-    window.location.href = buildGmailLink(project, recipient);
+    openEmailPreview(project, recipient);
   });
 
   content.append(topline, title, description, features, actions, qrBlock, sendToDesktop);
@@ -425,6 +441,18 @@ emailForm?.addEventListener("submit", (event) => {
 });
 
 updateEmailStatus();
+
+copyEmailText?.addEventListener("click", async () => {
+  if (!emailPreviewText) return;
+
+  try {
+    await navigator.clipboard.writeText(emailPreviewText.value);
+    copyEmailText.textContent = "Скопировано";
+  } catch {
+    emailPreviewText.select();
+    copyEmailText.textContent = "Выделено";
+  }
+});
 
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);

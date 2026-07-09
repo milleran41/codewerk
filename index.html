@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260709-3">
+    <link rel="stylesheet" href="styles.css?v=20260709-4">
   </head>
   <body>
     <header class="hero" id="top">
@@ -132,6 +132,21 @@
       </section>
     </div>
 
-    <script src="script.js?v=20260709-3"></script>
+    <div class="modal" id="emailPreviewModal" aria-hidden="true">
+      <div class="modal-backdrop" data-modal-close></div>
+      <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="emailPreviewTitle">
+        <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно">×</button>
+        <p class="eyebrow">Send link</p>
+        <h2 id="emailPreviewTitle">Письмо на компьютер</h2>
+        <p class="modal-help">Скопируйте текст или откройте Gmail. Если Gmail не вставит текст автоматически, просто вставьте его вручную.</p>
+        <textarea class="email-preview-text" id="emailPreviewText" readonly></textarea>
+        <div class="modal-actions">
+          <button class="button button-primary" type="button" id="copyEmailText">Скопировать текст</button>
+          <a class="button button-ghost" id="openGmailLink" href="#" target="_blank" rel="noopener">Открыть Gmail</a>
+        </div>
+      </section>
+    </div>
+
+    <script src="script.js?v=20260709-4"></script>
   </body>
 </html>
