@@ -200,6 +200,26 @@ img {
   filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.36));
 }
 
+.hero-requirements {
+  position: absolute;
+  right: max(20px, calc((100vw - var(--max)) / 2));
+  bottom: 28px;
+  z-index: 3;
+  margin: 0;
+  padding: 10px 14px;
+  border: 1px solid rgba(199, 255, 57, 0.48);
+  border-radius: 999px;
+  background: rgba(10, 6, 22, 0.74);
+  color: var(--accent);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow:
+    0 0 0 1px rgba(255, 79, 216, 0.12),
+    0 0 28px rgba(199, 255, 57, 0.16);
+}
+
 .eyebrow {
   margin: 0 0 14px;
   font-family: "JetBrains Mono", monospace;
@@ -867,6 +887,14 @@ body.modal-open {
     width: min(68vw, 260px);
   }
 
+  .hero-requirements {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: fit-content;
+    margin: -70px 20px 32px auto;
+  }
+
   .section {
     padding: 68px 0;
   }
@@ -887,6 +915,12 @@ body.modal-open {
 
   h1 {
     font-size: 4rem;
+  }
+
+  .hero-requirements {
+    margin: -58px auto 28px;
+    font-size: 0.78rem;
+    text-align: center;
   }
 
   .project-card,
