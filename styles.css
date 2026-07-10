@@ -255,7 +255,7 @@ img {
 .hero-requirements {
   position: absolute;
   right: max(20px, calc((100vw - var(--max)) / 2));
-  bottom: 128px;
+  bottom: 48px;
   z-index: 3;
   margin: 0;
   padding: 10px 14px;
