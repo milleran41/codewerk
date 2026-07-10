@@ -794,6 +794,10 @@ h2 {
   transform: translateY(-50%) translateY(-4px);
 }
 
+.contacts .section-return-top {
+  top: calc(50% + 64px);
+}
+
 .footer {
   display: flex;
   flex-wrap: wrap;
@@ -1061,7 +1065,8 @@ body.modal-open {
     padding: 68px 0;
   }
 
-  .section-return-top {
+  .section-return-top,
+  .contacts .section-return-top {
     position: relative;
     top: auto;
     right: auto;
