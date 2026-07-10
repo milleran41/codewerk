@@ -57,6 +57,7 @@ const ui = {
     emailLabel: "Ваш email",
     emailSave: "Сохранить",
     emailAutofillHint: "На телефоне браузер может предложить сохранённый Google-адрес над клавиатурой.",
+    emailAutofillFocus: "Если браузер показывает сохранённые адреса, выберите нужный email из подсказки. Обычно она появляется над клавиатурой или под полем.",
     emailStatusDefault: "Email хранится только в вашем браузере.",
     emailStatusSaved: "Сохранён email для отправки ссылок: {email}",
     emailInvalid: "Проверьте email: похоже, в адресе есть ошибка.",
@@ -132,6 +133,7 @@ const ui = {
     emailLabel: "Your email",
     emailSave: "Save",
     emailAutofillHint: "On a phone, the browser may suggest your saved Google email above the keyboard.",
+    emailAutofillFocus: "If the browser shows saved addresses, choose the right email from the suggestion. It usually appears above the keyboard or below the field.",
     emailStatusDefault: "The email is stored only in your browser.",
     emailStatusSaved: "Saved email for sending links: {email}",
     emailInvalid: "Please check the email address. Something looks wrong.",
@@ -207,6 +209,7 @@ const ui = {
     emailLabel: "Ihre E-Mail",
     emailSave: "Speichern",
     emailAutofillHint: "Auf dem Telefon kann der Browser Ihre gespeicherte Google-E-Mail über der Tastatur vorschlagen.",
+    emailAutofillFocus: "Wenn der Browser gespeicherte Adressen zeigt, wählen Sie die passende E-Mail aus dem Vorschlag. Er erscheint meist über der Tastatur oder unter dem Feld.",
     emailStatusDefault: "Die E-Mail wird nur in Ihrem Browser gespeichert.",
     emailStatusSaved: "Gespeicherte E-Mail für Links: {email}",
     emailInvalid: "Bitte prüfen Sie die E-Mail-Adresse. Sie sieht nicht korrekt aus.",
@@ -954,6 +957,11 @@ emailForm?.addEventListener("submit", (event) => {
 
   localStorage.setItem(desktopEmailStorageKey, email);
   updateEmailStatus();
+});
+
+userEmail?.addEventListener("focus", () => {
+  if (!emailStatus || getRegisteredEmail()) return;
+  emailStatus.textContent = t("emailAutofillFocus");
 });
 
 applyStaticTranslations();

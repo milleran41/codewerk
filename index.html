@@ -64,10 +64,10 @@
           <form class="email-form" id="emailForm" autocomplete="on">
             <label for="userEmail" data-i18n="emailLabel">Ваш email</label>
             <div class="email-row">
-              <input id="userEmail" name="email" type="email" placeholder="name@example.com" autocomplete="email" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+              <input id="userEmail" name="email" type="email" placeholder="name@example.com" autocomplete="email" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" aria-describedby="emailAutofillHint emailStatus" required>
               <button class="button button-primary" type="submit" data-i18n="emailSave">Сохранить</button>
             </div>
-            <p class="email-hint" data-i18n="emailAutofillHint">На телефоне браузер может предложить сохранённый Google-адрес над клавиатурой.</p>
+            <p class="email-hint" id="emailAutofillHint" data-i18n="emailAutofillHint">На телефоне браузер может предложить сохранённый Google-адрес над клавиатурой.</p>
             <p class="email-status" id="emailStatus" data-i18n="emailStatusDefault">Email хранится только в вашем браузере.</p>
           </form>
         </div>
@@ -173,6 +173,6 @@
       </section>
     </div>
 
-    <script src="script.js?v=20260710-3"></script>
+    <script src="script.js?v=20260710-4"></script>
   </body>
 </html>
