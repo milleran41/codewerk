@@ -99,9 +99,8 @@ const ui = {
     screenshotFallback: "Скриншот будет добавлен позже",
     qrAlt: "QR-код для {title}",
     qrFallback: "QR-код будет добавлен позже",
-    qrText: "QR-код открывает карточку программы: {url}",
+    qrText: "Сканируйте, чтобы открыть эту карточку на телефоне.",
     download: "Скачать",
-    github: "Открыть на GitHub",
     install: "Как установить",
     openDesktop: "Открыть на компьютере",
     openDesktopAria: "Отправить ссылку на {title} себе по email",
@@ -175,9 +174,8 @@ const ui = {
     screenshotFallback: "Screenshot will be added later",
     qrAlt: "QR code for {title}",
     qrFallback: "QR code will be added later",
-    qrText: "The QR code opens this app card: {url}",
+    qrText: "Scan to open this app card on your phone.",
     download: "Download",
-    github: "Open on GitHub",
     install: "How to install",
     openDesktop: "Open on computer",
     openDesktopAria: "Send a link to {title} to your email",
@@ -251,9 +249,8 @@ const ui = {
     screenshotFallback: "Screenshot wird später hinzugefügt",
     qrAlt: "QR-Code für {title}",
     qrFallback: "QR-Code wird später hinzugefügt",
-    qrText: "Der QR-Code öffnet diese Programmkarte: {url}",
+    qrText: "Scannen, um diese Programmkarte auf dem Telefon zu öffnen.",
     download: "Herunterladen",
-    github: "Auf GitHub öffnen",
     install: "Installation",
     openDesktop: "Auf dem Computer öffnen",
     openDesktopAria: "Link zu {title} per E-Mail senden",
@@ -834,17 +831,12 @@ const buildProjectCard = (project) => {
     download.target = "_blank";
   }
 
-  const github = createElement("a", "button button-ghost", t("github"));
-  github.href = project.githubUrl;
-  github.target = "_blank";
-  github.rel = "noopener";
-
   const updates = createElement("a", "button button-ghost", t("updatesProjectButton"));
   updates.href = buildUpdatesLink(project);
   updates.target = "_blank";
   updates.rel = "noopener";
 
-  actions.append(download, github, updates);
+  actions.append(download, updates);
 
   if (project.installSteps?.length) {
     const install = createElement("button", "button button-ghost", t("install"));
@@ -859,7 +851,7 @@ const buildProjectCard = (project) => {
   );
 
   const qrText = createElement("p", "qr-text");
-  qrText.textContent = t("qrText", { url: getQrTargetText(project) });
+  qrText.textContent = t("qrText");
   qrBlock.append(qrText);
 
   const sendToDesktop = createElement("button", "button button-ghost send-desktop", t("openDesktop"));
