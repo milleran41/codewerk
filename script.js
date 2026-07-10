@@ -27,6 +27,16 @@ const languageLabels = {
   en: "EN",
   de: "DE"
 };
+const updatesFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScnthignFLG9JhcR46n9A1GEGJGb1SC7WE9Va_hX8w3GsRFuQ/viewform";
+const updatesFormProgramEntry = "entry.871189447";
+const updatesProgramNames = {
+  cookbook: "Taste & Trace / Кулинарная книга",
+  timer: "Timer",
+  mixlab: "MixLab",
+  "calendar-germany": "Kalender Deutschland",
+  "link-manager": "Linkora",
+  linkvault: "LinkVault"
+};
 const browserLanguage = (navigator.language || "ru").slice(0, 2);
 let currentLanguage =
   localStorage.getItem(languageStorageKey) ||
@@ -60,6 +70,7 @@ const ui = {
     updatesText:
       "Оставьте email в Google Form, чтобы получать уведомления о новых версиях и важных изменениях программ CodeWerk.",
     updatesButton: "Подписаться на обновления",
+    updatesProjectButton: "Получать обновления",
     supportEyebrow: "Donate",
     supportTitle: "Поддержать разработчика",
     supportText: "Если мои программы оказались полезными, вы можете поддержать развитие проектов.",
@@ -135,6 +146,7 @@ const ui = {
     updatesText:
       "Leave your email in the Google Form to receive notifications about new versions and important CodeWerk changes.",
     updatesButton: "Subscribe to updates",
+    updatesProjectButton: "Get updates",
     supportEyebrow: "Donate",
     supportTitle: "Support the developer",
     supportText: "If my programs are useful to you, you can support the development of these projects.",
@@ -210,6 +222,7 @@ const ui = {
     updatesText:
       "Hinterlassen Sie Ihre E-Mail im Google-Formular, um Benachrichtigungen über neue Versionen und wichtige Änderungen bei CodeWerk zu erhalten.",
     updatesButton: "Updates abonnieren",
+    updatesProjectButton: "Updates erhalten",
     supportEyebrow: "Spenden",
     supportTitle: "Entwickler unterstützen",
     supportText: "Wenn meine Programme nützlich sind, können Sie die Weiterentwicklung unterstützen.",
@@ -734,6 +747,14 @@ const buildGmailLink = (project, recipient) => {
   return `https://mail.google.com/mail/u/0/?${params.toString()}`;
 };
 
+const buildUpdatesLink = (project) => {
+  const url = new URL(updatesFormUrl);
+  const programName = updatesProgramNames[project.id] || project.title;
+  url.searchParams.set("usp", "pp_url");
+  url.searchParams.set(updatesFormProgramEntry, programName);
+  return url.toString();
+};
+
 const openEmailPreview = (project, recipient) => {
   if (!emailPreviewText || !openGmailLink) return;
 
@@ -818,7 +839,12 @@ const buildProjectCard = (project) => {
   github.target = "_blank";
   github.rel = "noopener";
 
-  actions.append(download, github);
+  const updates = createElement("a", "button button-ghost", t("updatesProjectButton"));
+  updates.href = buildUpdatesLink(project);
+  updates.target = "_blank";
+  updates.rel = "noopener";
+
+  actions.append(download, github, updates);
 
   if (project.installSteps?.length) {
     const install = createElement("button", "button button-ghost", t("install"));
