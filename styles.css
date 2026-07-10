@@ -999,10 +999,19 @@ body.modal-open {
 
   .hero-content {
     grid-template-columns: 1fr;
-    padding: 92px 0 116px;
+    grid-template-areas:
+      "copy"
+      "requirements"
+      "visual";
+    padding: 92px 0 84px;
+  }
+
+  .hero-copy {
+    grid-area: copy;
   }
 
   .hero-visual {
+    grid-area: visual;
     justify-content: start;
   }
 
@@ -1012,10 +1021,11 @@ body.modal-open {
 
   .hero-requirements {
     position: relative;
+    grid-area: requirements;
     right: auto;
     bottom: auto;
     width: fit-content;
-    margin: -70px 20px 32px auto;
+    margin: -10px 0 34px;
   }
 
   .section {
@@ -1058,7 +1068,7 @@ body.modal-open {
   }
 
   .hero-requirements {
-    margin: -58px auto 28px;
+    margin: -8px auto 28px;
     font-size: 0.78rem;
     text-align: center;
   }
