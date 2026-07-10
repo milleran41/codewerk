@@ -2,22 +2,14 @@ const projectsGrid = document.querySelector("#projectsGrid");
 const year = document.querySelector("#year");
 const modalOpenButtons = document.querySelectorAll("[data-modal-open]");
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
-const emailForm = document.querySelector("#emailForm");
-const userEmail = document.querySelector("#userEmail");
-const emailStatus = document.querySelector("#emailStatus");
 const emailPreviewText = document.querySelector("#emailPreviewText");
-const openGmailLink = document.querySelector("#openGmailLink");
-const openMailAppLink = document.querySelector("#openMailAppLink");
 const copyEmailText = document.querySelector("#copyEmailText");
 const downloadLinkFile = document.querySelector("#downloadLinkFile");
 const shareLinkFile = document.querySelector("#shareLinkFile");
 const languageButtons = document.querySelectorAll("[data-lang]");
 const languageMenu = document.querySelector(".language-menu");
 const currentLanguageLabel = document.querySelector("#currentLanguageLabel");
-const desktopEmailStorageKey = "codewerkDesktopEmail";
 const languageStorageKey = "codewerkLanguage";
-let currentGmailLink = "";
-let currentMailLink = "";
 let currentLinkFile = null;
 let currentProjects = [];
 
@@ -85,12 +77,12 @@ const ui = {
     installTitleDefault: "Как установить",
     installTitlePrefix: "Как установить",
     emailModalEyebrow: "Send link",
-    emailModalTitle: "Письмо на компьютер",
+    emailModalTitle: "Ссылка на компьютер",
     emailModalHelp:
-      "Надёжный вариант для телефона: скачайте TXT-файл со ссылками или отправьте его себе через “Поделиться TXT”. На компьютере откройте файл и перейдите по ссылке Download. Если ссылка не нажимается, скопируйте её в адресную строку браузера. Кнопка “Системная почта” может открыться через браузер, если так настроено устройство.",
+      "На телефоне нажмите “Поделиться ссылкой” и выберите Gmail, почту или мессенджер. Можно также скопировать текст или сохранить TXT-файл, а на компьютере открыть ссылку Download.",
     copyText: "Скопировать текст",
     downloadTxt: "Скачать TXT",
-    shareTxt: "Поделиться TXT",
+    shareTxt: "Поделиться ссылкой",
     openGmail: "Открыть Gmail",
     openMail: "Системная почта",
     closeLabel: "Закрыть окно",
@@ -161,12 +153,12 @@ const ui = {
     installTitleDefault: "How to install",
     installTitlePrefix: "How to install",
     emailModalEyebrow: "Send link",
-    emailModalTitle: "Message for your computer",
+    emailModalTitle: "Link for your computer",
     emailModalHelp:
-      "The reliable phone option: download the TXT file with links or send it to yourself with “Share TXT”. On your computer, open the file and use the Download link. If the link is not clickable, copy it into the browser address bar. “System mail” may open in a browser if the device is configured that way.",
+      "On your phone, tap “Share link” and choose Gmail, mail, or a messenger. You can also copy the text or save a TXT file, then open the Download link on your computer.",
     copyText: "Copy text",
     downloadTxt: "Download TXT",
-    shareTxt: "Share TXT",
+    shareTxt: "Share link",
     openGmail: "Open Gmail",
     openMail: "System mail",
     closeLabel: "Close window",
@@ -237,12 +229,12 @@ const ui = {
     installTitleDefault: "Installation",
     installTitlePrefix: "Installation von",
     emailModalEyebrow: "Link senden",
-    emailModalTitle: "Nachricht für den Computer",
+    emailModalTitle: "Link für den Computer",
     emailModalHelp:
-      "Die zuverlässige Option für das Telefon: Laden Sie die TXT-Datei mit Links herunter oder senden Sie sie über “TXT teilen” an sich selbst. Öffnen Sie die Datei auf dem Computer und verwenden Sie den Download-Link. Wenn der Link nicht klickbar ist, kopieren Sie ihn in die Adressleiste des Browsers. “System-Mail” kann im Browser geöffnet werden, wenn das Gerät so eingerichtet ist.",
+      "Tippen Sie am Telefon auf “Link teilen” und wählen Sie Gmail, Mail oder einen Messenger. Sie können den Text auch kopieren oder als TXT speichern und am Computer den Download-Link öffnen.",
     copyText: "Text kopieren",
     downloadTxt: "TXT herunterladen",
-    shareTxt: "TXT teilen",
+    shareTxt: "Link teilen",
     openGmail: "Gmail öffnen",
     openMail: "System-Mail",
     closeLabel: "Fenster schließen",
@@ -622,7 +614,6 @@ const applyStaticTranslations = () => {
     currentLanguageLabel.textContent = languageLabels[currentLanguage] || currentLanguage.toUpperCase();
   }
 
-  updateEmailStatus();
 };
 
 const createElement = (tag, className, text) => {
@@ -683,26 +674,6 @@ const getQrTargetText = (project) => {
   return t("localQrHint", { id: project.id });
 };
 
-const getRegisteredEmail = () => localStorage.getItem(desktopEmailStorageKey) || "";
-
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-const updateEmailStatus = () => {
-  const email = getRegisteredEmail();
-  if (userEmail) userEmail.value = email;
-  if (!emailStatus) return;
-
-  emailStatus.textContent = email ? t("emailStatusSaved", { email }) : t("emailStatusDefault");
-};
-
-const focusEmailRegistration = () => {
-  document.querySelector("#email-registration")?.scrollIntoView({ behavior: "smooth", block: "center" });
-  window.setTimeout(() => userEmail?.focus(), 450);
-  if (emailStatus) {
-    emailStatus.textContent = t("emailRequired");
-  }
-};
-
 const buildEmailBody = (project) => {
   const projectUrl = getProjectPageUrl(project.id);
   return [
@@ -720,32 +691,8 @@ const buildEmailBody = (project) => {
   ].join("\n");
 };
 
-const buildEmailSubject = (project) => `CodeWerk: ${project.title}`;
-
 const getSafeFileName = (title) =>
   `${title.toLowerCase().replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "codewerk"}-links.txt`;
-
-const buildMailLink = (project, recipient) => {
-  const subject = buildEmailSubject(project);
-  const body = buildEmailBody(project);
-
-  return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-};
-
-const buildGmailLink = (project, recipient) => {
-  const subject = buildEmailSubject(project);
-  const body = buildEmailBody(project);
-  const params = new URLSearchParams({
-    view: "cm",
-    fs: "1",
-    tf: "1",
-    to: recipient,
-    su: subject,
-    body
-  });
-
-  return `https://mail.google.com/mail/u/0/?${params.toString()}`;
-};
 
 const buildUpdatesLink = (project) => {
   const url = new URL(updatesFormUrl);
@@ -755,17 +702,15 @@ const buildUpdatesLink = (project) => {
   return url.toString();
 };
 
-const openEmailPreview = (project, recipient) => {
-  if (!emailPreviewText || !openGmailLink) return;
+const openEmailPreview = (project) => {
+  if (!emailPreviewText) return;
 
-  const subject = buildEmailSubject(project);
   const body = buildEmailBody(project);
   emailPreviewText.value = body;
-  currentGmailLink = buildGmailLink(project, recipient);
-  currentMailLink = buildMailLink(project, recipient);
   currentLinkFile = {
     name: getSafeFileName(project.title),
-    text: `To: ${recipient}\nSubject: ${subject}\n\n${body}\n`
+    title: `CodeWerk: ${project.title}`,
+    text: `${body}\n`
   };
   copyEmailText.textContent = t("copyText");
   if (downloadLinkFile) downloadLinkFile.textContent = t("downloadTxt");
@@ -862,13 +807,7 @@ const buildProjectCard = (project) => {
   sendToDesktop.setAttribute("aria-label", t("openDesktopAria", { title: project.title }));
   sendToDesktop.addEventListener("click", (event) => {
     event.preventDefault();
-    const recipient = getRegisteredEmail();
-    if (!isValidEmail(recipient)) {
-      focusEmailRegistration();
-      return;
-    }
-
-    openEmailPreview(project, recipient);
+    openEmailPreview(project);
   });
 
   content.append(topline, title, description, features, actions, qrBlock, sendToDesktop);
@@ -945,25 +884,6 @@ document.addEventListener("keydown", (event) => {
   document.querySelectorAll(".modal.is-open").forEach(closeModal);
 });
 
-emailForm?.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const email = userEmail?.value.trim() || "";
-
-  if (!isValidEmail(email)) {
-    if (emailStatus) emailStatus.textContent = t("emailInvalid");
-    userEmail?.focus();
-    return;
-  }
-
-  localStorage.setItem(desktopEmailStorageKey, email);
-  updateEmailStatus();
-});
-
-userEmail?.addEventListener("focus", () => {
-  if (!emailStatus || getRegisteredEmail()) return;
-  emailStatus.textContent = t("emailAutofillFocus");
-});
-
 applyStaticTranslations();
 
 copyEmailText?.addEventListener("click", async () => {
@@ -976,16 +896,6 @@ copyEmailText?.addEventListener("click", async () => {
     emailPreviewText.select();
     copyEmailText.textContent = t("selected");
   }
-});
-
-openGmailLink?.addEventListener("click", () => {
-  if (!currentGmailLink) return;
-  window.open(currentGmailLink, "_blank", "noopener");
-});
-
-openMailAppLink?.addEventListener("click", () => {
-  if (!currentMailLink) return;
-  window.location.href = currentMailLink;
 });
 
 downloadLinkFile?.addEventListener("click", () => {
@@ -1007,21 +917,9 @@ shareLinkFile?.addEventListener("click", async () => {
   if (!currentLinkFile) return;
 
   try {
-    const file = new File([currentLinkFile.text], currentLinkFile.name, { type: "text/plain" });
-
-    if (navigator.canShare?.({ files: [file] })) {
-      await navigator.share({
-        title: "CodeWerk download link",
-        text: t("shareFileText"),
-        files: [file]
-      });
-      shareLinkFile.textContent = t("sent");
-      return;
-    }
-
     if (navigator.share) {
       await navigator.share({
-        title: "CodeWerk download link",
+        title: currentLinkFile.title,
         text: currentLinkFile.text
       });
       shareLinkFile.textContent = t("sent");

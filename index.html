@@ -51,28 +51,6 @@
     </header>
 
     <main>
-      <section class="section email-registration" id="email-registration">
-        <div class="email-panel">
-          <div>
-            <p class="eyebrow" data-i18n="emailEyebrow">Send to desktop</p>
-            <h2 data-i18n="emailTitle">Email для ссылок</h2>
-            <p data-i18n="emailText">
-              Введите свой email один раз. Когда вы нажмёте “Открыть на компьютере”,
-              сайт подготовит письмо на этот же адрес со ссылкой на выбранную программу.
-            </p>
-          </div>
-          <form class="email-form" id="emailForm" autocomplete="on">
-            <label for="userEmail" data-i18n="emailLabel">Ваш email</label>
-            <div class="email-row">
-              <input id="userEmail" name="email" type="email" placeholder="name@example.com" autocomplete="email" inputmode="email" autocapitalize="none" autocorrect="off" spellcheck="false" aria-describedby="emailAutofillHint emailStatus" required>
-              <button class="button button-primary" type="submit" data-i18n="emailSave">Сохранить</button>
-            </div>
-            <p class="email-hint" id="emailAutofillHint" data-i18n="emailAutofillHint">На телефоне браузер может предложить сохранённый Google-адрес над клавиатурой.</p>
-            <p class="email-status" id="emailStatus" data-i18n="emailStatusDefault">Email хранится только в вашем браузере.</p>
-          </form>
-        </div>
-      </section>
-
       <section class="section updates-section" id="updates">
         <div class="updates-panel">
           <div>
@@ -160,19 +138,17 @@
       <section class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="emailPreviewTitle">
         <button class="modal-close" type="button" data-modal-close aria-label="Закрыть окно" data-i18n-aria-label="closeLabel">×</button>
         <p class="eyebrow" data-i18n="emailModalEyebrow">Send link</p>
-        <h2 id="emailPreviewTitle" data-i18n="emailModalTitle">Письмо на компьютер</h2>
-        <p class="modal-help" data-i18n="emailModalHelp">Надёжный вариант для телефона: скачайте TXT-файл со ссылками или отправьте его себе через “Поделиться TXT”. На компьютере откройте файл и перейдите по ссылке Download. Если ссылка не нажимается, скопируйте её в адресную строку браузера.</p>
+        <h2 id="emailPreviewTitle" data-i18n="emailModalTitle">Ссылка на компьютер</h2>
+        <p class="modal-help" data-i18n="emailModalHelp">На телефоне нажмите “Поделиться ссылкой” и выберите Gmail, почту или мессенджер. Можно также скопировать текст или сохранить TXT-файл, а на компьютере открыть ссылку Download.</p>
         <textarea class="email-preview-text" id="emailPreviewText" readonly></textarea>
         <div class="modal-actions">
           <button class="button button-primary" type="button" id="copyEmailText" data-i18n="copyText">Скопировать текст</button>
           <button class="button button-primary" type="button" id="downloadLinkFile" data-i18n="downloadTxt">Скачать TXT</button>
-          <button class="button button-ghost" type="button" id="shareLinkFile" data-i18n="shareTxt">Поделиться TXT</button>
-          <button class="button button-ghost" type="button" id="openGmailLink" data-i18n="openGmail">Открыть Gmail</button>
-          <button class="button button-ghost" type="button" id="openMailAppLink" data-i18n="openMail">Системная почта</button>
+          <button class="button button-ghost" type="button" id="shareLinkFile" data-i18n="shareTxt">Поделиться ссылкой</button>
         </div>
       </section>
     </div>
 
-    <script src="script.js?v=20260710-4"></script>
+    <script src="script.js?v=20260710-5"></script>
   </body>
 </html>
