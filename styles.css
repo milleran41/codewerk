@@ -982,8 +982,19 @@ body.modal-open {
 
   .nav-links {
     width: 100%;
-    overflow-x: auto;
+    flex-wrap: wrap;
+    overflow: visible;
     justify-content: flex-start;
+    border-radius: 18px;
+  }
+
+  .language-menu {
+    margin-left: auto;
+  }
+
+  .language-options {
+    right: 0;
+    left: auto;
   }
 
   .hero-content {
@@ -1027,6 +1038,23 @@ body.modal-open {
 
   h1 {
     font-size: 4rem;
+  }
+
+  .nav-links {
+    gap: 6px;
+  }
+
+  .nav-links a,
+  .nav-button,
+  .language-menu summary {
+    padding: 9px 11px;
+    font-size: 0.86rem;
+  }
+
+  .language-options {
+    right: auto;
+    left: 0;
+    min-width: 142px;
   }
 
   .hero-requirements {
