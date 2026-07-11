@@ -5,9 +5,11 @@
  * "CodeWerk download request" Google Form:
  * Extensions -> Apps Script.
  *
- * Required form questions:
- * 1. Email
- * 2. Program
+ * Recommended form setup:
+ * 1. Collect email addresses in Google Forms settings.
+ * 2. Add one required question: Program.
+ *
+ * Manual Email question is also supported as a fallback.
  */
 
 const PROGRAM_LINKS = {
@@ -53,7 +55,8 @@ function getResponseData_(event) {
     firstValue_(namedValues.Email) ||
     firstValue_(namedValues["Email address"]) ||
     firstValue_(namedValues["Электронная почта"]) ||
-    firstValue_(namedValues["Адрес электронной почты"]);
+    firstValue_(namedValues["Адрес электронной почты"]) ||
+    findEmailInNamedValues_(namedValues);
 
   const program =
     firstValue_(namedValues.Program) ||
@@ -65,6 +68,27 @@ function getResponseData_(event) {
 
 function firstValue_(value) {
   return Array.isArray(value) ? String(value[0] || "").trim() : String(value || "").trim();
+}
+
+function findEmailInNamedValues_(namedValues) {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  for (const [key, value] of Object.entries(namedValues)) {
+    const label = String(key).toLowerCase();
+    const candidate = firstValue_(value);
+    if ((label.includes("email") || label.includes("mail") || label.includes("почт")) && emailPattern.test(candidate)) {
+      return candidate;
+    }
+  }
+
+  for (const value of Object.values(namedValues)) {
+    const candidate = firstValue_(value);
+    if (emailPattern.test(candidate)) {
+      return candidate;
+    }
+  }
+
+  return "";
 }
 
 function buildTextMessage_(program) {
