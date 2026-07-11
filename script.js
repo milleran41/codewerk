@@ -93,9 +93,6 @@ const ui = {
     directLink: "Прямая ссылка на {title}",
     screenshotAlt: "Скриншот программы {title}",
     screenshotFallback: "Скриншот будет добавлен позже",
-    qrAlt: "QR-код для {title}",
-    qrFallback: "QR-код будет добавлен позже",
-    qrText: "Сканируйте, чтобы открыть эту карточку на телефоне.",
     download: "Скачать",
     requestDownload: "Получить ссылку",
     install: "Как установить",
@@ -172,9 +169,6 @@ const ui = {
     directLink: "Direct link to {title}",
     screenshotAlt: "Screenshot of {title}",
     screenshotFallback: "Screenshot will be added later",
-    qrAlt: "QR code for {title}",
-    qrFallback: "QR code will be added later",
-    qrText: "Scan to open this app card on your phone.",
     download: "Download",
     requestDownload: "Get download link",
     install: "How to install",
@@ -251,9 +245,6 @@ const ui = {
     directLink: "Direkter Link zu {title}",
     screenshotAlt: "Screenshot von {title}",
     screenshotFallback: "Screenshot wird später hinzugefügt",
-    qrAlt: "QR-Code für {title}",
-    qrFallback: "QR-Code wird später hinzugefügt",
-    qrText: "Scannen, um diese Programmkarte auf dem Telefon zu öffnen.",
     download: "Herunterladen",
     requestDownload: "Download-Link erhalten",
     install: "Installation",
@@ -644,7 +635,7 @@ const buildImage = (src, alt, fallbackText, className) => {
   const wrapper = createElement("div", className);
 
   if (!src) {
-    wrapper.append(createElement("div", className === "qr-wrap" ? "qr-placeholder" : "image-placeholder", fallbackText));
+    wrapper.append(createElement("div", "image-placeholder", fallbackText));
     return wrapper;
   }
 
@@ -653,7 +644,7 @@ const buildImage = (src, alt, fallbackText, className) => {
   image.alt = alt;
   image.loading = "lazy";
   image.addEventListener("error", () => {
-    wrapper.replaceChildren(createElement("div", className === "qr-wrap" ? "qr-placeholder" : "image-placeholder", fallbackText));
+    wrapper.replaceChildren(createElement("div", "image-placeholder", fallbackText));
   });
 
   wrapper.append(image);
@@ -677,18 +668,6 @@ const getProjectPageUrl = (projectId) => {
   const pageUrl = new URL(window.location.href);
   pageUrl.hash = projectId;
   return pageUrl.toString();
-};
-
-const getQrTargetText = (project) => {
-  if (project.qrTarget && !project.qrTarget.includes("REPOSITORY")) {
-    return project.qrTarget;
-  }
-
-  if (window.location.protocol === "http:" || window.location.protocol === "https:") {
-    return getProjectPageUrl(project.id);
-  }
-
-  return t("localQrHint", { id: project.id });
 };
 
 const buildEmailBody = (project) => {
@@ -823,15 +802,6 @@ const buildProjectCard = (project) => {
     actions.append(install);
   }
 
-  const qrBlock = createElement("div", "qr-block");
-  qrBlock.append(
-    buildImage(project.qrImage, t("qrAlt", { title: project.title }), t("qrFallback"), "qr-wrap")
-  );
-
-  const qrText = createElement("p", "qr-text");
-  qrText.textContent = t("qrText");
-  qrBlock.append(qrText);
-
   const sendToDesktop = createElement("button", "button button-ghost send-desktop", t("openDesktop"));
   sendToDesktop.type = "button";
   sendToDesktop.setAttribute("aria-label", t("openDesktopAria", { title: project.title }));
@@ -840,7 +810,7 @@ const buildProjectCard = (project) => {
     openEmailPreview(project);
   });
 
-  content.append(topline, title, description, features, actions, qrBlock, sendToDesktop);
+  content.append(topline, title, description, features, actions, sendToDesktop);
   article.append(media, content);
 
   return article;
