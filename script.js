@@ -21,6 +21,8 @@ const languageLabels = {
 };
 const updatesFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScnthignFLG9JhcR46n9A1GEGJGb1SC7WE9Va_hX8w3GsRFuQ/viewform";
 const updatesFormProgramEntry = "entry.871189447";
+const downloadRequestFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScBh9m9Ct9oWuyEBlGO4R7kI0Yfl0RQ4fDCZvy56r7PCIdzlw/viewform";
+const downloadRequestProgramEntry = "entry.881234180";
 const updatesProgramNames = {
   cookbook: "Taste & Trace / Кулинарная книга",
   timer: "Timer",
@@ -718,7 +720,13 @@ const buildUpdatesLink = (project) => {
   return url.toString();
 };
 
-const buildDownloadRequestLink = (project) => buildUpdatesLink(project);
+const buildDownloadRequestLink = (project) => {
+  const url = new URL(downloadRequestFormUrl);
+  const programName = updatesProgramNames[project.id] || project.title;
+  url.searchParams.set("usp", "pp_url");
+  url.searchParams.set(downloadRequestProgramEntry, programName);
+  return url.toString();
+};
 
 const openEmailPreview = (project) => {
   if (!emailPreviewText) return;
@@ -958,7 +966,7 @@ shareLinkFile?.addEventListener("click", async () => {
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
 } else {
-  fetch("data/projects.json?v=20260711-1")
+  fetch("data/projects.json?v=20260711-2")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();
