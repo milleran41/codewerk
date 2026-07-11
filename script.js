@@ -793,6 +793,7 @@ const buildProjectCard = (project) => {
   const actions = createElement("div", "project-actions");
   const isRequestDownload = project.downloadMode === "request";
   const download = createElement("a", "button button-primary", isRequestDownload ? t("requestDownload") : t("download"));
+  download.classList.add(isRequestDownload ? "request-download" : "direct-download");
   download.href = isRequestDownload ? buildDownloadRequestLink(project) : project.downloadUrl || project.githubUrl;
   download.rel = "noopener";
 

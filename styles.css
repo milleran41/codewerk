@@ -1124,6 +1124,23 @@ body.modal-open {
     text-align: center;
   }
 
+  .direct-download,
+  #copyEmailText,
+  #downloadLinkFile {
+    color: var(--text);
+    border-color: var(--line);
+    background: rgba(255, 79, 216, 0.08);
+    box-shadow: none;
+  }
+
+  .send-desktop,
+  #shareLinkFile {
+    color: #160520;
+    border-color: rgba(199, 255, 57, 0.72);
+    background: linear-gradient(135deg, var(--accent), #78f529);
+    box-shadow: 0 0 0 1px rgba(199, 255, 57, 0.42), 0 18px 44px rgba(199, 255, 57, 0.22);
+  }
+
   .project-card,
   .updates-panel,
   .support-panel,
