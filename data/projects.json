@@ -13,6 +13,7 @@
     ],
     "screenshot": "assets/screenshots/cookbook.png",
     "githubUrl": "https://github.com/milleran41/taste-and-trace-download",
+    "downloadMode": "request",
     "downloadUrl": "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.0/Taste.Trace-Portable-0.0.0-x64.exe",
     "qrImage": "assets/qr/cookbook.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#cookbook"
@@ -31,6 +32,7 @@
     ],
     "screenshot": "https://raw.githubusercontent.com/milleran41/timer/main/screenshot.png",
     "githubUrl": "https://github.com/milleran41/timer",
+    "downloadMode": "direct",
     "downloadUrl": "https://github.com/milleran41/timer/raw/main/dist/timer.exe",
     "qrImage": "assets/qr/timer.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#timer"
@@ -49,6 +51,7 @@
     ],
     "screenshot": "https://raw.githubusercontent.com/milleran41/MixLab/main/src/assets/screenshot.png",
     "githubUrl": "https://github.com/milleran41/MixLab",
+    "downloadMode": "request",
     "downloadUrl": "https://github.com/milleran41/MixLab/raw/main/MixLab.exe",
     "qrImage": "assets/qr/mixlab.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#mixlab"
@@ -67,6 +70,7 @@
     ],
     "screenshot": "https://raw.githubusercontent.com/milleran41/kalender-deutschland/main/assets/screenshots/calendar.png",
     "githubUrl": "https://github.com/milleran41/kalender-deutschland",
+    "downloadMode": "direct",
     "downloadUrl": "https://github.com/milleran41/kalender-deutschland/archive/refs/heads/main.zip",
     "qrImage": "assets/qr/calendar-germany.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#calendar-germany",
@@ -95,6 +99,7 @@
     ],
     "screenshot": "https://raw.githubusercontent.com/milleran41/linkora/main/assets/linkora-preview.jpg",
     "githubUrl": "https://github.com/milleran41/linkora",
+    "downloadMode": "direct",
     "downloadUrl": "https://raw.githubusercontent.com/milleran41/linkora/main/downloads/Linkora.exe",
     "qrImage": "assets/qr/link-manager.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#link-manager"
@@ -113,6 +118,7 @@
     ],
     "screenshot": "https://raw.githubusercontent.com/milleran41/MyLinks/main/assets/screenshot.png",
     "githubUrl": "https://github.com/milleran41/MyLinks",
+    "downloadMode": "direct",
     "downloadUrl": "https://github.com/milleran41/MyLinks/raw/main/LinkVault.zip",
     "qrImage": "assets/qr/linkvault.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#linkvault"

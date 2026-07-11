@@ -95,6 +95,7 @@ const ui = {
     qrFallback: "QR-код будет добавлен позже",
     qrText: "Сканируйте, чтобы открыть эту карточку на телефоне.",
     download: "Скачать",
+    requestDownload: "Получить ссылку",
     install: "Как установить",
     openDesktop: "Открыть на компьютере",
     openDesktopAria: "Отправить ссылку на {title} себе по email",
@@ -106,6 +107,7 @@ const ui = {
     failed: "Не удалось",
     projectPage: "Страница программы:",
     downloadLine: "Скачать:",
+    requestDownloadLine: "Получить ссылку:",
     howToDownload: "Как скачать:",
     howToDownloadStep1: "Откройте этот файл на компьютере и используйте ссылку “Скачать” выше.",
     howToDownloadStep2: "Если ссылка не нажимается, скопируйте её в адресную строку браузера.",
@@ -172,6 +174,7 @@ const ui = {
     qrFallback: "QR code will be added later",
     qrText: "Scan to open this app card on your phone.",
     download: "Download",
+    requestDownload: "Get download link",
     install: "How to install",
     openDesktop: "Open on computer",
     openDesktopAria: "Send a link to {title} to your email",
@@ -183,6 +186,7 @@ const ui = {
     failed: "Failed",
     projectPage: "Project page:",
     downloadLine: "Download:",
+    requestDownloadLine: "Get download link:",
     howToDownload: "How to download:",
     howToDownloadStep1: "Open this file on your computer and use the Download link above.",
     howToDownloadStep2: "If the link is not clickable, copy it and paste it into the browser address bar.",
@@ -249,6 +253,7 @@ const ui = {
     qrFallback: "QR-Code wird später hinzugefügt",
     qrText: "Scannen, um diese Programmkarte auf dem Telefon zu öffnen.",
     download: "Herunterladen",
+    requestDownload: "Download-Link erhalten",
     install: "Installation",
     openDesktop: "Auf dem Computer öffnen",
     openDesktopAria: "Link zu {title} per E-Mail senden",
@@ -260,6 +265,7 @@ const ui = {
     failed: "Fehlgeschlagen",
     projectPage: "Projektseite:",
     downloadLine: "Download:",
+    requestDownloadLine: "Download-Link erhalten:",
     howToDownload: "So laden Sie herunter:",
     howToDownloadStep1: "Öffnen Sie diese Datei auf dem Computer und verwenden Sie den Download-Link oben.",
     howToDownloadStep2: "Wenn der Link nicht klickbar ist, kopieren Sie ihn in die Adressleiste des Browsers.",
@@ -288,6 +294,7 @@ const localProjectsFallback = [
     ],
     screenshot: "assets/screenshots/cookbook.png",
     githubUrl: "https://github.com/milleran41/taste-and-trace-download",
+    downloadMode: "request",
     downloadUrl: "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.0/Taste.Trace-Portable-0.0.0-x64.exe",
     qrImage: "assets/qr/cookbook.png",
     qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#cookbook"
@@ -307,6 +314,7 @@ const localProjectsFallback = [
     ],
     screenshot: "https://raw.githubusercontent.com/milleran41/timer/main/screenshot.png",
     githubUrl: "https://github.com/milleran41/timer",
+    downloadMode: "direct",
     downloadUrl: "https://github.com/milleran41/timer/raw/main/dist/timer.exe",
     qrImage: "assets/qr/timer.png",
     qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#timer"
@@ -326,6 +334,7 @@ const localProjectsFallback = [
     ],
     screenshot: "https://raw.githubusercontent.com/milleran41/MixLab/main/src/assets/screenshot.png",
     githubUrl: "https://github.com/milleran41/MixLab",
+    downloadMode: "request",
     downloadUrl: "https://github.com/milleran41/MixLab/raw/main/MixLab.exe",
     qrImage: "assets/qr/mixlab.png",
     qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#mixlab"
@@ -345,6 +354,7 @@ const localProjectsFallback = [
     ],
     screenshot: "https://raw.githubusercontent.com/milleran41/kalender-deutschland/main/assets/screenshots/calendar.png",
     githubUrl: "https://github.com/milleran41/kalender-deutschland",
+    downloadMode: "direct",
     downloadUrl: "https://github.com/milleran41/kalender-deutschland/archive/refs/heads/main.zip",
     qrImage: "assets/qr/calendar-germany.png",
     qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#calendar-germany",
@@ -374,6 +384,7 @@ const localProjectsFallback = [
     ],
     screenshot: "https://raw.githubusercontent.com/milleran41/linkora/main/assets/linkora-preview.jpg",
     githubUrl: "https://github.com/milleran41/linkora",
+    downloadMode: "direct",
     downloadUrl: "https://raw.githubusercontent.com/milleran41/linkora/main/downloads/Linkora.exe",
     qrImage: "assets/qr/link-manager.png",
     qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#link-manager"
@@ -393,6 +404,7 @@ const localProjectsFallback = [
     ],
     screenshot: "https://raw.githubusercontent.com/milleran41/MyLinks/main/assets/screenshot.png",
     githubUrl: "https://github.com/milleran41/MyLinks",
+    downloadMode: "direct",
     downloadUrl: "https://github.com/milleran41/MyLinks/raw/main/LinkVault.zip",
     qrImage: "assets/qr/linkvault.png",
     qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#linkvault"
@@ -679,14 +691,15 @@ const getQrTargetText = (project) => {
 
 const buildEmailBody = (project) => {
   const projectUrl = getProjectPageUrl(project.id);
+  const isRequestDownload = project.downloadMode === "request";
   return [
     project.title,
     "",
     t("projectPage"),
     projectUrl,
     "",
-    t("downloadLine"),
-    project.downloadUrl || project.githubUrl,
+    isRequestDownload ? t("requestDownloadLine") : t("downloadLine"),
+    isRequestDownload ? buildDownloadRequestLink(project) : project.downloadUrl || project.githubUrl,
     "",
     t("howToDownload"),
     t("howToDownloadStep1"),
@@ -704,6 +717,8 @@ const buildUpdatesLink = (project) => {
   url.searchParams.set(updatesFormProgramEntry, programName);
   return url.toString();
 };
+
+const buildDownloadRequestLink = (project) => buildUpdatesLink(project);
 
 const openEmailPreview = (project) => {
   if (!emailPreviewText) return;
@@ -768,11 +783,14 @@ const buildProjectCard = (project) => {
   });
 
   const actions = createElement("div", "project-actions");
-  const download = createElement("a", "button button-primary", t("download"));
-  download.href = project.downloadUrl || project.githubUrl;
+  const isRequestDownload = project.downloadMode === "request";
+  const download = createElement("a", "button button-primary", isRequestDownload ? t("requestDownload") : t("download"));
+  download.href = isRequestDownload ? buildDownloadRequestLink(project) : project.downloadUrl || project.githubUrl;
   download.rel = "noopener";
 
-  if (project.downloadUrl && isDirectDownload(project.downloadUrl)) {
+  if (isRequestDownload) {
+    download.target = "_blank";
+  } else if (project.downloadUrl && isDirectDownload(project.downloadUrl)) {
     download.setAttribute("download", "");
     download.addEventListener("click", (event) => {
       event.preventDefault();
@@ -940,7 +958,7 @@ shareLinkFile?.addEventListener("click", async () => {
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
 } else {
-  fetch("data/projects.json")
+  fetch("data/projects.json?v=20260711-1")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();
