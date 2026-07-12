@@ -388,7 +388,7 @@ const localProjectsFallback = [
       "Исторический раздел с 16 периодами",
       "Многоязычные исторические тексты"
     ],
-    screenshot: "https://raw.githubusercontent.com/milleran41/kalender-deutschland/main/assets/screenshots/calendar.png",
+    screenshot: "https://raw.githubusercontent.com/milleran41/kalender-deutschland/main/assets/screenshots/calendar.png?v=20260712-2",
     githubUrl: "https://github.com/milleran41/kalender-deutschland",
     downloadMode: "direct",
     downloadUrl: "https://github.com/milleran41/kalender-deutschland/archive/refs/heads/main.zip",
@@ -1127,7 +1127,7 @@ if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
   setReviews(localReviewsFallback);
 } else {
-  fetch("data/projects.json?v=20260712-3")
+  fetch("data/projects.json?v=20260712-4")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();
