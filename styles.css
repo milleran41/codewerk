@@ -398,6 +398,14 @@ h2 {
   padding: 92px 0;
 }
 
+.updates-section {
+  padding-bottom: 34px;
+}
+
+.projects-section {
+  padding-top: 34px;
+}
+
 .section-heading {
   max-width: 760px;
   margin-bottom: 34px;
