@@ -23,6 +23,8 @@ const updatesFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScnthignFLG9Jhc
 const updatesFormProgramEntry = "entry.871189447";
 const downloadRequestFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScBh9m9Ct9oWuyEBlGO4R7kI0Yfl0RQ4fDCZvy56r7PCIdzlw/viewform";
 const downloadRequestProgramEntry = "entry.881234180";
+const feedbackFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScKZCufK_qzJg-ICKlOyYXG8z4KMNLlm7bK7qvIQGdZY-CHtw/viewform";
+const feedbackProgramEntry = "entry.853632586";
 const updatesProgramNames = {
   cookbook: "Taste & Trace / Кулинарная книга",
   timer: "Timer",
@@ -66,6 +68,7 @@ const ui = {
       "Оставьте email в Google Form, чтобы получать уведомления о новых версиях и важных изменениях программ CodeWerk.",
     updatesButton: "Подписаться на обновления",
     updatesProjectButton: "Получать обновления",
+    feedbackProjectButton: "Оставить отзыв",
     supportEyebrow: "Donate",
     supportTitle: "Поддержать разработчика",
     supportText: "Если мои программы оказались полезными, вы можете поддержать развитие проектов.",
@@ -142,6 +145,7 @@ const ui = {
       "Leave your email in the Google Form to receive notifications about new versions and important CodeWerk changes.",
     updatesButton: "Subscribe to updates",
     updatesProjectButton: "Get updates",
+    feedbackProjectButton: "Leave feedback",
     supportEyebrow: "Donate",
     supportTitle: "Support the developer",
     supportText: "If my programs are useful to you, you can support the development of these projects.",
@@ -218,6 +222,7 @@ const ui = {
       "Hinterlassen Sie Ihre E-Mail im Google-Formular, um Benachrichtigungen über neue Versionen und wichtige Änderungen bei CodeWerk zu erhalten.",
     updatesButton: "Updates abonnieren",
     updatesProjectButton: "Updates erhalten",
+    feedbackProjectButton: "Feedback geben",
     supportEyebrow: "Spenden",
     supportTitle: "Entwickler unterstützen",
     supportText: "Wenn meine Programme nützlich sind, können Sie die Weiterentwicklung unterstützen.",
@@ -707,6 +712,14 @@ const buildDownloadRequestLink = (project) => {
   return url.toString();
 };
 
+const buildFeedbackLink = (project) => {
+  const url = new URL(feedbackFormUrl);
+  const programName = updatesProgramNames[project.id] || project.title;
+  url.searchParams.set("usp", "pp_url");
+  url.searchParams.set(feedbackProgramEntry, programName);
+  return url.toString();
+};
+
 const openEmailPreview = (project) => {
   if (!emailPreviewText) return;
 
@@ -793,7 +806,12 @@ const buildProjectCard = (project) => {
   updates.target = "_blank";
   updates.rel = "noopener";
 
-  actions.append(download, updates);
+  const feedback = createElement("a", "button button-ghost", t("feedbackProjectButton"));
+  feedback.href = buildFeedbackLink(project);
+  feedback.target = "_blank";
+  feedback.rel = "noopener";
+
+  actions.append(download, updates, feedback);
 
   if (project.installSteps?.length) {
     const install = createElement("button", "button button-ghost", t("install"));
@@ -937,7 +955,7 @@ shareLinkFile?.addEventListener("click", async () => {
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
 } else {
-  fetch("data/projects.json?v=20260711-2")
+  fetch("data/projects.json?v=20260712-1")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();
