@@ -572,7 +572,8 @@ h2 {
 
 .project-media {
   display: grid;
-  gap: 16px;
+  align-content: start;
+  gap: 12px;
 }
 
 .screenshot-wrap {
@@ -655,7 +656,7 @@ h2 {
   display: grid;
   gap: 10px;
   padding: 0;
-  margin: 8px 0 24px;
+  margin: 8px 0 18px;
   list-style: none;
 }
 
@@ -678,12 +679,41 @@ h2 {
 }
 
 .project-actions {
-  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.media-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.feedback-actions {
+  margin-top: 4px;
+}
+
+.feedback-button {
+  color: #f8eaff;
+  border-color: rgba(255, 128, 224, 0.42);
+  background: linear-gradient(135deg, rgba(255, 79, 216, 0.14), rgba(53, 242, 255, 0.07));
+  box-shadow: 0 12px 28px rgba(255, 79, 216, 0.09);
+}
+
+.feedback-button:hover,
+.feedback-button:focus-visible {
+  color: #ffffff;
+  border-color: rgba(255, 128, 224, 0.64);
+  background: linear-gradient(135deg, rgba(255, 79, 216, 0.2), rgba(53, 242, 255, 0.1));
 }
 
 .send-desktop {
   width: fit-content;
-  margin-top: 14px;
+  margin-top: 0;
 }
 
 .code-word {

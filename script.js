@@ -782,7 +782,8 @@ const buildProjectCard = (project) => {
     features.append(createElement("li", null, feature));
   });
 
-  const actions = createElement("div", "project-actions");
+  const mediaActions = createElement("div", "media-actions");
+  const contentActions = createElement("div", "project-actions feedback-actions");
   const isRequestDownload = project.downloadMode === "request";
   const download = createElement("a", "button button-primary", isRequestDownload ? t("requestDownload") : t("download"));
   download.classList.add(isRequestDownload ? "request-download" : "direct-download");
@@ -806,18 +807,19 @@ const buildProjectCard = (project) => {
   updates.target = "_blank";
   updates.rel = "noopener";
 
-  const feedback = createElement("a", "button button-ghost", t("feedbackProjectButton"));
+  const feedback = createElement("a", "button button-ghost feedback-button", t("feedbackProjectButton"));
   feedback.href = buildFeedbackLink(project);
   feedback.target = "_blank";
   feedback.rel = "noopener";
 
-  actions.append(download, updates, feedback);
+  mediaActions.append(download, updates);
+  contentActions.append(feedback);
 
   if (project.installSteps?.length) {
     const install = createElement("button", "button button-ghost", t("install"));
     install.type = "button";
     install.addEventListener("click", () => openProjectInstructions(project));
-    actions.append(install);
+    contentActions.append(install);
   }
 
   const sendToDesktop = createElement("button", "button button-ghost send-desktop", t("openDesktop"));
@@ -827,8 +829,10 @@ const buildProjectCard = (project) => {
     event.preventDefault();
     openEmailPreview(project);
   });
+  mediaActions.append(sendToDesktop);
 
-  content.append(topline, title, description, features, actions, sendToDesktop);
+  media.append(mediaActions);
+  content.append(topline, title, description, features, contentActions);
   article.append(media, content);
 
   return article;
