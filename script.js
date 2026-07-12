@@ -45,7 +45,7 @@ const ui = {
     navContacts: "Контакты",
     heroEyebrow: "GitHub Pages portfolio",
     heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
-    requirements: "Системные требования: настольные программы — Windows 10/11. LinkVault работает в современном браузере.",
+    requirements: "На сайте есть Windows-программы и кроссплатформенные браузерные приложения для Windows, macOS и Linux.",
     emailEyebrow: "Send to desktop",
     emailTitle: "Email для ссылок",
     emailText:
@@ -122,7 +122,7 @@ const ui = {
     navContacts: "Contacts",
     heroEyebrow: "GitHub Pages portfolio",
     heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
-    requirements: "System requirements: Windows 10/11 for desktop apps. LinkVault works in a modern browser.",
+    requirements: "The site includes Windows desktop apps and cross-platform browser apps for Windows, macOS and Linux.",
     emailEyebrow: "Send to desktop",
     emailTitle: "Email for links",
     emailText:
@@ -199,7 +199,7 @@ const ui = {
     navContacts: "Kontakt",
     heroEyebrow: "GitHub Pages Portfolio",
     heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
-    requirements: "Systemanforderungen: Windows 10/11 für Desktop-Apps. LinkVault läuft in einem modernen Browser.",
+    requirements: "Die Website enthält Windows-Programme und plattformübergreifende Browser-Apps für Windows, macOS und Linux.",
     emailEyebrow: "An den Computer senden",
     emailTitle: "E-Mail für Links",
     emailText:
@@ -393,6 +393,7 @@ const localProjectsFallback = [
     status: "published",
     description:
       "Простое браузерное приложение для сохранения ссылок, заметок и скриншотов в локальной таблице без установки, сервера и аккаунта.",
+    crossPlatform: true,
     platform: "Windows, macOS, Linux — современный браузер",
     features: [
       "Сохранение ссылок, описаний и скриншотов",
@@ -777,7 +778,14 @@ const buildProjectCard = (project) => {
   anchor.setAttribute("aria-label", t("directLink", { title: project.title }));
   topline.append(anchor);
 
-  const title = createElement("h3", null, project.title);
+  const title = createElement("h3", null);
+  title.append(document.createTextNode(project.title));
+  if (project.crossPlatform) {
+    const platformIcon = createElement("span", "platform-icon", "OS");
+    platformIcon.title = project.platform || "Cross-platform";
+    platformIcon.setAttribute("aria-label", project.platform || "Cross-platform");
+    title.append(platformIcon);
+  }
   const description = createElement("p", "project-description", project.description);
   const platform = project.platform ? createElement("p", "project-platform", project.platform) : null;
 
@@ -963,7 +971,7 @@ shareLinkFile?.addEventListener("click", async () => {
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
 } else {
-  fetch("data/projects.json?v=20260712-2")
+  fetch("data/projects.json?v=20260712-3")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();

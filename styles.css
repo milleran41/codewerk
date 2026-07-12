@@ -657,11 +657,48 @@ h2 {
 }
 
 .project-card h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
   margin: 0 0 14px;
   font-size: clamp(1.55rem, 3vw, 2.3rem);
   font-weight: 900;
   color: #ffffff;
   text-shadow: 0 0 20px rgba(255, 79, 216, 0.18);
+}
+
+.hero-requirements::before,
+.platform-icon {
+  content: "OS";
+  display: inline-grid;
+  width: 38px;
+  height: 26px;
+  place-items: center;
+  border: 1px solid rgba(53, 242, 255, 0.46);
+  border-radius: 999px;
+  color: #d8fbff;
+  background:
+    radial-gradient(circle at 26% 35%, var(--accent) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 50% 35%, var(--accent-3) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 74% 35%, var(--accent-2) 0 2px, transparent 2.5px),
+    rgba(53, 242, 255, 0.08);
+  box-shadow: 0 0 18px rgba(53, 242, 255, 0.16);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.64rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.hero-requirements::before {
+  flex: 0 0 auto;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.platform-icon {
+  flex: 0 0 auto;
+  transform: translateY(2px);
 }
 
 .project-description {
