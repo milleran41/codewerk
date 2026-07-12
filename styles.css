@@ -669,6 +669,19 @@ h2 {
   line-height: 1.75;
 }
 
+.project-platform {
+  width: fit-content;
+  margin: -2px 0 12px;
+  padding: 7px 11px;
+  border: 1px solid rgba(53, 242, 255, 0.34);
+  border-radius: 999px;
+  color: #d8fbff;
+  background: rgba(53, 242, 255, 0.08);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .features {
   display: grid;
   gap: 10px;

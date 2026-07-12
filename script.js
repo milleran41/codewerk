@@ -45,7 +45,7 @@ const ui = {
     navContacts: "Контакты",
     heroEyebrow: "GitHub Pages portfolio",
     heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
-    requirements: "System requirements: Windows 10/11",
+    requirements: "Системные требования: настольные программы — Windows 10/11. LinkVault работает в современном браузере.",
     emailEyebrow: "Send to desktop",
     emailTitle: "Email для ссылок",
     emailText:
@@ -122,7 +122,7 @@ const ui = {
     navContacts: "Contacts",
     heroEyebrow: "GitHub Pages portfolio",
     heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
-    requirements: "System requirements: Windows 10/11",
+    requirements: "System requirements: Windows 10/11 for desktop apps. LinkVault works in a modern browser.",
     emailEyebrow: "Send to desktop",
     emailTitle: "Email for links",
     emailText:
@@ -199,7 +199,7 @@ const ui = {
     navContacts: "Kontakt",
     heroEyebrow: "GitHub Pages Portfolio",
     heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
-    requirements: "Systemanforderungen: Windows 10/11",
+    requirements: "Systemanforderungen: Windows 10/11 für Desktop-Apps. LinkVault läuft in einem modernen Browser.",
     emailEyebrow: "An den Computer senden",
     emailTitle: "E-Mail für Links",
     emailText:
@@ -393,6 +393,7 @@ const localProjectsFallback = [
     status: "published",
     description:
       "Простое браузерное приложение для сохранения ссылок, заметок и скриншотов в локальной таблице без установки, сервера и аккаунта.",
+    platform: "Windows, macOS, Linux — современный браузер",
     features: [
       "Сохранение ссылок, описаний и скриншотов",
       "Страницы и категории",
@@ -485,6 +486,7 @@ const projectTranslations = {
       title: "LinkVault",
       description:
         "A simple browser app for saving links, notes and screenshots in a local table without installation, server or account.",
+      platform: "Windows, macOS, Linux — modern browser",
       features: [
         "Save links, descriptions and screenshots",
         "Pages and categories",
@@ -574,6 +576,7 @@ const projectTranslations = {
       title: "LinkVault",
       description:
         "Eine einfache Browser-App zum Speichern von Links, Notizen und Screenshots in einer lokalen Tabelle ohne Installation, Server oder Konto.",
+      platform: "Windows, macOS, Linux — moderner Browser",
       features: [
         "Links, Beschreibungen und Screenshots speichern",
         "Seiten und Kategorien",
@@ -776,6 +779,7 @@ const buildProjectCard = (project) => {
 
   const title = createElement("h3", null, project.title);
   const description = createElement("p", "project-description", project.description);
+  const platform = project.platform ? createElement("p", "project-platform", project.platform) : null;
 
   const features = createElement("ul", "features");
   project.features.forEach((feature) => {
@@ -832,7 +836,7 @@ const buildProjectCard = (project) => {
   mediaActions.append(sendToDesktop);
 
   media.append(mediaActions);
-  content.append(topline, title, description, features, contentActions);
+  content.append(topline, title, ...(platform ? [platform] : []), description, features, contentActions);
   article.append(media, content);
 
   return article;
@@ -959,7 +963,7 @@ shareLinkFile?.addEventListener("click", async () => {
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
 } else {
-  fetch("data/projects.json?v=20260712-1")
+  fetch("data/projects.json?v=20260712-2")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();
