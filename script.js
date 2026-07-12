@@ -1,5 +1,4 @@
 const projectsGrid = document.querySelector("#projectsGrid");
-const reviewsGrid = document.querySelector("#reviewsGrid");
 const year = document.querySelector("#year");
 const modalOpenButtons = document.querySelectorAll("[data-modal-open]");
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
@@ -7,6 +6,10 @@ const emailPreviewText = document.querySelector("#emailPreviewText");
 const copyEmailText = document.querySelector("#copyEmailText");
 const downloadLinkFile = document.querySelector("#downloadLinkFile");
 const shareLinkFile = document.querySelector("#shareLinkFile");
+const projectReviewsTitle = document.querySelector("#projectReviewsTitle");
+const projectReviewsSummary = document.querySelector(".reviews-modal-summary");
+const projectReviewsList = document.querySelector(".modal-reviews-list");
+const projectReviewsFeedback = document.querySelector("#projectReviewsFeedback");
 const languageButtons = document.querySelectorAll("[data-lang]");
 const languageMenu = document.querySelector(".language-menu");
 const currentLanguageLabel = document.querySelector("#currentLanguageLabel");
@@ -68,8 +71,13 @@ const ui = {
     reviewsEyebrow: "Reviews",
     reviewsTitle: "Отзывы",
     reviewsEmpty: "Пока опубликованных отзывов нет. Здесь будут показаны только отзывы, которые пользователь разрешил публиковать.",
+    reviewsButton: "Отзывы ({count})",
+    reviewsForTitle: "Отзывы: {title}",
+    reviewsSummary: "{stars} {score} ({count})",
+    reviewsSummaryEmpty: "Пока нет опубликованных отзывов для этой программы.",
     reviewProgramLabel: "Программа",
     reviewAnonymous: "Пользователь CodeWerk",
+    closeButton: "Закрыть",
     updatesEyebrow: "Updates",
     updatesTitle: "Получать уведомления",
     updatesText:
@@ -151,8 +159,13 @@ const ui = {
     reviewsEyebrow: "Reviews",
     reviewsTitle: "Reviews",
     reviewsEmpty: "There are no published reviews yet. Only reviews approved by the user will appear here.",
+    reviewsButton: "Reviews ({count})",
+    reviewsForTitle: "Reviews: {title}",
+    reviewsSummary: "{stars} {score} ({count})",
+    reviewsSummaryEmpty: "There are no published reviews for this program yet.",
     reviewProgramLabel: "Program",
     reviewAnonymous: "CodeWerk user",
+    closeButton: "Close",
     updatesEyebrow: "Updates",
     updatesTitle: "Get update notifications",
     updatesText:
@@ -234,8 +247,13 @@ const ui = {
     reviewsEyebrow: "Bewertungen",
     reviewsTitle: "Bewertungen",
     reviewsEmpty: "Es gibt noch keine veröffentlichten Bewertungen. Hier erscheinen nur Bewertungen, die zur Veröffentlichung freigegeben wurden.",
+    reviewsButton: "Bewertungen ({count})",
+    reviewsForTitle: "Bewertungen: {title}",
+    reviewsSummary: "{stars} {score} ({count})",
+    reviewsSummaryEmpty: "Für dieses Programm gibt es noch keine veröffentlichten Bewertungen.",
     reviewProgramLabel: "Programm",
     reviewAnonymous: "CodeWerk-Nutzer",
+    closeButton: "Schließen",
     updatesEyebrow: "Updates",
     updatesTitle: "Update-Benachrichtigungen",
     updatesText:
@@ -803,6 +821,11 @@ const buildProjectCard = (project) => {
     platformIcon.setAttribute("aria-label", project.platform || "Cross-platform");
     title.append(platformIcon);
   }
+  const projectReviews = getPublishedReviewsForProject(project);
+  if (projectReviews.length) {
+    const ratingSummary = createElement("span", "project-rating", buildReviewsSummary(projectReviews));
+    title.append(ratingSummary);
+  }
   const description = createElement("p", "project-description", project.description);
   const platform = project.platform ? createElement("p", "project-platform", project.platform) : null;
 
@@ -841,8 +864,12 @@ const buildProjectCard = (project) => {
   feedback.target = "_blank";
   feedback.rel = "noopener";
 
+  const reviews = createElement("button", "button button-ghost reviews-button", t("reviewsButton", { count: projectReviews.length }));
+  reviews.type = "button";
+  reviews.addEventListener("click", () => openProjectReviews(project));
+
   mediaActions.append(download, updates);
-  contentActions.append(feedback);
+  contentActions.append(feedback, reviews);
 
   if (project.installSteps?.length) {
     const install = createElement("button", "button button-ghost", t("install"));
@@ -870,36 +897,112 @@ const buildProjectCard = (project) => {
 const isReviewPublished = (review) =>
   review?.published === true || review?.status === "published";
 
+const normalizeReviewKey = (value) => String(value || "").trim().toLowerCase();
+
+const getProjectReviewKeys = (project) =>
+  [project.id, project.title, updatesProgramNames[project.id]]
+    .filter(Boolean)
+    .map(normalizeReviewKey);
+
+const getPublishedReviewsForProject = (project) => {
+  const keys = getProjectReviewKeys(project);
+  return currentReviews.filter((review) => {
+    if (!isReviewPublished(review)) return false;
+    const reviewKeys = [
+      review.projectId,
+      review.programId,
+      review.program,
+      review.title
+    ].filter(Boolean).map(normalizeReviewKey);
+    return reviewKeys.some((key) => keys.includes(key));
+  });
+};
+
+const getReviewScore = (review) => {
+  const raw = review.score ?? review.ratingValue ?? review.stars ?? review.rating;
+  if (typeof raw === "number") return Math.max(1, Math.min(5, raw));
+
+  const text = String(raw || "").trim().toLowerCase();
+  const numeric = Number.parseFloat(text.replace(",", "."));
+  if (Number.isFinite(numeric)) return Math.max(1, Math.min(5, numeric));
+
+  if (text.includes("⭐⭐⭐⭐⭐")) return 5;
+  if (text.includes("⭐⭐⭐⭐")) return 4;
+  if (text.includes("⭐⭐⭐")) return 3;
+  if (text.includes("⭐⭐")) return 2;
+  if (text.includes("⭐")) return 1;
+  if (text.includes("отлич") || text.includes("excellent") || text.includes("sehr gut")) return 5;
+  if (text.includes("хорош") || text.includes("good") || text.includes("gut")) return 4;
+  if (text.includes("норм") || text.includes("normal") || text.includes("okay")) return 3;
+  if (text.includes("проблем") || text.includes("problem")) return 2;
+  return null;
+};
+
+const getAverageScore = (reviews) => {
+  const scores = reviews.map(getReviewScore).filter((score) => Number.isFinite(score));
+  if (!scores.length) return null;
+  return scores.reduce((sum, score) => sum + score, 0) / scores.length;
+};
+
+const renderStars = (score) => {
+  if (!Number.isFinite(score)) return "☆☆☆☆☆";
+  const rounded = Math.round(score);
+  return `${"★".repeat(rounded)}${"☆".repeat(5 - rounded)}`;
+};
+
+const getPublicReviewAuthor = (review) => {
+  const author = String(review.author || review.name || "").trim();
+  if (!author || author.includes("@")) return t("reviewAnonymous");
+  return author;
+};
+
 const buildReviewCard = (review) => {
   const card = createElement("article", "review-card");
   const meta = createElement("div", "review-meta");
-  const program = createElement("span", null, `${t("reviewProgramLabel")}: ${review.program || "CodeWerk"}`);
-  const rating = createElement("strong", null, review.rating || "");
-  meta.append(program);
-  if (review.rating) meta.append(rating);
+  const score = getReviewScore(review);
+  const rating = createElement("strong", null, Number.isFinite(score) ? renderStars(score) : review.rating || "");
+  if (rating.textContent) meta.append(rating);
 
   const text = createElement("p", "review-text", review.text || review.feedback || "");
-  const author = createElement("p", "review-author", review.author || t("reviewAnonymous"));
+  const author = createElement("p", "review-author", getPublicReviewAuthor(review));
 
   card.append(meta, text, author);
   return card;
 };
 
-const renderReviews = (reviews) => {
-  currentReviews = reviews;
-  if (!reviewsGrid) return;
+const buildReviewsSummary = (reviews) => {
+  const average = getAverageScore(reviews);
+  if (!Number.isFinite(average)) return t("reviewsSummaryEmpty");
+  return t("reviewsSummary", {
+    stars: renderStars(average),
+    score: average.toFixed(1),
+    count: reviews.length
+  });
+};
 
-  const publishedReviews = reviews.filter(isReviewPublished);
-  reviewsGrid.replaceChildren();
+const openProjectReviews = (project) => {
+  const reviews = getPublishedReviewsForProject(project);
+  if (!projectReviewsTitle || !projectReviewsSummary || !projectReviewsList || !projectReviewsFeedback) return;
 
-  if (!publishedReviews.length) {
-    reviewsGrid.append(createElement("p", "reviews-empty", t("reviewsEmpty")));
-    return;
+  projectReviewsTitle.textContent = t("reviewsForTitle", { title: project.title });
+  projectReviewsSummary.textContent = buildReviewsSummary(reviews);
+  projectReviewsFeedback.href = buildFeedbackLink(project);
+  projectReviewsList.replaceChildren();
+
+  if (!reviews.length) {
+    projectReviewsList.append(createElement("p", "reviews-empty", t("reviewsSummaryEmpty")));
+  } else {
+    reviews.forEach((review) => {
+      projectReviewsList.append(buildReviewCard(review));
+    });
   }
 
-  publishedReviews.forEach((review) => {
-    reviewsGrid.append(buildReviewCard(review));
-  });
+  openModal("projectReviewsModal");
+};
+
+const setReviews = (reviews) => {
+  currentReviews = reviews;
+  if (currentProjects.length) renderProjects(currentProjects);
 };
 
 const renderProjects = (projects) => {
@@ -961,7 +1064,6 @@ languageButtons.forEach((button) => {
     localStorage.setItem(languageStorageKey, currentLanguage);
     applyStaticTranslations();
     if (currentProjects.length) renderProjects(currentProjects);
-    renderReviews(currentReviews);
     languageMenu?.removeAttribute("open");
   });
 });
@@ -1023,7 +1125,7 @@ shareLinkFile?.addEventListener("click", async () => {
 
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
-  renderReviews(localReviewsFallback);
+  setReviews(localReviewsFallback);
 } else {
   fetch("data/projects.json?v=20260712-3")
     .then((response) => {
@@ -1042,6 +1144,6 @@ if (window.location.protocol === "file:") {
       if (!response.ok) throw new Error("Не удалось загрузить reviews.json");
       return response.json();
     })
-    .then(renderReviews)
-    .catch(() => renderReviews([]));
+    .then(setReviews)
+    .catch(() => setReviews([]));
 }

@@ -472,14 +472,9 @@ h2 {
   backdrop-filter: blur(16px);
 }
 
-.projects-grid,
-.reviews-grid {
+.projects-grid {
   display: grid;
   gap: 28px;
-}
-
-.reviews-grid {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
 .review-card,
@@ -496,7 +491,7 @@ h2 {
 .review-card {
   display: grid;
   gap: 14px;
-  padding: 24px;
+  padding: 18px;
 }
 
 .reviews-empty {
@@ -778,6 +773,18 @@ h2 {
   transform: translateY(2px);
 }
 
+.project-rating {
+  padding: 7px 10px;
+  border: 1px solid rgba(199, 255, 57, 0.38);
+  border-radius: 999px;
+  color: var(--accent);
+  background: rgba(199, 255, 57, 0.09);
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(0.72rem, 1vw, 0.88rem);
+  font-weight: 800;
+  text-shadow: none;
+}
+
 .project-description {
   color: var(--muted);
   line-height: 1.75;
@@ -853,6 +860,19 @@ h2 {
   color: #ffffff;
   border-color: rgba(255, 128, 224, 0.64);
   background: linear-gradient(135deg, rgba(255, 79, 216, 0.2), rgba(53, 242, 255, 0.1));
+}
+
+.reviews-button {
+  color: #d8fbff;
+  border-color: rgba(53, 242, 255, 0.38);
+  background: rgba(53, 242, 255, 0.08);
+}
+
+.reviews-button:hover,
+.reviews-button:focus-visible {
+  color: #ffffff;
+  border-color: rgba(53, 242, 255, 0.62);
+  background: rgba(53, 242, 255, 0.14);
 }
 
 .send-desktop {
@@ -992,6 +1012,25 @@ h2 {
   box-shadow: 0 0 48px rgba(96, 217, 255, 0.18), var(--shadow);
   transform: translateY(12px) scale(0.98);
   transition: transform 180ms ease;
+}
+
+.reviews-dialog {
+  width: min(760px, 100%);
+}
+
+.reviews-modal-summary {
+  margin: 0 0 20px;
+  color: var(--accent);
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 800;
+}
+
+.modal-reviews-list {
+  display: grid;
+  gap: 14px;
+  max-height: min(50vh, 440px);
+  overflow: auto;
+  padding-right: 4px;
 }
 
 .modal.is-open .modal-dialog {
