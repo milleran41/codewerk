@@ -45,7 +45,8 @@ const ui = {
     navContacts: "Контакты",
     heroEyebrow: "GitHub Pages portfolio",
     heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
-    requirements: "На сайте есть Windows-программы и кроссплатформенные браузерные приложения для Windows, macOS и Linux.",
+    heroWindows: "Программы для Windows 10 и 11",
+    requirements: "А также приложения, которые работают прямо в браузере на компьютерах и мобильных устройствах.",
     emailEyebrow: "Send to desktop",
     emailTitle: "Email для ссылок",
     emailText:
@@ -122,7 +123,8 @@ const ui = {
     navContacts: "Contacts",
     heroEyebrow: "GitHub Pages portfolio",
     heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
-    requirements: "The site includes Windows desktop apps and cross-platform browser apps for Windows, macOS and Linux.",
+    heroWindows: "Apps for Windows 10 and 11",
+    requirements: "Plus apps that run directly in the browser on computers and mobile devices.",
     emailEyebrow: "Send to desktop",
     emailTitle: "Email for links",
     emailText:
@@ -199,7 +201,8 @@ const ui = {
     navContacts: "Kontakt",
     heroEyebrow: "GitHub Pages Portfolio",
     heroSubtitle: "Useful apps, tools and digital projects by Andreas Miller",
-    requirements: "Die Website enthält Windows-Programme und plattformübergreifende Browser-Apps für Windows, macOS und Linux.",
+    heroWindows: "Programme für Windows 10 und 11",
+    requirements: "Außerdem Apps, die direkt im Browser auf Computern und Mobilgeräten laufen.",
     emailEyebrow: "An den Computer senden",
     emailTitle: "E-Mail für Links",
     emailText:

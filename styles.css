@@ -219,11 +219,11 @@ img {
 .hero-content {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(220px, 330px);
-  align-items: center;
+  align-items: start;
   gap: 48px;
   width: min(var(--max), calc(100% - 40px));
   margin: 0 auto;
-  padding: 138px 0 88px;
+  padding: 122px 0 92px;
 }
 
 .hero-copy {
@@ -233,6 +233,7 @@ img {
 .hero-visual {
   position: relative;
   display: grid;
+  gap: 14px;
   place-items: center;
 }
 
@@ -252,24 +253,44 @@ img {
   filter: drop-shadow(0 26px 34px rgba(0, 0, 0, 0.36));
 }
 
+.hero-windows {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 9px 13px;
+  border: 1px solid rgba(199, 255, 57, 0.5);
+  border-radius: 999px;
+  color: var(--accent);
+  background: rgba(10, 6, 22, 0.72);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  box-shadow: 0 0 28px rgba(199, 255, 57, 0.15);
+}
+
 .hero-requirements {
   position: absolute;
-  right: max(20px, calc((100vw - var(--max)) / 2));
-  bottom: 48px;
+  left: 50%;
+  bottom: 42px;
   z-index: 3;
+  max-width: min(720px, calc(100% - 40px));
   margin: 0;
-  padding: 10px 14px;
-  border: 1px solid rgba(199, 255, 57, 0.48);
+  padding: 9px 14px;
+  border: 1px solid rgba(53, 242, 255, 0.28);
   border-radius: 999px;
-  background: rgba(10, 6, 22, 0.74);
-  color: var(--accent);
+  background: rgba(10, 6, 22, 0.54);
+  color: #d8fbff;
   font-family: "JetBrains Mono", monospace;
-  font-size: 0.86rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.02em;
+  text-align: center;
   box-shadow:
-    0 0 0 1px rgba(255, 79, 216, 0.12),
-    0 0 28px rgba(199, 255, 57, 0.16);
+    0 0 0 1px rgba(255, 79, 216, 0.08),
+    0 0 24px rgba(53, 242, 255, 0.1);
+  transform: translateX(-50%);
 }
 
 .eyebrow {
@@ -668,9 +689,7 @@ h2 {
   text-shadow: 0 0 20px rgba(255, 79, 216, 0.18);
 }
 
-.hero-requirements::before,
 .platform-icon {
-  content: "OS";
   display: inline-grid;
   width: 38px;
   height: 26px;
@@ -688,12 +707,6 @@ h2 {
   font-size: 0.64rem;
   font-weight: 900;
   line-height: 1;
-}
-
-.hero-requirements::before {
-  flex: 0 0 auto;
-  margin-right: 10px;
-  vertical-align: middle;
 }
 
 .platform-icon {
@@ -1096,7 +1109,6 @@ body.modal-open {
     grid-template-columns: 1fr;
     grid-template-areas:
       "copy"
-      "requirements"
       "visual";
     padding: 92px 0 84px;
   }
@@ -1116,11 +1128,12 @@ body.modal-open {
 
   .hero-requirements {
     position: relative;
-    grid-area: requirements;
+    left: auto;
     right: auto;
     bottom: auto;
     width: fit-content;
     margin: -10px 0 34px;
+    transform: none;
   }
 
   .section {
