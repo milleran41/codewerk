@@ -472,9 +472,64 @@ h2 {
   backdrop-filter: blur(16px);
 }
 
-.projects-grid {
+.projects-grid,
+.reviews-grid {
   display: grid;
   gap: 28px;
+}
+
+.reviews-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.review-card,
+.reviews-empty {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(53, 242, 255, 0.08), rgba(255, 79, 216, 0.07)),
+    var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.review-card {
+  display: grid;
+  gap: 14px;
+  padding: 24px;
+}
+
+.reviews-empty {
+  padding: 24px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.review-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted-2);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.76rem;
+}
+
+.review-meta strong {
+  color: var(--accent);
+}
+
+.review-text {
+  margin: 0;
+  color: #f7efff;
+  line-height: 1.7;
+}
+
+.review-author {
+  margin: 0;
+  color: var(--muted-2);
+  font-size: 0.92rem;
 }
 
 .email-registration {
@@ -671,12 +726,6 @@ h2 {
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-}
-
-.anchor-link {
-  color: var(--accent-3);
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.86rem;
 }
 
 .project-card h3 {

@@ -1,4 +1,5 @@
 const projectsGrid = document.querySelector("#projectsGrid");
+const reviewsGrid = document.querySelector("#reviewsGrid");
 const year = document.querySelector("#year");
 const modalOpenButtons = document.querySelectorAll("[data-modal-open]");
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
@@ -12,6 +13,7 @@ const currentLanguageLabel = document.querySelector("#currentLanguageLabel");
 const languageStorageKey = "codewerkLanguage";
 let currentLinkFile = null;
 let currentProjects = [];
+let currentReviews = [];
 
 const supportedLanguages = ["ru", "en", "de"];
 const languageLabels = {
@@ -63,6 +65,11 @@ const ui = {
     projectsTitle: "Мои программы",
     noProjects: "Пока нет опубликованных проектов для отображения.",
     loadError: "Не удалось загрузить список проектов. Проверьте файл data/projects.json.",
+    reviewsEyebrow: "Reviews",
+    reviewsTitle: "Отзывы",
+    reviewsEmpty: "Пока опубликованных отзывов нет. Здесь будут показаны только отзывы, которые пользователь разрешил публиковать.",
+    reviewProgramLabel: "Программа",
+    reviewAnonymous: "Пользователь CodeWerk",
     updatesEyebrow: "Updates",
     updatesTitle: "Получать уведомления",
     updatesText:
@@ -141,6 +148,11 @@ const ui = {
     projectsTitle: "My programs",
     noProjects: "There are no published projects to show yet.",
     loadError: "Could not load the project list. Please check data/projects.json.",
+    reviewsEyebrow: "Reviews",
+    reviewsTitle: "Reviews",
+    reviewsEmpty: "There are no published reviews yet. Only reviews approved by the user will appear here.",
+    reviewProgramLabel: "Program",
+    reviewAnonymous: "CodeWerk user",
     updatesEyebrow: "Updates",
     updatesTitle: "Get update notifications",
     updatesText:
@@ -219,6 +231,11 @@ const ui = {
     projectsTitle: "Meine Programme",
     noProjects: "Es gibt noch keine veröffentlichten Projekte zum Anzeigen.",
     loadError: "Die Projektliste konnte nicht geladen werden. Bitte prüfen Sie data/projects.json.",
+    reviewsEyebrow: "Bewertungen",
+    reviewsTitle: "Bewertungen",
+    reviewsEmpty: "Es gibt noch keine veröffentlichten Bewertungen. Hier erscheinen nur Bewertungen, die zur Veröffentlichung freigegeben wurden.",
+    reviewProgramLabel: "Programm",
+    reviewAnonymous: "CodeWerk-Nutzer",
     updatesEyebrow: "Updates",
     updatesTitle: "Update-Benachrichtigungen",
     updatesText:
@@ -413,6 +430,8 @@ const localProjectsFallback = [
     qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#linkvault"
   }
 ];
+
+const localReviewsFallback = [];
 
 const projectTranslations = {
   en: {
@@ -776,11 +795,6 @@ const buildProjectCard = (project) => {
   const topline = createElement("div", "project-topline");
   topline.append(createElement("span", "status", t("published")));
 
-  const anchor = createElement("a", "anchor-link", `#${project.id}`);
-  anchor.href = `#${project.id}`;
-  anchor.setAttribute("aria-label", t("directLink", { title: project.title }));
-  topline.append(anchor);
-
   const title = createElement("h3", null);
   title.append(document.createTextNode(project.title));
   if (project.crossPlatform) {
@@ -853,6 +867,41 @@ const buildProjectCard = (project) => {
   return article;
 };
 
+const isReviewPublished = (review) =>
+  review?.published === true || review?.status === "published";
+
+const buildReviewCard = (review) => {
+  const card = createElement("article", "review-card");
+  const meta = createElement("div", "review-meta");
+  const program = createElement("span", null, `${t("reviewProgramLabel")}: ${review.program || "CodeWerk"}`);
+  const rating = createElement("strong", null, review.rating || "");
+  meta.append(program);
+  if (review.rating) meta.append(rating);
+
+  const text = createElement("p", "review-text", review.text || review.feedback || "");
+  const author = createElement("p", "review-author", review.author || t("reviewAnonymous"));
+
+  card.append(meta, text, author);
+  return card;
+};
+
+const renderReviews = (reviews) => {
+  currentReviews = reviews;
+  if (!reviewsGrid) return;
+
+  const publishedReviews = reviews.filter(isReviewPublished);
+  reviewsGrid.replaceChildren();
+
+  if (!publishedReviews.length) {
+    reviewsGrid.append(createElement("p", "reviews-empty", t("reviewsEmpty")));
+    return;
+  }
+
+  publishedReviews.forEach((review) => {
+    reviewsGrid.append(buildReviewCard(review));
+  });
+};
+
 const renderProjects = (projects) => {
   currentProjects = projects;
   const publishedProjects = projects.filter((project) => project.status === "published").map(translateProject);
@@ -912,6 +961,7 @@ languageButtons.forEach((button) => {
     localStorage.setItem(languageStorageKey, currentLanguage);
     applyStaticTranslations();
     if (currentProjects.length) renderProjects(currentProjects);
+    renderReviews(currentReviews);
     languageMenu?.removeAttribute("open");
   });
 });
@@ -973,6 +1023,7 @@ shareLinkFile?.addEventListener("click", async () => {
 
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
+  renderReviews(localReviewsFallback);
 } else {
   fetch("data/projects.json?v=20260712-3")
     .then((response) => {
@@ -985,4 +1036,12 @@ if (window.location.protocol === "file:") {
         createElement("p", "noscript", t("loadError"))
       );
     });
+
+  fetch("data/reviews.json?v=20260712-1")
+    .then((response) => {
+      if (!response.ok) throw new Error("Не удалось загрузить reviews.json");
+      return response.json();
+    })
+    .then(renderReviews)
+    .catch(() => renderReviews([]));
 }
