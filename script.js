@@ -10,6 +10,11 @@ const projectReviewsTitle = document.querySelector("#projectReviewsTitle");
 const projectReviewsSummary = document.querySelector(".reviews-modal-summary");
 const projectReviewsList = document.querySelector(".modal-reviews-list");
 const projectReviewsFeedback = document.querySelector("#projectReviewsFeedback");
+const projectRatingTitle = document.querySelector("#projectRatingTitle");
+const ratingChoice = document.querySelector(".rating-choice");
+const ratingStatus = document.querySelector(".rating-status");
+const ratingStats = document.querySelector(".rating-stats");
+const ratingTotal = document.querySelector(".rating-total");
 const languageButtons = document.querySelectorAll("[data-lang]");
 const languageMenu = document.querySelector(".language-menu");
 const currentLanguageLabel = document.querySelector("#currentLanguageLabel");
@@ -17,6 +22,7 @@ const languageStorageKey = "codewerkLanguage";
 let currentLinkFile = null;
 let currentProjects = [];
 let currentReviews = [];
+let currentRatings = [];
 
 const supportedLanguages = ["ru", "en", "de"];
 const languageLabels = {
@@ -30,6 +36,9 @@ const downloadRequestFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScBh9m9
 const downloadRequestProgramEntry = "entry.881234180";
 const feedbackFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScKZCufK_qzJg-ICKlOyYXG8z4KMNLlm7bK7qvIQGdZY-CHtw/viewform";
 const feedbackProgramEntry = "entry.853632586";
+// TODO: Paste the Google Apps Script Web App URL here after publishing the ratings script.
+const ratingSubmitUrl = "";
+const ratingStoragePrefix = "codewerkRating:";
 const updatesProgramNames = {
   cookbook: "Taste & Trace / Кулинарная книга",
   timer: "Timer",
@@ -75,6 +84,15 @@ const ui = {
     reviewsForTitle: "Отзывы: {title}",
     reviewsSummary: "{stars} {score} ({count})",
     reviewsSummaryEmpty: "Пока нет опубликованных отзывов для этой программы.",
+    ratingEyebrow: "Rating",
+    ratingTitle: "Оценки пользователей",
+    ratingButton: "☆ ☆ ☆ ☆ ☆ Оценить",
+    ratingForTitle: "Оценки: {title}",
+    ratingSubmitHint: "Выберите количество звёзд.",
+    ratingThanks: "Спасибо за оценку!",
+    ratingAlreadySent: "Спасибо, оценка уже принята в этой вкладке.",
+    ratingTotal: "Всего оценок: {count}",
+    ratingAria: "Оценить {title}",
     reviewProgramLabel: "Программа",
     reviewAnonymous: "Пользователь CodeWerk",
     closeButton: "Закрыть",
@@ -163,6 +181,15 @@ const ui = {
     reviewsForTitle: "Reviews: {title}",
     reviewsSummary: "{stars} {score} ({count})",
     reviewsSummaryEmpty: "There are no published reviews for this program yet.",
+    ratingEyebrow: "Rating",
+    ratingTitle: "User ratings",
+    ratingButton: "☆ ☆ ☆ ☆ ☆ Rate",
+    ratingForTitle: "Ratings: {title}",
+    ratingSubmitHint: "Choose a star rating.",
+    ratingThanks: "Thank you for rating!",
+    ratingAlreadySent: "Thank you, this tab has already sent a rating.",
+    ratingTotal: "Total ratings: {count}",
+    ratingAria: "Rate {title}",
     reviewProgramLabel: "Program",
     reviewAnonymous: "CodeWerk user",
     closeButton: "Close",
@@ -251,6 +278,15 @@ const ui = {
     reviewsForTitle: "Bewertungen: {title}",
     reviewsSummary: "{stars} {score} ({count})",
     reviewsSummaryEmpty: "Für dieses Programm gibt es noch keine veröffentlichten Bewertungen.",
+    ratingEyebrow: "Rating",
+    ratingTitle: "Nutzerbewertungen",
+    ratingButton: "☆ ☆ ☆ ☆ ☆ Bewerten",
+    ratingForTitle: "Bewertungen: {title}",
+    ratingSubmitHint: "Wählen Sie die Anzahl der Sterne.",
+    ratingThanks: "Danke für Ihre Bewertung!",
+    ratingAlreadySent: "Danke, in diesem Tab wurde bereits bewertet.",
+    ratingTotal: "Bewertungen insgesamt: {count}",
+    ratingAria: "{title} bewerten",
     reviewProgramLabel: "Programm",
     reviewAnonymous: "CodeWerk-Nutzer",
     closeButton: "Schließen",
@@ -451,6 +487,7 @@ const localProjectsFallback = [
 ];
 
 const localReviewsFallback = [];
+const localRatingsFallback = [];
 
 const projectTranslations = {
   en: {
@@ -906,7 +943,18 @@ const buildProjectCard = (project) => {
     event.preventDefault();
     openEmailPreview(project);
   });
-  mediaActions.append(sendToDesktop);
+
+  const quickRating = createElement("button", "rating-trigger", t("ratingButton"));
+  quickRating.type = "button";
+  quickRating.setAttribute("aria-label", t("ratingAria", { title: project.title }));
+  quickRating.addEventListener("click", () => openProjectRating(project));
+  quickRating.addEventListener("mouseenter", () => {
+    if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      openProjectRating(project);
+    }
+  });
+
+  mediaActions.append(sendToDesktop, quickRating);
 
   media.append(mediaActions);
   content.append(topline, title, ...(platform ? [platform] : []), description, features, contentActions);
@@ -1021,9 +1069,180 @@ const openProjectReviews = (project) => {
   openModal("projectReviewsModal");
 };
 
+const getRatingStorageKey = (project) => `${ratingStoragePrefix}${project.id}`;
+
+const hasRatedThisSession = (project) => {
+  try {
+    return sessionStorage.getItem(getRatingStorageKey(project)) === "1";
+  } catch {
+    return false;
+  }
+};
+
+const rememberRatingThisSession = (project) => {
+  try {
+    sessionStorage.setItem(getRatingStorageKey(project), "1");
+  } catch {
+    // Session storage is optional; voting still works if the browser blocks it.
+  }
+};
+
+const getRatingProjectKeys = (project) => getProjectReviewKeys(project);
+
+const getRatingScore = (rating) => {
+  const raw = rating.score ?? rating.rating ?? rating.value;
+  const score = Number(raw);
+  return Number.isFinite(score) ? Math.max(1, Math.min(5, Math.round(score))) : null;
+};
+
+const getRatingCountsForProject = (project) => {
+  const keys = getRatingProjectKeys(project);
+  const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+  currentRatings.forEach((rating) => {
+    const ratingKeys = [
+      rating.projectId,
+      rating.programId,
+      rating.program,
+      rating.title
+    ].filter(Boolean).map(normalizeReviewKey);
+
+    if (!ratingKeys.some((key) => keys.includes(key))) return;
+
+    if (rating.counts && typeof rating.counts === "object") {
+      [1, 2, 3, 4, 5].forEach((score) => {
+        counts[score] += Number(rating.counts[String(score)] || rating.counts[score] || 0);
+      });
+      return;
+    }
+
+    const score = getRatingScore(rating);
+    if (score) counts[score] += 1;
+  });
+
+  return counts;
+};
+
+const addLocalRating = (project, score) => {
+  let rating = currentRatings.find((item) =>
+    getRatingProjectKeys(project).includes(normalizeReviewKey(item.projectId || item.programId || item.program || item.title))
+  );
+
+  if (!rating) {
+    rating = { projectId: project.id, program: updatesProgramNames[project.id] || project.title, counts: {} };
+    currentRatings.push(rating);
+  }
+
+  rating.counts = rating.counts || {};
+  rating.counts[String(score)] = Number(rating.counts[String(score)] || 0) + 1;
+};
+
+const getRatingStarWord = (score) => {
+  if (currentLanguage === "ru") {
+    if (score === 1) return "звезда";
+    if (score >= 2 && score <= 4) return "звезды";
+    return "звёзд";
+  }
+  if (currentLanguage === "de") return score === 1 ? "Stern" : "Sterne";
+  return score === 1 ? "star" : "stars";
+};
+
+const renderRatingStats = (project) => {
+  if (!ratingStats || !ratingTotal) return;
+
+  const counts = getRatingCountsForProject(project);
+  const maxCount = Math.max(...Object.values(counts), 1);
+  const total = Object.values(counts).reduce((sum, count) => sum + count, 0);
+
+  ratingStats.replaceChildren();
+  [5, 4, 3, 2, 1].forEach((score) => {
+    const row = createElement("div", "rating-stat-row");
+    const label = createElement("span", "rating-stat-label", `${score} ${getRatingStarWord(score)}`);
+    const bar = createElement("span", "rating-stat-bar");
+    const fill = createElement("span");
+    fill.style.width = `${(counts[score] / maxCount) * 100}%`;
+    const count = createElement("strong", null, String(counts[score]));
+
+    bar.append(fill);
+    row.append(label, bar, count);
+    ratingStats.append(row);
+  });
+
+  ratingTotal.textContent = t("ratingTotal", { count: total });
+};
+
+const setRatingChoiceState = (score) => {
+  ratingChoice?.querySelectorAll(".rating-star").forEach((button) => {
+    const buttonScore = Number(button.dataset.score);
+    button.classList.toggle("is-selected", buttonScore <= score);
+  });
+};
+
+const submitProjectRating = (project, score) => {
+  if (!project || hasRatedThisSession(project)) {
+    if (ratingStatus) ratingStatus.textContent = t("ratingAlreadySent");
+    return;
+  }
+
+  rememberRatingThisSession(project);
+  addLocalRating(project, score);
+  renderRatingStats(project);
+  setRatingChoiceState(score);
+  if (ratingStatus) ratingStatus.textContent = t("ratingThanks");
+
+  if (!ratingSubmitUrl) return;
+
+  const payload = {
+    date: new Date().toISOString(),
+    projectId: project.id,
+    program: updatesProgramNames[project.id] || project.title,
+    rating: score
+  };
+
+  fetch(ratingSubmitUrl, {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "text/plain;charset=utf-8"
+    },
+    body: JSON.stringify(payload)
+  }).catch(() => {
+    // The visitor should not see a technical error if Google is slow or unavailable.
+  });
+};
+
+const openProjectRating = (project) => {
+  if (!projectRatingTitle || !ratingChoice || !ratingStatus || !ratingStats || !ratingTotal) return;
+
+  projectRatingTitle.textContent = t("ratingForTitle", { title: project.title });
+  ratingChoice.replaceChildren();
+
+  const alreadyRated = hasRatedThisSession(project);
+  [1, 2, 3, 4, 5].forEach((score) => {
+    const star = createElement("button", "rating-star", "★");
+    star.type = "button";
+    star.dataset.score = String(score);
+    star.setAttribute("aria-label", `${score} ${getRatingStarWord(score)}`);
+    star.disabled = alreadyRated;
+    star.addEventListener("click", () => submitProjectRating(project, score));
+    star.addEventListener("mouseenter", () => setRatingChoiceState(score));
+    star.addEventListener("focus", () => setRatingChoiceState(score));
+    ratingChoice.append(star);
+  });
+
+  ratingChoice.addEventListener("mouseleave", () => setRatingChoiceState(0), { once: true });
+  ratingStatus.textContent = alreadyRated ? t("ratingAlreadySent") : t("ratingSubmitHint");
+  renderRatingStats(project);
+  openModal("projectRatingModal");
+};
+
 const setReviews = (reviews) => {
   currentReviews = reviews;
   if (currentProjects.length) renderProjects(currentProjects);
+};
+
+const setRatings = (ratings) => {
+  currentRatings = Array.isArray(ratings) ? ratings : [];
 };
 
 const renderProjects = (projects) => {
@@ -1147,6 +1366,7 @@ shareLinkFile?.addEventListener("click", async () => {
 if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
   setReviews(localReviewsFallback);
+  setRatings(localRatingsFallback);
 } else {
   fetch("data/projects.json?v=20260713-1")
     .then((response) => {
@@ -1167,4 +1387,12 @@ if (window.location.protocol === "file:") {
     })
     .then(setReviews)
     .catch(() => setReviews([]));
+
+  fetch("data/ratings.json?v=20260713-1")
+    .then((response) => {
+      if (!response.ok) throw new Error("Не удалось загрузить ratings.json");
+      return response.json();
+    })
+    .then(setRatings)
+    .catch(() => setRatings([]));
 }
