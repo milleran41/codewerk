@@ -1429,7 +1429,7 @@ body.modal-open {
   .section,
   .hero-content,
   .footer {
-    width: min(100% - 28px, var(--max));
+    width: min(calc(100% - 28px), var(--max));
   }
 
   h1 {
@@ -1440,11 +1440,24 @@ body.modal-open {
     gap: 6px;
   }
 
+  .language-menu {
+    order: -1;
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 6px;
+    border-left: 0;
+    border-right: 1px solid rgba(199, 255, 57, 0.22);
+  }
+
   .nav-links a,
   .nav-button,
   .language-menu summary {
     padding: 9px 11px;
     font-size: 0.86rem;
+  }
+
+  .language-menu summary {
+    min-width: 58px;
   }
 
   .language-options {
