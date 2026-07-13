@@ -381,6 +381,7 @@ const localProjectsFallback = [
     status: "published",
     description:
       "Chrome-расширение с немецким календарём, праздниками по федеральным землям, интерактивной картой Германии и историческим разделом.",
+    highlightTerms: ["Chrome-расширение"],
     features: [
       "Календарь Германии с национальными и региональными праздниками",
       "Выбор федеральной земли",
@@ -493,6 +494,7 @@ const projectTranslations = {
       title: "Kalender Deutschland",
       description:
         "A Chrome extension with a German calendar, federal-state holidays, an interactive Germany map and a historical section.",
+      highlightTerms: ["Chrome extension"],
       features: [
         "German calendar with national and regional holidays",
         "Federal state selection",
@@ -583,6 +585,7 @@ const projectTranslations = {
       title: "Kalender Deutschland",
       description:
         "Eine Chrome-Erweiterung mit deutschem Kalender, Feiertagen nach Bundesländern, interaktiver Deutschlandkarte und historischem Bereich.",
+      highlightTerms: ["Chrome-Erweiterung"],
       features: [
         "Deutschlandkalender mit nationalen und regionalen Feiertagen",
         "Auswahl des Bundeslandes",
@@ -737,6 +740,23 @@ const buildEmailBody = (project) => {
   ].join("\n");
 };
 
+const appendHighlightedText = (element, text, terms = []) => {
+  if (!terms.length) {
+    element.textContent = text;
+    return;
+  }
+
+  const escapedTerms = terms.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+  const pattern = new RegExp(`(${escapedTerms.join("|")})`, "gi");
+  const parts = String(text || "").split(pattern);
+
+  parts.forEach((part) => {
+    if (!part) return;
+    const isHighlight = terms.some((term) => part.toLowerCase() === term.toLowerCase());
+    element.append(isHighlight ? createElement("span", "description-highlight", part) : document.createTextNode(part));
+  });
+};
+
 const getSafeFileName = (title) =>
   `${title.toLowerCase().replace(/[^a-z0-9]+/gi, "-").replace(/^-|-$/g, "") || "codewerk"}-links.txt`;
 
@@ -826,7 +846,8 @@ const buildProjectCard = (project) => {
     const ratingSummary = createElement("span", "project-rating", buildReviewsSummary(projectReviews));
     title.append(ratingSummary);
   }
-  const description = createElement("p", "project-description", project.description);
+  const description = createElement("p", "project-description");
+  appendHighlightedText(description, project.description, project.highlightTerms);
   const platform = project.platform ? createElement("p", "project-platform", project.platform) : null;
 
   const features = createElement("ul", "features");
@@ -1127,7 +1148,7 @@ if (window.location.protocol === "file:") {
   renderProjects(localProjectsFallback);
   setReviews(localReviewsFallback);
 } else {
-  fetch("data/projects.json?v=20260712-4")
+  fetch("data/projects.json?v=20260713-1")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();

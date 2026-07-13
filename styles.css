@@ -790,6 +790,17 @@ h2 {
   line-height: 1.75;
 }
 
+.description-highlight {
+  display: inline-block;
+  margin-right: 4px;
+  padding: 2px 8px;
+  border: 1px solid rgba(199, 255, 57, 0.46);
+  border-radius: 999px;
+  color: var(--accent);
+  background: rgba(199, 255, 57, 0.1);
+  font-weight: 900;
+}
+
 .project-platform {
   width: fit-content;
   margin: -2px 0 12px;
