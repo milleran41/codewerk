@@ -36,8 +36,7 @@ const downloadRequestFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScBh9m9
 const downloadRequestProgramEntry = "entry.881234180";
 const feedbackFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScKZCufK_qzJg-ICKlOyYXG8z4KMNLlm7bK7qvIQGdZY-CHtw/viewform";
 const feedbackProgramEntry = "entry.853632586";
-// TODO: Paste the Google Apps Script Web App URL here after publishing the ratings script.
-const ratingSubmitUrl = "";
+const ratingSubmitUrl = "https://script.google.com/macros/s/AKfycbxVmeb0logeKWgl7Lw8F7wDQvLyVtvgQ82GqSx15EFuF7Rmc2iBLLNSxEfL_Ke-sM0L/exec";
 const ratingStoragePrefix = "codewerkRating:";
 const updatesProgramNames = {
   cookbook: "Taste & Trace / Кулинарная книга",
