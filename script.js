@@ -37,7 +37,7 @@ const downloadRequestProgramEntry = "entry.881234180";
 const feedbackFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLScKZCufK_qzJg-ICKlOyYXG8z4KMNLlm7bK7qvIQGdZY-CHtw/viewform";
 const feedbackProgramEntry = "entry.853632586";
 const ratingSubmitUrl = "https://script.google.com/macros/s/AKfycbxVmeb0logeKWgl7Lw8F7wDQvLyVtvgQ82GqSx15EFuF7Rmc2iBLLNSxEfL_Ke-sM0L/exec";
-const ratingStoragePrefix = "codewerkRating:";
+const ratingStoragePrefix = "codewerkRatingScore:";
 const updatesProgramNames = {
   cookbook: "Taste & Trace / Кулинарная книга",
   timer: "Timer",
@@ -1073,17 +1073,22 @@ const openProjectReviews = (project) => {
 
 const getRatingStorageKey = (project) => `${ratingStoragePrefix}${project.id}`;
 
-const hasRatedThisSession = (project) => {
+const getSessionRating = (project) => {
   try {
-    return sessionStorage.getItem(getRatingStorageKey(project)) === "1";
+    const score = Number(sessionStorage.getItem(getRatingStorageKey(project)));
+    return Number.isFinite(score) && score >= 1 && score <= 5 ? Math.round(score) : null;
   } catch {
-    return false;
+    return null;
   }
 };
 
-const rememberRatingThisSession = (project) => {
+const hasRatedThisSession = (project) => {
+  return Number.isFinite(getSessionRating(project));
+};
+
+const rememberRatingThisSession = (project, score) => {
   try {
-    sessionStorage.setItem(getRatingStorageKey(project), "1");
+    sessionStorage.setItem(getRatingStorageKey(project), String(score));
   } catch {
     // Session storage is optional; voting still works if the browser blocks it.
   }
@@ -1121,6 +1126,9 @@ const getRatingCountsForProject = (project) => {
     const score = getRatingScore(rating);
     if (score) counts[score] += 1;
   });
+
+  const sessionScore = getSessionRating(project);
+  if (sessionScore) counts[sessionScore] += 1;
 
   return counts;
 };
@@ -1204,8 +1212,7 @@ const submitProjectRating = (project, score) => {
     return;
   }
 
-  rememberRatingThisSession(project);
-  addLocalRating(project, score);
+  rememberRatingThisSession(project, score);
   renderRatingStats(project);
   setRatingChoiceState(score);
   if (ratingStatus) ratingStatus.textContent = t("ratingThanks");
