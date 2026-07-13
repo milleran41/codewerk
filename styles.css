@@ -1003,6 +1003,31 @@ h2 {
   font-weight: 800;
 }
 
+.rating-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  z-index: 40;
+  max-width: min(420px, calc(100% - 32px));
+  padding: 16px 24px;
+  border: 1px solid rgba(199, 255, 57, 0.62);
+  border-radius: 999px;
+  color: #160520;
+  background: linear-gradient(135deg, var(--accent), #78f529);
+  box-shadow: 0 22px 48px rgba(199, 255, 57, 0.24);
+  font-weight: 900;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 18px) scale(0.96);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.rating-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
 .code-word {
   font-family: "JetBrains Mono", monospace;
   color: var(--accent);

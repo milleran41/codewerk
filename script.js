@@ -90,6 +90,7 @@ const ui = {
     ratingSubmitHint: "Выберите количество звёзд.",
     ratingThanks: "Спасибо за оценку!",
     ratingAlreadySent: "Спасибо, оценка уже принята в этой вкладке.",
+    ratingSavedToast: "Спасибо за оценку!",
     ratingTotal: "Всего оценок: {count}",
     ratingAria: "Оценить {title}",
     reviewProgramLabel: "Программа",
@@ -187,6 +188,7 @@ const ui = {
     ratingSubmitHint: "Choose a star rating.",
     ratingThanks: "Thank you for rating!",
     ratingAlreadySent: "Thank you, this tab has already sent a rating.",
+    ratingSavedToast: "Thank you for rating!",
     ratingTotal: "Total ratings: {count}",
     ratingAria: "Rate {title}",
     reviewProgramLabel: "Program",
@@ -284,6 +286,7 @@ const ui = {
     ratingSubmitHint: "Wählen Sie die Anzahl der Sterne.",
     ratingThanks: "Danke für Ihre Bewertung!",
     ratingAlreadySent: "Danke, in diesem Tab wurde bereits bewertet.",
+    ratingSavedToast: "Danke für Ihre Bewertung!",
     ratingTotal: "Bewertungen insgesamt: {count}",
     ratingAria: "{title} bewerten",
     reviewProgramLabel: "Programm",
@@ -1177,9 +1180,27 @@ const setRatingChoiceState = (score) => {
   });
 };
 
+const showRatingToast = (message = t("ratingSavedToast")) => {
+  const oldToast = document.querySelector(".rating-toast");
+  oldToast?.remove();
+
+  const toast = createElement("div", "rating-toast", message);
+  document.body.append(toast);
+
+  requestAnimationFrame(() => {
+    toast.classList.add("is-visible");
+  });
+
+  window.setTimeout(() => {
+    toast.classList.remove("is-visible");
+    window.setTimeout(() => toast.remove(), 240);
+  }, 2300);
+};
+
 const submitProjectRating = (project, score) => {
   if (!project || hasRatedThisSession(project)) {
     if (ratingStatus) ratingStatus.textContent = t("ratingAlreadySent");
+    showRatingToast(t("ratingAlreadySent"));
     return;
   }
 
@@ -1188,6 +1209,12 @@ const submitProjectRating = (project, score) => {
   renderRatingStats(project);
   setRatingChoiceState(score);
   if (ratingStatus) ratingStatus.textContent = t("ratingThanks");
+  showRatingToast();
+
+  window.setTimeout(() => {
+    const modal = document.querySelector("#projectRatingModal.is-open");
+    if (modal) closeModal(modal);
+  }, 850);
 
   if (!ratingSubmitUrl) return;
 
@@ -1233,6 +1260,14 @@ const openProjectRating = (project) => {
   ratingStatus.textContent = alreadyRated ? t("ratingAlreadySent") : t("ratingSubmitHint");
   renderRatingStats(project);
   openModal("projectRatingModal");
+
+  const modal = document.querySelector("#projectRatingModal");
+  const dialog = modal?.querySelector(".rating-dialog");
+  if (dialog && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    dialog.onmouseleave = () => {
+      if (modal.classList.contains("is-open")) closeModal(modal);
+    };
+  }
 };
 
 const setReviews = (reviews) => {
