@@ -1,0 +1,16 @@
+Privacy Policy for FineTimer
+
+FineTimer does not collect, store, transmit, sell, or share personal data.
+
+The application works locally on the user's Windows device. It does not require registration, does not use user accounts, and does not access contacts, location, camera, microphone, documents, or other personal files.
+
+FineTimer does not use analytics, advertising trackers, or third-party telemetry services.
+
+If users contact the developer by email or through the CodeWerk website, their contact information is used only to respond to their request or provide support.
+
+Developer:
+CodeWerk Studio
+Andreas Miller
+Email: linksaverpro.help@gmail.com
+
+Last updated: July 16, 2026
