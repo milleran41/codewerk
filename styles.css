@@ -631,9 +631,72 @@ h2 {
   padding-top: 34px;
 }
 
+.videos-disclosure {
+  border: 1px solid rgba(53, 242, 255, 0.34);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(135deg, rgba(53, 242, 255, 0.08), rgba(255, 79, 216, 0.07) 42%, rgba(199, 255, 57, 0.05)),
+    var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(18px);
+}
+
+.videos-disclosure[open] {
+  border-color: rgba(199, 255, 57, 0.46);
+}
+
+.videos-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 24px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.videos-summary::-webkit-details-marker {
+  display: none;
+}
+
+.videos-summary-copy {
+  display: grid;
+  gap: 7px;
+}
+
+.videos-summary-title {
+  color: #ffffff;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.videos-summary-text {
+  max-width: 760px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.videos-summary-action {
+  flex: 0 0 auto;
+  padding: 14px 18px;
+  border: 1px solid rgba(199, 255, 57, 0.72);
+  border-radius: 14px;
+  color: #160520;
+  background: linear-gradient(135deg, var(--accent), #78f529);
+  box-shadow: 0 0 0 1px rgba(199, 255, 57, 0.24), 0 18px 44px rgba(199, 255, 57, 0.18);
+  font-weight: 900;
+}
+
+.videos-disclosure[open] .videos-summary-action {
+  color: var(--accent);
+  background: rgba(199, 255, 57, 0.08);
+}
+
 .videos-grid {
   display: grid;
   gap: 18px;
+  padding: 0 24px 24px;
 }
 
 .video-card {
@@ -646,8 +709,8 @@ h2 {
   border-radius: var(--radius);
   background:
     linear-gradient(135deg, rgba(53, 242, 255, 0.08), rgba(255, 79, 216, 0.08) 48%, transparent),
-    var(--panel);
-  box-shadow: var(--shadow);
+    rgba(15, 5, 28, 0.68);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
   backdrop-filter: blur(18px);
 }
 
@@ -1428,6 +1491,16 @@ body.modal-open {
     flex-direction: column;
   }
 
+  .videos-summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .videos-summary-action {
+    width: 100%;
+    text-align: center;
+  }
+
   .support-donate {
     justify-items: start;
   }
@@ -1589,9 +1662,14 @@ body.modal-open {
   .project-card,
   .updates-panel,
   .support-panel,
+  .videos-summary,
   .modal-dialog,
   .contact-card {
     padding: 18px;
+  }
+
+  .videos-grid {
+    padding: 0 18px 18px;
   }
 
   .hero-actions,

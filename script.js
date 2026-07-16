@@ -84,6 +84,7 @@ const ui = {
     videoCardEyebrow: "YouTube",
     videoDefaultText: "Короткий обзор программы и основных возможностей.",
     videoButton: "Смотреть видео",
+    videosToggle: "Показать видео",
     reviewsEyebrow: "Reviews",
     reviewsTitle: "Отзывы",
     reviewsEmpty: "Пока опубликованных отзывов нет. Здесь будут показаны только отзывы, которые пользователь разрешил публиковать.",
@@ -188,6 +189,7 @@ const ui = {
     videoCardEyebrow: "YouTube",
     videoDefaultText: "A short overview of the program and its main features.",
     videoButton: "Watch video",
+    videosToggle: "Show videos",
     reviewsEyebrow: "Reviews",
     reviewsTitle: "Reviews",
     reviewsEmpty: "There are no published reviews yet. Only reviews approved by the user will appear here.",
@@ -292,6 +294,7 @@ const ui = {
     videoCardEyebrow: "YouTube",
     videoDefaultText: "Ein kurzer Überblick über das Programm und die wichtigsten Funktionen.",
     videoButton: "Video ansehen",
+    videosToggle: "Videos anzeigen",
     reviewsEyebrow: "Bewertungen",
     reviewsTitle: "Bewertungen",
     reviewsEmpty: "Es gibt noch keine veröffentlichten Bewertungen. Hier erscheinen nur Bewertungen, die zur Veröffentlichung freigegeben wurden.",
@@ -1502,7 +1505,7 @@ if (window.location.protocol === "file:") {
   setReviews(localReviewsFallback);
   setRatings(localRatingsFallback);
 } else {
-  fetch("data/projects.json?v=20260716-1")
+  fetch("data/projects.json?v=20260716-2")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();

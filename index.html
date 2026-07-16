@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css?v=20260716-1">
+    <link rel="stylesheet" href="styles.css?v=20260716-2">
   </head>
   <body>
     <header class="hero" id="top">
@@ -75,12 +75,17 @@
       </section>
 
       <section class="section videos-section" id="videos" hidden>
-        <div class="section-heading">
-          <p class="eyebrow" data-i18n="videosEyebrow">Video guides</p>
-          <h2 data-i18n="videosTitle">Видеообзоры</h2>
-          <p data-i18n="videosText">Короткие YouTube-видео для программ CodeWerk: как они выглядят и как ими пользоваться.</p>
-        </div>
-        <div class="videos-grid" id="videosGrid"></div>
+        <details class="videos-disclosure">
+          <summary class="videos-summary">
+            <span class="videos-summary-copy">
+              <span class="eyebrow" data-i18n="videosEyebrow">Video guides</span>
+              <span class="videos-summary-title" data-i18n="videosTitle">Видеообзоры</span>
+              <span class="videos-summary-text" data-i18n="videosText">Короткие YouTube-видео для программ CodeWerk: как они выглядят и как ими пользоваться.</span>
+            </span>
+            <span class="videos-summary-action" data-i18n="videosToggle">Показать видео</span>
+          </summary>
+          <div class="videos-grid" id="videosGrid"></div>
+        </details>
       </section>
 
       <section class="section support" id="support">
@@ -189,6 +194,6 @@
       </section>
     </div>
 
-    <script src="script.js?v=20260716-1"></script>
+    <script src="script.js?v=20260716-2"></script>
   </body>
 </html>
