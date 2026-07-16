@@ -1,6 +1,7 @@
 const projectsGrid = document.querySelector("#projectsGrid");
 const videosSection = document.querySelector("#videos");
 const videosGrid = document.querySelector("#videosGrid");
+const videosDisclosure = document.querySelector(".videos-disclosure");
 const year = document.querySelector("#year");
 const modalOpenButtons = document.querySelectorAll("[data-modal-open]");
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
@@ -1452,6 +1453,12 @@ languageButtons.forEach((button) => {
 document.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
   document.querySelectorAll(".modal.is-open").forEach(closeModal);
+});
+
+document.addEventListener("click", (event) => {
+  if (!videosDisclosure?.open) return;
+  if (videosDisclosure.contains(event.target)) return;
+  videosDisclosure.open = false;
 });
 
 applyStaticTranslations();
