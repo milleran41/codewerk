@@ -416,7 +416,7 @@ const localProjectsFallback = [
     qrImage: "assets/qr/timer.png",
     qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#timer",
     videoUrl: "https://www.youtube.com/watch?v=ZANqTWq2ok0",
-    videoDescription: "Короткий обзор FineTimer: плавающее окно, запуск, пауза и настройка времени."
+    videoDescription: "A short FineTimer overview: floating window, start, pause, and time adjustment."
   },
   {
     id: "mixlab",
@@ -800,11 +800,15 @@ const buildVideoCard = (project) => {
 
   thumb.append(createElement("span", "video-play", "▶"));
 
+  const descriptionText = project.videoDescription || t("videoDefaultText");
+  const description = createElement("p", "video-description", descriptionText);
+  description.title = descriptionText;
+
   const content = createElement("div", "video-content");
   content.append(
     createElement("p", "eyebrow", t("videoCardEyebrow")),
     createElement("h3", null, project.title),
-    createElement("p", null, project.videoDescription || t("videoDefaultText"))
+    description
   );
 
   const actions = createElement("div", "video-actions");
@@ -1505,7 +1509,7 @@ if (window.location.protocol === "file:") {
   setReviews(localReviewsFallback);
   setRatings(localRatingsFallback);
 } else {
-  fetch("data/projects.json?v=20260716-2")
+  fetch("data/projects.json?v=20260716-3")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();
