@@ -1,4 +1,6 @@
 const projectsGrid = document.querySelector("#projectsGrid");
+const videosSection = document.querySelector("#videos");
+const videosGrid = document.querySelector("#videosGrid");
 const year = document.querySelector("#year");
 const modalOpenButtons = document.querySelectorAll("[data-modal-open]");
 const modalCloseButtons = document.querySelectorAll("[data-modal-close]");
@@ -76,6 +78,12 @@ const ui = {
     projectsTitle: "Мои программы",
     noProjects: "Пока нет опубликованных проектов для отображения.",
     loadError: "Не удалось загрузить список проектов. Проверьте файл data/projects.json.",
+    videosEyebrow: "Video guides",
+    videosTitle: "Видеообзоры",
+    videosText: "Короткие YouTube-видео для программ CodeWerk: как они выглядят и как ими пользоваться.",
+    videoCardEyebrow: "YouTube",
+    videoDefaultText: "Короткий обзор программы и основных возможностей.",
+    videoButton: "Смотреть видео",
     reviewsEyebrow: "Reviews",
     reviewsTitle: "Отзывы",
     reviewsEmpty: "Пока опубликованных отзывов нет. Здесь будут показаны только отзывы, которые пользователь разрешил публиковать.",
@@ -174,6 +182,12 @@ const ui = {
     projectsTitle: "My programs",
     noProjects: "There are no published projects to show yet.",
     loadError: "Could not load the project list. Please check data/projects.json.",
+    videosEyebrow: "Video guides",
+    videosTitle: "Video guides",
+    videosText: "Short YouTube videos for CodeWerk programs: how they look and how to use them.",
+    videoCardEyebrow: "YouTube",
+    videoDefaultText: "A short overview of the program and its main features.",
+    videoButton: "Watch video",
     reviewsEyebrow: "Reviews",
     reviewsTitle: "Reviews",
     reviewsEmpty: "There are no published reviews yet. Only reviews approved by the user will appear here.",
@@ -272,6 +286,12 @@ const ui = {
     projectsTitle: "Meine Programme",
     noProjects: "Es gibt noch keine veröffentlichten Projekte zum Anzeigen.",
     loadError: "Die Projektliste konnte nicht geladen werden. Bitte prüfen Sie data/projects.json.",
+    videosEyebrow: "Video guides",
+    videosTitle: "Videoübersichten",
+    videosText: "Kurze YouTube-Videos zu CodeWerk-Programmen: wie sie aussehen und wie man sie benutzt.",
+    videoCardEyebrow: "YouTube",
+    videoDefaultText: "Ein kurzer Überblick über das Programm und die wichtigsten Funktionen.",
+    videoButton: "Video ansehen",
     reviewsEyebrow: "Bewertungen",
     reviewsTitle: "Bewertungen",
     reviewsEmpty: "Es gibt noch keine veröffentlichten Bewertungen. Hier erscheinen nur Bewertungen, die zur Veröffentlichung freigegeben wurden.",
@@ -391,7 +411,9 @@ const localProjectsFallback = [
     downloadMode: "direct",
     downloadUrl: "https://github.com/milleran41/timer/raw/main/dist/timer.exe",
     qrImage: "assets/qr/timer.png",
-    qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#timer"
+    qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#timer",
+    videoUrl: "https://www.youtube.com/watch?v=ZANqTWq2ok0",
+    videoDescription: "Короткий обзор FineTimer: плавающее окно, запуск, пауза и настройка времени."
   },
   {
     id: "mixlab",
@@ -740,6 +762,58 @@ const buildImage = (src, alt, fallbackText, className) => {
 
   wrapper.append(image);
   return wrapper;
+};
+
+const getYouTubeId = (url) => {
+  try {
+    const parsed = new URL(url);
+    if (parsed.hostname.includes("youtu.be")) return parsed.pathname.replace("/", "");
+    if (parsed.searchParams.has("v")) return parsed.searchParams.get("v");
+    const embedMatch = parsed.pathname.match(/\/embed\/([^/]+)/);
+    return embedMatch?.[1] || "";
+  } catch {
+    return "";
+  }
+};
+
+const buildVideoCard = (project) => {
+  const article = createElement("article", "video-card");
+  const videoId = getYouTubeId(project.videoUrl);
+
+  const thumb = createElement("a", "video-thumb");
+  thumb.href = project.videoUrl;
+  thumb.target = "_blank";
+  thumb.rel = "noopener";
+
+  if (videoId) {
+    const image = document.createElement("img");
+    image.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    image.alt = `YouTube: ${project.title}`;
+    image.loading = "lazy";
+    thumb.append(image);
+  } else {
+    thumb.append(createElement("div", "image-placeholder", project.title));
+  }
+
+  thumb.append(createElement("span", "video-play", "▶"));
+
+  const content = createElement("div", "video-content");
+  content.append(
+    createElement("p", "eyebrow", t("videoCardEyebrow")),
+    createElement("h3", null, project.title),
+    createElement("p", null, project.videoDescription || t("videoDefaultText"))
+  );
+
+  const actions = createElement("div", "video-actions");
+  const button = createElement("a", "button button-primary", t("videoButton"));
+  button.href = project.videoUrl;
+  button.target = "_blank";
+  button.rel = "noopener";
+  actions.append(button);
+  content.append(actions);
+
+  article.append(thumb, content);
+  return article;
 };
 
 const isDirectDownload = (url) => /\.(exe|zip|msi|dmg|pkg|appimage)(\?|#|$)/i.test(url);
@@ -1290,6 +1364,7 @@ const renderProjects = (projects) => {
   currentProjects = projects;
   const publishedProjects = projects.filter((project) => project.status === "published").map(translateProject);
   projectsGrid.replaceChildren();
+  renderVideos(publishedProjects);
 
   if (!publishedProjects.length) {
     projectsGrid.append(createElement("p", "noscript", t("noProjects")));
@@ -1305,6 +1380,24 @@ const renderProjects = (projects) => {
       document.querySelector(window.location.hash)?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
+};
+
+const renderVideos = (projects) => {
+  if (!videosSection || !videosGrid) return;
+
+  const videoProjects = projects.filter((project) => project.videoUrl);
+  videosGrid.replaceChildren();
+
+  if (!videoProjects.length) {
+    videosSection.hidden = true;
+    return;
+  }
+
+  videoProjects.forEach((project) => {
+    videosGrid.append(buildVideoCard(project));
+  });
+
+  videosSection.hidden = false;
 };
 
 const openModal = (modalId) => {
@@ -1409,7 +1502,7 @@ if (window.location.protocol === "file:") {
   setReviews(localReviewsFallback);
   setRatings(localRatingsFallback);
 } else {
-  fetch("data/projects.json?v=20260713-1")
+  fetch("data/projects.json?v=20260716-1")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();
