@@ -14,7 +14,7 @@
     ],
     "screenshot": "assets/screenshots/cookbook.png",
     "githubUrl": "https://github.com/milleran41/taste-and-trace-download",
-    "downloadMode": "request",
+    "downloadMode": "direct",
     "downloadUrl": "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.0/Taste.Trace-Portable-0.0.0-x64.exe",
     "qrImage": "assets/qr/cookbook.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#cookbook"
