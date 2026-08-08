@@ -382,13 +382,14 @@ const localProjectsFallback = [
     title: "Taste & Trace / Кулинарная книга",
     status: "published",
     description:
-      "Windows-программа для ведения личной кулинарной книги: рецепты, категории, заметки, фотографии и детали приготовления в одном месте.",
+      "Windows-программа для ведения личной кулинарной книги: рецепты, категории, заметки, фотографии и детали приготовления в одном месте. Обновлённый просмотр категорий быстрее работает с большими коллекциями.",
     features: [
-      "Личная база рецептов",
-      "Категории, заметки и фотографии",
-      "Хранение деталей приготовления",
+      "Быстрый старт без загрузки всей базы",
+      "Просмотр категории компактным списком",
+      "До трёх рецептов в строку на широком экране",
+      "Описание рецепта при наведении",
       "Портативная Windows-сборка",
-      "Проект подготовлен для дальнейшего развития"
+      "Рецепты, заметки, фото и детали приготовления"
     ],
     screenshot: "assets/screenshots/cookbook.png",
     githubUrl: "https://github.com/milleran41/taste-and-trace-download",
@@ -522,13 +523,14 @@ const projectTranslations = {
     cookbook: {
       title: "Taste & Trace / Cookbook",
       description:
-        "A Windows app for keeping a personal cookbook: recipes, categories, notes, photos and cooking details in one place.",
+        "A Windows app for keeping a personal cookbook: recipes, categories, notes, photos and cooking details in one place. The updated category view is faster for large recipe collections.",
       features: [
-        "Personal recipe database",
-        "Categories, notes and photos",
-        "Cooking details storage",
+        "Fast start without loading the whole database",
+        "Compact list view inside categories",
+        "Up to three recipes per row on wide screens",
+        "Recipe description on hover",
         "Portable Windows build",
-        "Prepared for future development"
+        "Recipes, notes, photos and cooking details"
       ]
     },
     timer: {
@@ -613,13 +615,14 @@ const projectTranslations = {
     cookbook: {
       title: "Taste & Trace / Kochbuch",
       description:
-        "Eine Windows-App für ein persönliches Kochbuch: Rezepte, Kategorien, Notizen, Fotos und Zubereitungsdetails an einem Ort.",
+        "Eine Windows-App für ein persönliches Kochbuch: Rezepte, Kategorien, Notizen, Fotos und Zubereitungsdetails an einem Ort. Die aktualisierte Kategorieansicht ist schneller für große Rezeptsammlungen.",
       features: [
-        "Persönliche Rezeptdatenbank",
-        "Kategorien, Notizen und Fotos",
-        "Speicherung von Zubereitungsdetails",
+        "Schneller Start ohne die ganze Datenbank zu laden",
+        "Kompakte Listenansicht in Kategorien",
+        "Bis zu drei Rezepte pro Zeile auf breiten Bildschirmen",
+        "Rezeptbeschreibung beim Darüberfahren",
         "Portable Windows-Version",
-        "Für die weitere Entwicklung vorbereitet"
+        "Rezepte, Notizen, Fotos und Zubereitungsdetails"
       ]
     },
     timer: {

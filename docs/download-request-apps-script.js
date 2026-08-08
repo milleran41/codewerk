@@ -96,6 +96,7 @@ function buildTextMessage_(program) {
     `Здравствуйте!`,
     ``,
     `Спасибо за интерес к ${program.title}.`,
+    `В последней версии улучшен просмотр категорий: рецепты показываются компактным списком до трёх в строку, а описание видно при наведении.`,
     ``,
     `Страница программы:`,
     program.pageUrl,
@@ -116,6 +117,7 @@ function buildHtmlMessage_(program) {
       <h2 style="margin:0 0 12px">CodeWerk</h2>
       <p>Здравствуйте!</p>
       <p>Спасибо за интерес к <strong>${escapeHtml_(program.title)}</strong>.</p>
+      <p>В последней версии улучшен просмотр категорий: рецепты показываются компактным списком до трёх в строку, а описание видно при наведении.</p>
       <p>
         <a href="${program.pageUrl}" style="color:#4f7cff">Открыть страницу программы</a><br>
         <a href="${program.downloadUrl}" style="color:#4f7cff">Скачать программу</a>
