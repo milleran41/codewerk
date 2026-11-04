@@ -25,6 +25,12 @@
 .catalog-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; color: #aabdb3; font-size: 13px; line-height: 1.6; }
 .catalog-number { color: #c6edaa; font-family: 'JetBrains Mono', monospace; }
 .catalog-program-title { font-size: 42px; line-height: 1.2; margin: 16px 0 28px; overflow-wrap: break-word; color: #f4f7f5; }
+.catalog-program-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 16px 0 28px; }
+.catalog-program-heading .catalog-program-title { min-width: 0; margin: 0; }
+.catalog-video-link { display: inline-grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid #e36565; border-radius: 6px; color: #fff; background: #aa2929; transition: background .2s; }
+.catalog-video-link svg { width: 24px; height: 24px; }
+.catalog-video-link:hover { background: #c43b3b; }
+.catalog-video-link:focus-visible { outline: 2px solid #f4f7f5; outline-offset: 3px; }
 .catalog-shot { width: 100%; display: block; padding: 0; border: 1px solid #53645d; border-radius: 6px; overflow: hidden; cursor: pointer; background: #fff; text-align: left; }
 .catalog-image { aspect-ratio: 16 / 9; width: 100%; display: grid; place-items: center; background: #f4f6f4; overflow: hidden; }
 .catalog-image img { display: block; width: 100%; height: 100%; max-height: 100%; object-fit: contain; min-height: 0; }

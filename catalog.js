@@ -91,6 +91,14 @@ window.CodeWerkCatalog = (() => {
     const title = el('h3', 'catalog-program-title', p.title);
     article.setAttribute('aria-labelledby', `title-${p.id}`);
     title.id = `title-${p.id}`;
+    const heading = el('div', 'catalog-program-heading');
+    heading.append(title);
+    if (p.videoUrl) {
+      const video = link('', p.videoUrl, 'youtube', 'catalog-video-link');
+      video.title = t('youtube');
+      video.setAttribute('aria-label', `${t('youtube')}: ${p.title}`);
+      heading.append(video);
+    }
     const shot = action('', null, () => open(p.id), 'catalog-shot');
     shot.setAttribute('aria-label', `${t('details')}: ${p.title}`);
     shot.append(image(p.screenshot, t('screenshot', { title: p.title })));
@@ -119,7 +127,7 @@ window.CodeWerkCatalog = (() => {
       actions.append(qr);
     }
     bottom.append(text, actions);
-    article.append(meta, title, shot, bottom);
+    article.append(meta, heading, shot, bottom);
     return article;
   };
 
