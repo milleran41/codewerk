@@ -9,8 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css?v=20260716-5">
+    <link rel="stylesheet" href="catalog.css?v=20261017-1">
   </head>
-  <body>
+  <body class="catalog-site">
     <header class="hero" id="top">
       <nav class="site-nav" aria-label="Главная навигация">
         <a class="brand" href="#top" aria-label="CodeWerk, наверх">
@@ -18,7 +19,7 @@
           <span>CodeWerk</span>
         </a>
         <div class="nav-links">
-          <button class="nav-button" type="button" data-modal-open="aboutModal" data-i18n="navAbout">Обо мне</button>
+          <a href="#about" data-i18n="navAbout">Об авторе</a>
           <a href="#support" data-i18n="navSupport">Поддержать</a>
           <a href="#contacts" data-i18n="navContacts">Контакты</a>
           <details class="language-menu">
@@ -52,21 +53,28 @@
     </header>
 
     <main>
-      <section class="section updates-section" id="updates">
-        <div class="updates-panel">
-          <div>
-            <p class="eyebrow" data-i18n="updatesEyebrow">Updates</p>
-            <h2 data-i18n="updatesTitle">Получать уведомления</h2>
-            <p data-i18n="updatesText">Оставьте email в Google Form, чтобы получать уведомления о новых версиях и важных изменениях программ CodeWerk.</p>
-          </div>
-          <a class="button button-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScnthignFLG9JhcR46n9A1GEGJGb1SC7WE9Va_hX8w3GsRFuQ/viewform" target="_blank" rel="noopener" data-i18n="updatesButton">Подписаться на обновления</a>
-        </div>
-      </section>
-
       <section class="section projects-section" id="projects">
         <div class="section-heading">
-          <p class="eyebrow" data-i18n="projectsEyebrow">Published software</p>
-          <h2 data-i18n="projectsTitle">Мои программы</h2>
+          <p class="eyebrow" data-i18n="catalogEyebrow">Программы CodeWerk</p>
+          <h2 data-i18n="catalogTitle">Инструменты для ваших идей</h2>
+          <p class="catalog-intro" data-i18n="catalogIntro">Выберите задачу. Познакомьтесь с программой. Найдите свой инструмент.</p>
+        </div>
+        <div class="catalog-tools">
+          <div class="catalog-search">
+            <i data-lucide="search" aria-hidden="true"></i>
+            <label class="sr-only" for="catalogSearch" data-i18n="searchLabel">Поиск программ</label>
+            <input id="catalogSearch" type="search" autocomplete="off" placeholder="Название или задача: рецепты, ссылки, цвет…">
+          <button class="catalog-icon-button" id="clearCatalogSearch" type="button" aria-label="Очистить поиск" hidden><i data-lucide="x" aria-hidden="true"></i></button>
+          </div>
+          <div class="catalog-filter-row">
+            <div class="catalog-filters" role="group" aria-label="Platform">
+              <button type="button" data-catalog-filter="all" aria-pressed="true" data-i18n="all">Все</button>
+              <button type="button" data-catalog-filter="windows" aria-pressed="false" data-i18n="windows">Для Windows</button>
+              <button type="button" data-catalog-filter="browser" aria-pressed="false" data-i18n="browser">В браузере</button>
+              <button type="button" data-catalog-filter="extension" aria-pressed="false" data-i18n="extension">Расширения</button>
+            </div>
+            <p class="catalog-count" id="catalogCount" role="status" aria-live="polite"></p>
+          </div>
         </div>
         <div class="projects-grid" id="projectsGrid" aria-live="polite"></div>
         <noscript>
@@ -88,6 +96,22 @@
         </details>
       </section>
 
+      <section class="section author-section" id="about">
+        <h2 data-i18n="authorTitle">За программами — человек</h2>
+        <div class="author-copy"><p><strong data-i18n="authorLead">Andreas Miller · CodeWerk</strong></p><p data-i18n="authorBody"></p></div>
+      </section>
+
+      <section class="section updates-section" id="updates">
+        <div class="updates-panel">
+          <div>
+            <p class="eyebrow" data-i18n="updatesEyebrow">Updates</p>
+            <h2 data-i18n="updatesTitle">Получать уведомления</h2>
+            <p data-i18n="updatesText"></p>
+          </div>
+          <a class="button button-primary" href="https://docs.google.com/forms/d/e/1FAIpQLScnthignFLG9JhcR46n9A1GEGJGb1SC7WE9Va_hX8w3GsRFuQ/viewform" target="_blank" rel="noopener" data-i18n="updatesButton">Подписаться на обновления</a>
+        </div>
+      </section>
+
       <section class="section support" id="support">
         <div class="support-panel">
           <div>
@@ -98,8 +122,7 @@
           <div class="support-donate">
             <img class="donate-qr" src="assets/qr/donate.png" alt="QR-код для поддержки разработчика">
             <div class="support-actions">
-              <!-- TODO: Замените ссылку PayPal на вашу реальную ссылку для поддержки, если понадобится. -->
-              <a class="button button-ghost" href="https://paypal.me/USERNAME" target="_blank" rel="noopener">PayPal</a>
+              <a class="button button-ghost" href="https://paypal.me/milleran169" target="_blank" rel="noopener">PayPal</a>
               <a class="button button-primary" href="https://ko-fi.com/linkora" target="_blank" rel="noopener">Ko-fi</a>
             </div>
           </div>
@@ -193,6 +216,21 @@
       </section>
     </div>
 
-    <script src="script.js?v=20260716-4"></script>
+    <dialog class="catalog-dialog" id="programDialog" aria-labelledby="programDialogTitle">
+      <div class="detail-bar">
+        <h2 id="programDialogTitle"></h2>
+        <div class="detail-controls">
+          <select id="detailLanguage" aria-label="Язык"><option value="ru">Русский</option><option value="en">English</option><option value="de">Deutsch</option></select>
+          <button class="catalog-icon-button" id="closeProgramDialog" type="button" aria-label="Закрыть" data-i18n-aria-label="closeLabel"><i data-lucide="x" aria-hidden="true"></i></button>
+        </div>
+      </div>
+      <div class="detail-scroll" id="programDetailBody"></div>
+    </dialog>
+    <script src="assets/vendor/fuse.js"></script>
+    <script src="assets/vendor/lucide.min.js"></script>
+    <script src="catalog-copy.js?v=20261017-1"></script>
+    <script src="publishing-copy.js?v=20261104-1"></script>
+    <script src="catalog.js?v=20261017-1"></script>
+    <script src="script.js?v=20261017-1"></script>
   </body>
 </html>

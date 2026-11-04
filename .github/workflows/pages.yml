@@ -1,0 +1,50 @@
+name: Publish CodeWerk catalog
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to deploy (previous-site restores the original showcase)'
+        type: choice
+        default: catalog
+        options: [catalog, previous-site]
+permissions:
+  contents: read
+concurrency:
+  group: codewerk-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.version == 'previous-site' && 'pre-catalog-2026-11-04' || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/build-site.mjs
+        if: inputs.version != 'previous-site'
+      - name: Prepare preserved original website
+        if: inputs.version == 'previous-site'
+        run: |
+          mkdir dist
+          cp index.html styles.css script.js privacy-policy.txt dist/
+          cp -R assets data dist/
+          touch dist/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

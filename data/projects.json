@@ -3,7 +3,16 @@
     "id": "cookbook",
     "title": "Taste & Trace / Кулинарная книга",
     "status": "published",
-    "description": "Windows-программа для ведения личной кулинарной книги: рецепты, категории, заметки, фотографии и детали приготовления в одном месте. Обновлённый просмотр категорий быстрее работает с большими коллекциями.",
+    "featured": true,
+    "displayTitle": "Кулинарная книга",
+    "brand": "Taste & Trace",
+    "compatibility": "Windows 10 / 11 · x64",
+    "storeUrl": null,
+    "platform": "Windows 10 и 11",
+    "version": "0.1.3",
+    "shortDescription": "Соберите любимые рецепты в одном месте. Сохраняйте кулинарные открытия, переводите иностранные рецепты и обращайтесь к ИИ за помощью в приготовлении.",
+    "description": "Windows-программа для ведения личной кулинарной книги: рецепты, категории, заметки, фотографии и детали приготовления в одном месте.",
+    "details": "Удачный рецепт может встретиться где угодно: в семейной тетради, на фотографии, в переписке, на кулинарном сайте или в видеоролике. Кулинарная книга помогает превратить эти разрозненные находки в собственную коллекцию, к которой удобно возвращаться.\n\nВместо очередной закладки вы получаете карточку блюда: название, ингредиенты, последовательность приготовления, время, количество порций, фотографию и ваши заметки. Рецепты можно распределять по категориям, редактировать, добавлять в избранное и печатать. Если рецепт на другом языке или какой-то шаг вызывает вопросы, рядом есть инструменты перевода и кулинарный ИИ-помощник.\n\nВ интерфейсе программа называется YumBook. В названиях проекта и файлов также используется Taste & Trace.",
     "features": [
       "Быстрый старт без загрузки всей базы",
       "Просмотр категории компактным списком",
@@ -13,16 +22,57 @@
       "Рецепты, заметки, фото и детали приготовления"
     ],
     "screenshot": "assets/screenshots/cookbook.png",
+    "gallery": [
+      {
+        "src": "assets/screenshots/cookbook.png",
+        "alt": "Скриншот Taste & Trace / Кулинарная книга"
+      }
+    ],
     "githubUrl": "https://github.com/milleran41/taste-and-trace-download",
+    "showRepositoryLink": false,
     "downloadMode": "direct",
-    "downloadUrl": "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.0/Taste.Trace-Portable-0.0.0-x64.exe",
+    "downloadUrl": "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.1.3/Taste.Trace-Setup-0.1.3-x64.exe",
     "qrImage": "assets/qr/cookbook.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#cookbook"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#cookbook",
+    "contentDraft": true,
+    "order": 1,
+    "categories": [
+      "windows"
+    ],
+    "searchAliases": [
+      "YumBook",
+      "Taste & Trace",
+      "кулинарная книга",
+      "рецепты",
+      "кулинария",
+      "готовить",
+      "еда",
+      "сохранить рецепт из видео",
+      "kochbuch",
+      "rezepte",
+      "kochen",
+      "cookbook",
+      "cooking",
+      "recipes",
+      "recipe organizer"
+    ],
+    "portablePreviewUrl": "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.1/Taste.Trace-Portable-0.0.1-x64.exe",
+    "releaseUrl": "https://github.com/milleran41/taste-and-trace-download/releases/tag/v0.1.3",
+    "releaseCheckedAt": "2026-10-17",
+    "languages": [],
+    "licenseType": null,
+    "price": null,
+    "updatedAt": "2026-07-08",
+    "downloadAvailable": true,
+    "downloadCheckedAt": "2026-11-04"
   },
   {
     "id": "timer",
     "title": "Timer",
     "status": "published",
+    "featured": true,
+    "platform": "Windows 10 и 11",
+    "shortDescription": "Компактный Windows-таймер с круговым прогрессом, звуком и плавающим окном.",
     "description": "Компактный настольный таймер для Windows с круговым индикатором прогресса, звуковыми уведомлениями и плавающим окном поверх остальных окон.",
     "features": [
       "Круговой индикатор прогресса",
@@ -31,19 +81,46 @@
       "Настройка времени двойным кликом",
       "Готовый Windows .exe без установки"
     ],
-    "screenshot": "https://raw.githubusercontent.com/milleran41/timer/main/screenshot.png",
+    "screenshot": "assets/screenshots/timer.png",
     "githubUrl": "https://github.com/milleran41/timer",
     "downloadMode": "direct",
     "downloadUrl": "https://github.com/milleran41/timer/raw/main/dist/timer.exe",
     "qrImage": "assets/qr/timer.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#timer",
     "videoUrl": "https://www.youtube.com/watch?v=ZANqTWq2ok0",
-    "videoDescription": "A short FineTimer overview: floating window, start, pause, and time adjustment."
+    "videoDescription": "A short FineTimer overview: floating window, start, pause, and time adjustment.",
+    "order": 3,
+    "categories": [
+      "windows"
+    ],
+    "searchAliases": [
+      "таймер",
+      "время",
+      "обратный отсчет",
+      "сигнал",
+      "countdown",
+      "time",
+      "alarm",
+      "zeit",
+      "wecker",
+      "kurzzeitmesser"
+    ],
+    "languages": [],
+    "licenseType": null,
+    "price": null,
+    "storeUrl": null,
+    "version": null,
+    "updatedAt": null,
+    "downloadAvailable": true,
+    "downloadCheckedAt": "2026-11-04"
   },
   {
     "id": "mixlab",
     "title": "MixLab",
     "status": "published",
+    "featured": true,
+    "platform": "Windows 10 и 11",
+    "shortDescription": "Офлайн-инструмент для выбора цвета и расчёта рецепта смешивания реальных красок.",
     "description": "Офлайн-инструмент для художников, дизайнеров и мастеров: выбор цвета с изображения и расчёт рецепта смешивания реальных красок по RYB-модели.",
     "features": [
       "Выбор цвета с изображения",
@@ -52,19 +129,49 @@
       "Ручной миксер цветов",
       "12 языков интерфейса"
     ],
-    "screenshot": "https://raw.githubusercontent.com/milleran41/MixLab/main/src/assets/screenshot.png",
+    "screenshot": "assets/screenshots/mixlab.png",
     "githubUrl": "https://github.com/milleran41/MixLab",
     "downloadMode": "request",
-    "downloadUrl": "https://github.com/milleran41/MixLab/raw/main/MixLab.exe",
+    "downloadUrl": null,
     "qrImage": "assets/qr/mixlab.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#mixlab"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#mixlab",
+    "order": 2,
+    "categories": [
+      "windows"
+    ],
+    "searchAliases": [
+      "краски",
+      "цвет",
+      "смешивание",
+      "художник",
+      "подобрать оттенок",
+      "paint",
+      "color",
+      "colour",
+      "mixing",
+      "pigment",
+      "farben",
+      "mischen",
+      "malen"
+    ],
+    "languages": [],
+    "licenseType": null,
+    "price": null,
+    "storeUrl": null,
+    "version": null,
+    "updatedAt": null,
+    "downloadAvailable": false,
+    "downloadCheckedAt": "2026-11-04",
+    "downloadUnavailableReason": "downloadFileMissing"
   },
   {
     "id": "calendar-germany",
     "title": "Kalender Deutschland",
     "status": "published",
+    "featured": false,
+    "platform": "Chrome",
+    "shortDescription": "Chrome-расширение с календарём Германии, праздниками, картой и историческим разделом.",
     "description": "Chrome-расширение с немецким календарём, праздниками по федеральным землям, интерактивной картой Германии и историческим разделом.",
-    "highlightTerms": ["Chrome-расширение"],
     "features": [
       "Календарь Германии с национальными и региональными праздниками",
       "Выбор федеральной земли",
@@ -72,10 +179,10 @@
       "Исторический раздел с 16 периодами",
       "Многоязычные исторические тексты"
     ],
-    "screenshot": "https://raw.githubusercontent.com/milleran41/kalender-deutschland/main/assets/screenshots/calendar.png?v=20260712-2",
+    "screenshot": "assets/screenshots/calendar-germany.png",
     "githubUrl": "https://github.com/milleran41/kalender-deutschland",
     "downloadMode": "direct",
-    "downloadUrl": "https://github.com/milleran41/kalender-deutschland/archive/refs/heads/main.zip",
+    "downloadUrl": null,
     "qrImage": "assets/qr/calendar-germany.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#calendar-germany",
     "installTitle": "Как установить Kalender Deutschland в Chrome",
@@ -87,12 +194,41 @@
       "Нажмите Загрузить распакованное расширение.",
       "Выберите папку kalender-deutschland-main, а не сам ZIP-файл.",
       "После установки значок расширения появится в Chrome. Если вы меняете файлы, нажмите Reload на карточке расширения."
-    ]
+    ],
+    "order": 6,
+    "categories": [
+      "extension"
+    ],
+    "searchAliases": [
+      "календарь",
+      "Германия",
+      "праздники",
+      "земли",
+      "calendar",
+      "germany",
+      "holidays",
+      "deutschland",
+      "kalender",
+      "feiertage",
+      "bundesland"
+    ],
+    "languages": [],
+    "licenseType": null,
+    "price": null,
+    "storeUrl": null,
+    "version": null,
+    "updatedAt": null,
+    "downloadAvailable": false,
+    "downloadCheckedAt": "2026-11-04",
+    "downloadUnavailableReason": "downloadPackageMissing"
   },
   {
     "id": "link-manager",
     "title": "Linkora",
     "status": "published",
+    "featured": false,
+    "platform": "Windows и браузерная версия",
+    "shortDescription": "Офлайн-менеджер ссылок без рекламы, трекинга и облачного аккаунта.",
     "description": "Бесплатный офлайн-менеджер ссылок без рекламы, трекинга и облачного аккаунта. Ссылки сохраняются локально и остаются под вашим контролем.",
     "features": [
       "Категории и избранное",
@@ -101,17 +237,43 @@
       "Поиск, импорт и экспорт JSON",
       "Веб-версия и портативная Windows-версия"
     ],
-    "screenshot": "https://raw.githubusercontent.com/milleran41/linkora/main/assets/linkora-preview.jpg",
+    "screenshot": "assets/screenshots/link-manager.jpg",
     "githubUrl": "https://github.com/milleran41/linkora",
     "downloadMode": "direct",
     "downloadUrl": "https://raw.githubusercontent.com/milleran41/linkora/main/downloads/Linkora.exe",
     "qrImage": "assets/qr/link-manager.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#link-manager"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#link-manager",
+    "order": 4,
+    "categories": [
+      "windows",
+      "browser"
+    ],
+    "searchAliases": [
+      "Linkora",
+      "ссылки",
+      "закладки",
+      "сохранить сайт",
+      "bookmarks",
+      "links",
+      "save websites",
+      "lesezeichen",
+      "speichern"
+    ],
+    "languages": [],
+    "licenseType": null,
+    "price": null,
+    "storeUrl": null,
+    "version": null,
+    "updatedAt": null,
+    "downloadAvailable": true,
+    "downloadCheckedAt": "2026-11-04"
   },
   {
     "id": "linkvault",
     "title": "LinkVault",
     "status": "published",
+    "featured": false,
+    "shortDescription": "Браузерное приложение для локального сохранения ссылок, заметок и скриншотов.",
     "description": "Простое браузерное приложение для сохранения ссылок, заметок и скриншотов в локальной таблице без установки, сервера и аккаунта.",
     "crossPlatform": true,
     "platform": "Windows, macOS, Linux — современный браузер",
@@ -122,23 +284,34 @@
       "Локальное хранение через IndexedDB",
       "JSON-резервные копии"
     ],
-    "screenshot": "https://raw.githubusercontent.com/milleran41/MyLinks/main/assets/screenshot.png",
+    "screenshot": "assets/screenshots/linkvault.png",
     "githubUrl": "https://github.com/milleran41/MyLinks",
     "downloadMode": "direct",
     "downloadUrl": "https://github.com/milleran41/MyLinks/raw/main/LinkVault.zip",
     "qrImage": "assets/qr/linkvault.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#linkvault"
-  },
-  {
-    "id": "transport",
-    "title": "Транспорт",
-    "status": "soon",
-    "description": "Добавьте описание из README, когда проект будет опубликован на GitHub.",
-    "features": [],
-    "screenshot": "assets/screenshots/transport.png",
-    "githubUrl": "https://github.com/milleran41/REPOSITORY",
-    "downloadUrl": "",
-    "qrImage": "assets/qr/transport.png",
-    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#transport"
+    "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#linkvault",
+    "order": 5,
+    "categories": [
+      "browser"
+    ],
+    "searchAliases": [
+      "MyLinks",
+      "ссылки",
+      "закладки",
+      "заметки",
+      "bookmarks",
+      "links",
+      "notes",
+      "lesezeichen",
+      "notizen"
+    ],
+    "languages": [],
+    "licenseType": null,
+    "price": null,
+    "storeUrl": null,
+    "version": null,
+    "updatedAt": null,
+    "downloadAvailable": true,
+    "downloadCheckedAt": "2026-11-04"
   }
 ]

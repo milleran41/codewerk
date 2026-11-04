@@ -49,10 +49,10 @@ const updatesProgramNames = {
   "link-manager": "Linkora",
   linkvault: "LinkVault"
 };
-const browserLanguage = (navigator.language || "ru").slice(0, 2);
-let currentLanguage =
-  localStorage.getItem(languageStorageKey) ||
-  (supportedLanguages.includes(browserLanguage) ? browserLanguage : "ru");
+const browserLanguage = (navigator.languages || [navigator.language]).map(language => String(language).slice(0, 2)).find(language => supportedLanguages.includes(language)) || "en";
+let storedLanguage;
+try { storedLanguage = localStorage.getItem(languageStorageKey); } catch { /* Private browsing may disable storage. */ }
+let currentLanguage = supportedLanguages.includes(storedLanguage) ? storedLanguage : browserLanguage;
 
 const ui = {
   ru: {
@@ -142,6 +142,7 @@ const ui = {
     screenshotFallback: "Скриншот будет добавлен позже",
     download: "Скачать",
     requestDownload: "Получить ссылку",
+    details: "Подробнее",
     install: "Как установить",
     openDesktop: "Открыть на компьютере",
     openDesktopAria: "Отправить ссылку на {title} себе по email",
@@ -247,6 +248,7 @@ const ui = {
     screenshotFallback: "Screenshot will be added later",
     download: "Download",
     requestDownload: "Get download link",
+    details: "Details",
     install: "How to install",
     openDesktop: "Open on computer",
     openDesktopAria: "Send a link to {title} to your email",
@@ -352,6 +354,7 @@ const ui = {
     screenshotFallback: "Screenshot wird später hinzugefügt",
     download: "Herunterladen",
     requestDownload: "Download-Link erhalten",
+    details: "Details",
     install: "Installation",
     openDesktop: "Auf dem Computer öffnen",
     openDesktopAria: "Link zu {title} per E-Mail senden",
@@ -376,25 +379,32 @@ year.textContent = new Date().getFullYear();
 
 // Локальная копия нужна только для открытия index.html двойным кликом.
 // На GitHub Pages данные загружаются из data/projects.json.
+for (const language of supportedLanguages) {
+  Object.assign(ui[language], window.CodeWerkCatalogCopy?.[language]?.ui || {});
+}
+
 const localProjectsFallback = [
   {
     id: "cookbook",
     title: "Taste & Trace / Кулинарная книга",
     status: "published",
     description:
-      "Windows-программа для ведения личной кулинарной книги: рецепты, категории, заметки, фотографии и детали приготовления в одном месте. Обновлённый просмотр категорий быстрее работает с большими коллекциями.",
+      "Windows-программа для ведения личной кулинарной книги: рецепты, категории, заметки, фотографии и детали приготовления в одном месте.",
     features: [
-      "Быстрый старт без загрузки всей базы",
-      "Просмотр категории компактным списком",
-      "До трёх рецептов в строку на широком экране",
-      "Описание рецепта при наведении",
+      "Личная база рецептов",
+      "Категории, заметки и фотографии",
+      "Хранение деталей приготовления",
       "Портативная Windows-сборка",
-      "Рецепты, заметки, фото и детали приготовления"
+      "Проект подготовлен для дальнейшего развития"
     ],
     screenshot: "assets/screenshots/cookbook.png",
     githubUrl: "https://github.com/milleran41/taste-and-trace-download",
+    version: "0.1.3",
+    showRepositoryLink: false,
+    contentDraft: true,
     downloadMode: "direct",
-    downloadUrl: "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.0/Taste.Trace-Portable-0.0.0-x64.exe",
+    downloadUrl: "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.1.3/Taste.Trace-Setup-0.1.3-x64.exe",
+    portablePreviewUrl: "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.1/Taste.Trace-Portable-0.0.1-x64.exe",
     qrImage: "assets/qr/cookbook.png",
     qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#cookbook"
   },
@@ -523,14 +533,13 @@ const projectTranslations = {
     cookbook: {
       title: "Taste & Trace / Cookbook",
       description:
-        "A Windows app for keeping a personal cookbook: recipes, categories, notes, photos and cooking details in one place. The updated category view is faster for large recipe collections.",
+        "A Windows app for keeping a personal cookbook: recipes, categories, notes, photos and cooking details in one place.",
       features: [
-        "Fast start without loading the whole database",
-        "Compact list view inside categories",
-        "Up to three recipes per row on wide screens",
-        "Recipe description on hover",
+        "Personal recipe database",
+        "Categories, notes and photos",
+        "Cooking details storage",
         "Portable Windows build",
-        "Recipes, notes, photos and cooking details"
+        "Prepared for future development"
       ]
     },
     timer: {
@@ -615,14 +624,13 @@ const projectTranslations = {
     cookbook: {
       title: "Taste & Trace / Kochbuch",
       description:
-        "Eine Windows-App für ein persönliches Kochbuch: Rezepte, Kategorien, Notizen, Fotos und Zubereitungsdetails an einem Ort. Die aktualisierte Kategorieansicht ist schneller für große Rezeptsammlungen.",
+        "Eine Windows-App für ein persönliches Kochbuch: Rezepte, Kategorien, Notizen, Fotos und Zubereitungsdetails an einem Ort.",
       features: [
-        "Schneller Start ohne die ganze Datenbank zu laden",
-        "Kompakte Listenansicht in Kategorien",
-        "Bis zu drei Rezepte pro Zeile auf breiten Bildschirmen",
-        "Rezeptbeschreibung beim Darüberfahren",
+        "Persönliche Rezeptdatenbank",
+        "Kategorien, Notizen und Fotos",
+        "Speicherung von Zubereitungsdetails",
         "Portable Windows-Version",
-        "Rezepte, Notizen, Fotos und Zubereitungsdetails"
+        "Für die weitere Entwicklung vorbereitet"
       ]
     },
     timer: {
@@ -741,7 +749,7 @@ const applyStaticTranslations = () => {
   if (currentLanguageLabel) {
     currentLanguageLabel.textContent = languageLabels[currentLanguage] || currentLanguage.toUpperCase();
   }
-
+  window.CodeWerkCatalog?.translate();
 };
 
 const createElement = (tag, className, text) => {
@@ -841,6 +849,11 @@ const startDownload = (url) => {
 };
 
 const getProjectPageUrl = (projectId) => {
+  const project = currentProjects.find((item) => item.id === projectId);
+  if (!window.CodeWerkCatalog && project?.pageUrl) {
+    return new URL(project.pageUrl, window.location.href).toString();
+  }
+
   const pageUrl = new URL(window.location.href);
   pageUrl.hash = projectId;
   return pageUrl.toString();
@@ -856,7 +869,7 @@ const buildEmailBody = (project) => {
     projectUrl,
     "",
     isRequestDownload ? t("requestDownloadLine") : t("downloadLine"),
-    isRequestDownload ? buildDownloadRequestLink(project) : project.downloadUrl || project.githubUrl,
+    project.downloadAvailable === false ? getProjectPageUrl(project.id) : project.storeUrl || (isRequestDownload ? buildDownloadRequestLink(project) : project.downloadUrl || project.githubUrl),
     "",
     t("howToDownload"),
     t("howToDownloadStep1"),
@@ -1021,6 +1034,12 @@ const buildProjectCard = (project) => {
     install.type = "button";
     install.addEventListener("click", () => openProjectInstructions(project));
     contentActions.append(install);
+  }
+
+  if (project.pageUrl && project.id === "cookbook") {
+    const details = createElement("a", "button button-ghost", t("details"));
+    details.href = project.pageUrl;
+    contentActions.append(details);
   }
 
   const sendToDesktop = createElement("button", "button button-ghost send-desktop", t("openDesktop"));
@@ -1373,6 +1392,10 @@ const setRatings = (ratings) => {
 
 const renderProjects = (projects) => {
   currentProjects = projects;
+  if (window.CodeWerkCatalog) {
+    window.CodeWerkCatalog.render(projects);
+    return;
+  }
   const publishedProjects = projects.filter((project) => project.status === "published").map(translateProject);
   projectsGrid.replaceChildren();
   renderVideos(publishedProjects);
@@ -1414,7 +1437,7 @@ const renderVideos = (projects) => {
 const openModal = (modalId) => {
   const modal = document.getElementById(modalId);
   if (!modal) return;
-
+  modal._returnFocus = document.activeElement;
   modal.classList.add("is-open");
   modal.setAttribute("aria-hidden", "false");
   document.body.classList.add("modal-open");
@@ -1425,6 +1448,7 @@ const closeModal = (modal) => {
   modal.classList.remove("is-open");
   modal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
+  if (modal._returnFocus?.isConnected) modal._returnFocus.focus({ preventScroll: true });
 };
 
 modalOpenButtons.forEach((button) => {
@@ -1446,7 +1470,7 @@ languageButtons.forEach((button) => {
     if (!supportedLanguages.includes(language)) return;
 
     currentLanguage = language;
-    localStorage.setItem(languageStorageKey, currentLanguage);
+    try { localStorage.setItem(languageStorageKey, currentLanguage); } catch { /* Keep the language for this visit. */ }
     applyStaticTranslations();
     if (currentProjects.length) renderProjects(currentProjects);
     languageMenu?.removeAttribute("open");
@@ -1454,8 +1478,23 @@ languageButtons.forEach((button) => {
 });
 
 document.addEventListener("keydown", (event) => {
+  if (event.key === "Tab") {
+    const modal = document.querySelector('.modal.is-open');
+    if (modal) {
+      const controls = [...modal.querySelectorAll('button:not([disabled]), a[href], textarea, input, select')].filter(control => control.getClientRects().length);
+      const target = event.shiftKey ? controls.at(-1) : controls[0];
+      if (controls.length && (!modal.contains(document.activeElement) || (event.shiftKey && document.activeElement === controls[0]) || (!event.shiftKey && document.activeElement === controls.at(-1)))) {
+        event.preventDefault();
+        target.focus();
+      }
+    }
+  }
   if (event.key !== "Escape") return;
-  document.querySelectorAll(".modal.is-open").forEach(closeModal);
+  const openChildren = document.querySelectorAll(".modal.is-open");
+  if (openChildren.length) {
+    event.preventDefault();
+    openChildren.forEach(closeModal);
+  }
 });
 
 document.addEventListener("click", (event) => {
@@ -1519,7 +1558,7 @@ if (window.location.protocol === "file:") {
   setReviews(localReviewsFallback);
   setRatings(localRatingsFallback);
 } else {
-  fetch("data/projects.json?v=20260716-3")
+  fetch("data/projects.json?v=20261017-1")
     .then((response) => {
       if (!response.ok) throw new Error("Не удалось загрузить projects.json");
       return response.json();

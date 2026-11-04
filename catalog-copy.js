@@ -1,0 +1,130 @@
+/* Editorial copy is independent of READMEs. Add each new language here. */
+window.CodeWerkCatalogCopy = {
+  ru: {
+    ui: {
+      updatesEyebrow: 'Обновления', supportEyebrow: 'Поддержка', contactsEyebrow: 'Контакты',
+      catalogEyebrow: 'Программы CodeWerk', catalogTitle: 'Инструменты для ваших идей',
+      catalogIntro: 'Выберите задачу. Познакомьтесь с программой. Найдите свой инструмент.',
+      searchLabel: 'Поиск программ', searchPlaceholder: 'Название или задача: рецепты, ссылки, цвет…', clearSearch: 'Очистить поиск',
+      all: 'Все', windows: 'Для Windows', browser: 'В браузере', extension: 'Расширения',
+      results: 'Найдено: {count}', emptyTitle: 'Пока ничего не нашлось', emptyText: 'Попробуйте другое слово или сбросьте фильтры.', reset: 'Показать все программы',
+      details: 'Подробнее', download: 'Скачать', requestDownload: 'Получить ссылку', closeLabel: 'Закрыть',
+      gallery: 'Скриншоты', screenshot: 'Интерфейс программы {title}', imageMissing: 'Скриншот пока недоступен',
+      features: 'Что умеет программа', requirementsTitle: 'Установка и запуск',
+      installer: 'Установщик Windows', portablePreview: 'Portable · предварительная сборка', releaseLabel: 'Опубликованная версия',
+      draftNotice: 'Описание относится к развиваемой версии. Опубликованные сборки могут отличаться по набору возможностей.',
+      cookbookInstall: 'Стабильная версия 0.1.3 устанавливается через EXE. Portable 0.0.1 доступна отдельно как предварительная сборка для Windows x64.',
+      dllHelp: 'При ошибках VCRUNTIME140.dll / MSVCP140.dll установите официальный Microsoft Visual C++ Redistributable X64. Не скачивайте отдельные DLL со сторонних сайтов.',
+      runtime: 'Microsoft Visual C++ X64', youtube: 'Смотреть на YouTube',
+      quickTitle: 'Коротко о программе', qrLabel: 'QR-код страницы', qrAlt: 'QR-код для перехода к программе',
+      authorTitle: 'За программами — человек', authorLead: 'Andreas Miller · CodeWerk',
+      authorBody: 'Я создаю практичные приложения для повседневных задач: сохранять знания, работать с цветом, управлять ссылками и упрощать рутину.',
+      navAbout: 'Об авторе', navSupport: 'Поддержать', navContacts: 'Контакты',
+      heroSubtitle: 'Полезные приложения и цифровые инструменты от Andreas Miller',
+      footerText: 'Приложения и инструменты для повседневных задач.',
+      offlineError: 'Не удалось загрузить каталог. Проверьте соединение и обновите страницу.', retry: 'Попробовать снова',
+      shareProgram: 'Открыть на компьютере', updated: 'Версия', backCatalog: 'К программам', language: 'Язык',
+      galleryPrevious: 'Предыдущий скриншот', galleryNext: 'Следующий скриншот'
+    },
+    projects: {
+      cookbook: {
+        title: 'Кулинарная книга', tagline: 'Рецепты, к которым хочется возвращаться.',
+        description: 'Соберите семейные рецепты, фотографии и кулинарные находки в одной книге на компьютере. Добавляйте свои заметки, наводите порядок по категориям и находите любимые блюда без десятков закладок.',
+        features: ['Личная коллекция и избранное', 'Распознавание текста и изображений', 'Перевод и ИИ-помощник', 'Локальное хранение рецептов'],
+        sections: [
+          ['Ваша книга, ваши рецепты', 'В карточке блюда можно хранить ингредиенты, шаги приготовления, время, порции, фотографию, метки, источник и личные заметки. Записывайте, что заменили и сколько блюдо готовилось именно в вашей духовке. В интерфейсе приложение называется YumBook, в названиях проекта также используется Taste & Trace.'],
+          ['Начните с любимого блюда', 'Нажмите «Добавить рецепт», укажите название и категорию. Запишите ингредиенты и шаги приготовления с новой строки, добавьте фотографию и сохраните. Для ручного ведения коллекции ИИ не нужен.'],
+          ['Из текста, фотографии или ссылки', 'В текущем проекте предусмотрены распознавание текста и фотографий, импорт интернет-источников и видеофайлов. Полученный результат — черновик: проверьте количества, единицы измерения и шаги, прежде чем сохранять. Ограничения сайтов и качество исходного материала влияют на результат; длинные видео ещё требуют проверки.'],
+          ['Помощник рядом с рецептом', 'Вопросы о замене ингредиентов, непонятном шаге или другом числе порций можно задать помощнику в контексте блюда. Ответ не изменяет карточку автоматически. Выбранные уточнения перенесите в рецепт или заметки самостоятельно.'],
+          ['Иностранные рецепты в вашей книге', 'Перевод создаёт связанную языковую версию рецепта, сохраняя оригинал. Перед сохранением проверьте количества, температуру и кулинарные термины. Смена языка интерфейса сама по себе не переводит коллекцию.'],
+          ['Порядок и повседневные инструменты', 'Категории, поиск по названиям и меткам, избранное, карточки или список помогают ориентироваться в коллекции. В проекте также предусмотрены печать рецептов, кухонные меры, цветовые темы и интерфейс на 15 языках.'],
+          ['Локальные данные, сетевые возможности', 'Рецепты настольной версии хранятся на компьютере. Облачное распознавание, перевод и ИИ требуют подключения: необходимое содержимое отправляется внешнему сервису. Локальное хранение не означает, что все функции работают офлайн. При переносе отдельно сохраните базу: одного EXE недостаточно.'],
+          ['Личный API-ключ Gemini', 'Подключение личного ключа уже реализовано в текущей настольной версии. Откройте шестерёнку в шапке, получите ключ в Google AI Studio, вставьте его, нажмите «Проверить», затем «Сохранить». Ключ хранится отдельно от рецептов в зашифрованном виде через Electron safeStorage. Его можно заменить или удалить. Для облачных функций нужны интернет, доступ к сервису и доступная квота; ручная работа с рецептами доступна без ключа.']
+        ]
+      },
+      timer: { tagline: 'Время под контролем. Без лишних окон.', description: 'Компактный таймер для Windows с круговым прогрессом, звуковым сигналом и плавающим окном поверх других приложений. Подходит для коротких рабочих сессий и повседневных дел.', sections: [['Всегда перед глазами', 'Плавающее окно остаётся поверх остальных приложений. Круговой индикатор показывает оставшееся время, а звуковой сигнал сообщает об окончании.'], ['Быстрая настройка', 'Время меняется двойным кликом. Программа распространяется готовым Windows EXE без установки.']] },
+      mixlab: { tagline: 'От цвета на экране — к реальным краскам.', description: 'Выберите оттенок на фотографии и получите ориентир для смешивания реальных пигментов. Офлайн-инструмент для художников, дизайнеров и тех, кто работает с цветом руками.', sections: [['Найдите нужный оттенок', 'Откройте изображение и выберите цвет пипеткой с 10-кратным увеличением. Это помогает точнее выбирать небольшие участки фотографии.'], ['Смешивайте и сравнивайте', 'MixLab рассчитывает рецепты по RYB-модели и предлагает ручной миксер. Результат служит ориентиром: реальные пигменты и материалы могут отличаться. Интерфейс доступен на 12 языках.']] },
+      'calendar-germany': { tagline: 'Праздники Германии — с учётом вашей земли.', description: 'Календарь для Chrome с общегерманскими и региональными праздниками. Выбирайте федеральную землю, исследуйте интерактивную карту и исторические материалы.', sections: [['Календарь вашего региона', 'Выбор федеральной земли позволяет видеть относящиеся к ней праздники. Интерактивная карта помогает ориентироваться в регионах.'], ['Больше, чем даты', 'Исторический раздел охватывает 16 периодов и содержит многоязычные тексты. Расширение устанавливается из распакованного архива; инструкция приведена ниже.']] },
+      'link-manager': { tagline: 'Ваши ссылки. Ваш порядок. Без облака.', description: 'Linkora хранит полезные ссылки локально: категории, избранное, скриншоты и поиск помогают возвращаться к нужным материалам. Без рекламы, трекинга и обязательного аккаунта.', sections: [['Соберите свою библиотеку', 'Распределяйте ссылки по категориям, добавляйте описания и скриншоты. Переносите записи между категориями перетаскиванием и отмечайте важные материалы.'], ['Данные под вашим контролем', 'Поиск и hover-превью помогают быстро выбрать запись. Импорт и экспорт JSON подходят для переноса и резервных копий. Есть веб- и портативная Windows-версии.']] },
+      linkvault: { tagline: 'Нужные ссылки — в одном месте браузера.', description: 'Сохраняйте ссылки, заметки и скриншоты в локальной коллекции. LinkVault работает в современном браузере без сервера и аккаунта, на Windows, macOS и Linux.', sections: [['Личная коллекция без сервера', 'Организуйте записи по страницам и категориям, добавляйте описания и изображения. Подсветка дубликатов помогает не сохранять одно и то же дважды.'], ['Не забывайте о копиях', 'Данные хранятся в IndexedDB выбранного браузера. Для переноса или защиты от очистки данных используйте экспорт и импорт JSON.']] }
+    }
+  },
+  en: {
+    ui: {
+      updatesEyebrow: 'Updates', supportEyebrow: 'Support', contactsEyebrow: 'Contact',
+      catalogEyebrow: 'CodeWerk software', catalogTitle: 'Tools for your ideas', catalogIntro: 'Choose a task. Explore an app. Find your tool.',
+      searchLabel: 'Search apps', searchPlaceholder: 'Name or task: recipes, links, color…', clearSearch: 'Clear search', all: 'All', windows: 'Windows', browser: 'Browser apps', extension: 'Extensions',
+      results: 'Found: {count}', emptyTitle: 'No matching apps yet', emptyText: 'Try another word or reset the filters.', reset: 'Show all apps',
+      details: 'Explore app', download: 'Download', requestDownload: 'Request a link', closeLabel: 'Close', gallery: 'Screenshots', screenshot: '{title} app interface', imageMissing: 'Screenshot unavailable',
+      features: 'What the app can do', requirementsTitle: 'Installation and launch', installer: 'Windows installer', portablePreview: 'Portable · preview build', releaseLabel: 'Published version',
+      draftNotice: 'This describes the version in development. Published builds may have a different feature set.',
+      cookbookInstall: 'Stable version 0.1.3 uses an EXE installer. Portable 0.0.1 is available separately as a preview build for Windows x64.',
+      dllHelp: 'For VCRUNTIME140.dll / MSVCP140.dll errors, install the official Microsoft Visual C++ Redistributable X64. Do not download individual DLL files from third-party sites.',
+      runtime: 'Microsoft Visual C++ X64', youtube: 'Watch on YouTube', quickTitle: 'At a glance', qrLabel: 'Page QR code', qrAlt: 'QR code for this app',
+      authorTitle: 'A person behind the programs', authorLead: 'Andreas Miller · CodeWerk', authorBody: 'I build practical apps for everyday tasks: keeping knowledge, working with color, organizing links and simplifying routine work.',
+      navAbout: 'About', navSupport: 'Support', navContacts: 'Contact', heroSubtitle: 'Useful apps and digital tools by Andreas Miller', footerText: 'Apps and tools for everyday tasks.',
+      offlineError: 'Could not load the catalog. Check your connection and reload.', retry: 'Try again', shareProgram: 'Open on computer', updated: 'Version', backCatalog: 'Back to apps', language: 'Language', galleryPrevious: 'Previous screenshot', galleryNext: 'Next screenshot'
+    },
+    projects: {
+      cookbook: {
+        title: 'Cookbook', tagline: 'Recipes worth coming back to.',
+        description: 'Bring family recipes, photos and cooking discoveries together on your computer. Add your own notes, organize by category and find favorite dishes without dozens of bookmarks.',
+        features: ['Personal collection and favorites', 'Text and image recognition', 'Translation and AI assistance', 'Recipes stored on your computer'],
+        sections: [
+          ['Your book, your recipes', 'Keep ingredients, cooking steps, time, servings, a photo, tags, sources and personal notes in each recipe. Record your substitutions and the baking time that works in your oven. The interface uses the name YumBook; project files also use Taste & Trace.'],
+          ['Start with a favorite dish', 'Choose Add recipe, enter a title and category, and put ingredients and steps on separate lines. Add a photo and save. Manual recipe keeping does not require AI.'],
+          ['From text, photos or links', 'The current project includes text and photo recognition and import from online sources or video files. Treat the result as a draft: check quantities, units and instructions before saving. Website restrictions and source quality affect results; long videos still need testing.'],
+          ['An assistant beside your recipe', 'Ask about ingredient substitutions, an unclear step or a different serving count in the context of your dish. Replies do not automatically change the saved recipe. Add useful suggestions through editing or notes.'],
+          ['Foreign recipes in your collection', 'Translation creates a linked language version and keeps the original. Check quantities, temperatures and cooking terms before saving. Changing the interface language does not translate the collection.'],
+          ['Order and everyday tools', 'Categories, title and tag search, favorites and card or list views help you browse. The project also includes printing, kitchen measures, color themes and an interface in 15 languages.'],
+          ['Local data, online features', 'Desktop recipes are stored on your computer. Cloud recognition, translation and AI need a connection and send the necessary content to an external service. Local storage does not mean every feature works offline. Back up the database separately when moving computers; copying the EXE alone is not enough.'],
+          ['Your personal Gemini API key', 'Personal-key support is already implemented in the current desktop version. Open the gear button in the header, get a key from Google AI Studio, paste it, select Check and then Save. The key is encrypted with Electron safeStorage and stored separately from recipes. You can replace or delete it. Cloud features need internet, service access and available quota; manual recipe editing works without a key.']
+        ]
+      },
+      timer: { tagline: 'Keep track of time. Keep your focus.', description: 'A compact Windows timer with circular progress, a sound alert and a floating window above other apps. Useful for short work sessions and everyday tasks.', sections: [['Always in view', 'The floating window stays above other apps. Circular progress shows the remaining time and a sound signals when the timer finishes.'], ['Quick to adjust', 'Double-click to change the time. Download a ready-to-run Windows EXE without an installer.']] },
+      mixlab: { tagline: 'From a color on screen to real paint.', description: 'Pick a shade from a photo and get a starting recipe for mixing real pigments. An offline tool for artists, designers and anyone working with physical color.', sections: [['Find your shade', 'Open an image and sample a color with the eyedropper and 10x magnifier, even from a small area of a photo.'], ['Mix and compare', 'MixLab calculates recipes with an RYB model and includes a manual mixer. Results are a guide: actual pigments and materials can vary. The interface supports 12 languages.']] },
+      'calendar-germany': { tagline: 'German holidays, matched to your state.', description: 'A Chrome calendar with national and regional German holidays. Choose a federal state, explore an interactive map and discover historical material.', sections: [['A calendar for your region', 'Select a federal state to see its holidays. The interactive map helps you explore the regions.'], ['More than dates', 'The historical section covers 16 periods with multilingual texts. Install the extension from an extracted archive using the instructions below.']] },
+      'link-manager': { tagline: 'Your links. Your order. No cloud required.', description: 'Linkora keeps useful links locally. Categories, favorites, screenshots and search help you return to the right material, without ads, tracking or a required account.', sections: [['Build your library', 'Organize links by category and add descriptions and screenshots. Drag entries between categories and mark important material as favorites.'], ['Stay in control of your data', 'Search and hover previews help you choose an entry. JSON import and export support migration and backups. Web and portable Windows versions are available.']] },
+      linkvault: { tagline: 'Your useful links, together in the browser.', description: 'Keep links, notes and screenshots in a local collection. LinkVault runs in a modern browser without a server or account on Windows, macOS and Linux.', sections: [['A personal collection without a server', 'Organize entries into pages and categories and attach descriptions and images. Duplicate highlighting helps avoid saving the same thing twice.'], ['Keep a backup', 'Data lives in IndexedDB in the chosen browser. Use JSON export and import to move your collection or protect it against cleared browser data.']] }
+    }
+  },
+  de: {
+    ui: {
+      updatesEyebrow: 'Neuigkeiten', supportEyebrow: 'Unterstützung', contactsEyebrow: 'Kontakt',
+      catalogEyebrow: 'CodeWerk-Programme', catalogTitle: 'Werkzeuge für Ihre Ideen', catalogIntro: 'Aufgabe wählen. Anwendung entdecken. Das passende Werkzeug finden.',
+      searchLabel: 'Programme suchen', searchPlaceholder: 'Name oder Aufgabe: Rezepte, Links, Farben…', clearSearch: 'Suche leeren', all: 'Alle', windows: 'Für Windows', browser: 'Im Browser', extension: 'Erweiterungen',
+      results: 'Gefunden: {count}', emptyTitle: 'Noch kein passendes Programm', emptyText: 'Versuchen Sie ein anderes Wort oder setzen Sie die Filter zurück.', reset: 'Alle Programme anzeigen',
+      details: 'Mehr erfahren', download: 'Herunterladen', requestDownload: 'Link anfordern', closeLabel: 'Schließen', gallery: 'Screenshots', screenshot: 'Oberfläche von {title}', imageMissing: 'Screenshot nicht verfügbar',
+      features: 'Das kann die Anwendung', requirementsTitle: 'Installation und Start', installer: 'Windows-Installationsdatei', portablePreview: 'Portable · Vorabversion', releaseLabel: 'Veröffentlichte Version',
+      draftNotice: 'Diese Beschreibung bezieht sich auf die Version in Entwicklung. Veröffentlichte Versionen können einen anderen Funktionsumfang haben.',
+      cookbookInstall: 'Die stabile Version 0.1.3 wird per EXE installiert. Portable 0.0.1 ist separat als Vorabversion für Windows x64 verfügbar.',
+      dllHelp: 'Bei Fehlern zu VCRUNTIME140.dll / MSVCP140.dll installieren Sie Microsoft Visual C++ Redistributable X64 von Microsoft. Laden Sie keine einzelnen DLL-Dateien von Drittanbietern herunter.',
+      runtime: 'Microsoft Visual C++ X64', youtube: 'Auf YouTube ansehen', quickTitle: 'Auf einen Blick', qrLabel: 'QR-Code der Seite', qrAlt: 'QR-Code für diese Anwendung',
+      authorTitle: 'Ein Mensch hinter den Programmen', authorLead: 'Andreas Miller · CodeWerk', authorBody: 'Ich entwickle praktische Anwendungen für den Alltag: Wissen sammeln, mit Farben arbeiten, Links ordnen und wiederkehrende Aufgaben vereinfachen.',
+      navAbout: 'Über mich', navSupport: 'Unterstützen', navContacts: 'Kontakt', heroSubtitle: 'Nützliche Anwendungen und digitale Werkzeuge von Andreas Miller', footerText: 'Anwendungen und Werkzeuge für den Alltag.',
+      offlineError: 'Der Katalog konnte nicht geladen werden. Prüfen Sie die Verbindung und laden Sie die Seite neu.', retry: 'Erneut versuchen', shareProgram: 'Am Computer öffnen', updated: 'Version', backCatalog: 'Zu den Programmen', language: 'Sprache', galleryPrevious: 'Vorheriger Screenshot', galleryNext: 'Nächster Screenshot'
+    },
+    projects: {
+      cookbook: {
+        title: 'Kochbuch', tagline: 'Rezepte, zu denen man gerne zurückkehrt.',
+        description: 'Sammeln Sie Familienrezepte, Fotos und kulinarische Entdeckungen an einem Ort auf Ihrem Computer. Ergänzen Sie eigene Notizen, ordnen Sie nach Kategorien und finden Sie Lieblingsgerichte ohne unzählige Lesezeichen.',
+        features: ['Eigene Sammlung und Favoriten', 'Text- und Bilderkennung', 'Übersetzung und KI-Hilfe', 'Lokale Rezeptspeicherung'],
+        sections: [
+          ['Ihr Buch, Ihre Rezepte', 'Speichern Sie Zutaten, Zubereitungsschritte, Zeit, Portionen, Fotos, Schlagwörter, Quellen und persönliche Notizen. Halten Sie fest, was Sie ersetzt haben und welche Backzeit in Ihrem Ofen passt. In der Oberfläche heißt die Anwendung YumBook; in Projektdateien wird auch Taste & Trace verwendet.'],
+          ['Mit einem Lieblingsgericht beginnen', 'Wählen Sie Rezept hinzufügen und geben Sie Name und Kategorie ein. Schreiben Sie Zutaten und Schritte jeweils in eine neue Zeile, ergänzen Sie ein Foto und speichern Sie. Für die manuelle Sammlung ist keine KI nötig.'],
+          ['Aus Text, Fotos oder Links', 'Das aktuelle Projekt umfasst Text- und Fotoerkennung sowie den Import aus Internetquellen und Videodateien. Das Ergebnis ist ein Entwurf: Prüfen Sie Mengen, Einheiten und Schritte vor dem Speichern. Zugangsbeschränkungen und die Qualität der Quelle beeinflussen das Ergebnis; lange Videos müssen noch getestet werden.'],
+          ['Ein Assistent beim Rezept', 'Fragen Sie nach Ersatz für Zutaten, einem unklaren Schritt oder einer anderen Portionszahl im Zusammenhang mit dem Gericht. Antworten ändern das gespeicherte Rezept nicht automatisch. Übernehmen Sie passende Hinweise selbst in das Rezept oder die Notizen.'],
+          ['Fremdsprachige Rezepte in Ihrer Sammlung', 'Eine Übersetzung wird als verknüpfte Sprachversion gespeichert; das Original bleibt erhalten. Prüfen Sie Mengen, Temperaturen und Fachbegriffe. Ein Wechsel der Oberflächensprache übersetzt die Sammlung nicht automatisch.'],
+          ['Ordnung und praktische Werkzeuge', 'Kategorien, Suche nach Namen und Schlagwörtern, Favoriten sowie Karten- oder Listenansicht erleichtern die Übersicht. Das Projekt bietet außerdem Druck, Küchenmaße, Farbthemen und eine Oberfläche in 15 Sprachen.'],
+          ['Lokale Daten, vernetzte Funktionen', 'Rezepte der Desktopversion liegen auf Ihrem Computer. Cloud-Erkennung, Übersetzung und KI benötigen eine Verbindung; notwendige Inhalte werden an einen externen Dienst übertragen. Lokale Speicherung bedeutet nicht, dass jede Funktion offline arbeitet. Sichern Sie beim Umzug die Datenbank separat; die EXE allein enthält nicht Ihre Sammlung.'],
+          ['Ihr persönlicher Gemini-API-Schlüssel', 'Die Anbindung mit einem persönlichen Schlüssel ist in der aktuellen Desktopversion bereits umgesetzt. Öffnen Sie das Zahnrad in der Kopfzeile, erstellen Sie einen Schlüssel in Google AI Studio, fügen Sie ihn ein und wählen Sie Prüfen und anschließend Speichern. Der Schlüssel wird mit Electron safeStorage verschlüsselt und getrennt von den Rezepten gespeichert. Er lässt sich ersetzen oder löschen. Cloud-Funktionen benötigen Internet, Dienstzugang und verfügbare Kontingente; manuelle Rezeptbearbeitung funktioniert ohne Schlüssel.']
+        ]
+      },
+      timer: { tagline: 'Die Zeit im Blick. Den Fokus behalten.', description: 'Ein kompakter Windows-Timer mit kreisförmiger Fortschrittsanzeige, Signalton und schwebendem Fenster über anderen Anwendungen. Für kurze Arbeitsphasen und alltägliche Aufgaben.', sections: [['Immer sichtbar', 'Das schwebende Fenster bleibt über anderen Anwendungen. Der Kreis zeigt die verbleibende Zeit, ein Signalton meldet das Ende.'], ['Schnell eingestellt', 'Die Zeit lässt sich per Doppelklick ändern. Die fertige Windows-EXE benötigt keine Installation.']] },
+      mixlab: { tagline: 'Vom Bildschirmfarbton zur echten Farbe.', description: 'Wählen Sie einen Farbton aus einem Foto und erhalten Sie einen Ausgangspunkt zum Mischen echter Pigmente. Ein Offline-Werkzeug für Kunst, Gestaltung und handwerkliche Farbarbeit.', sections: [['Den richtigen Farbton finden', 'Öffnen Sie ein Bild und wählen Sie mit Pipette und 10-facher Vergrößerung auch kleine Bildbereiche präzise aus.'], ['Mischen und vergleichen', 'MixLab berechnet Rezepte nach dem RYB-Modell und bietet einen manuellen Farbmischer. Die Ergebnisse dienen als Orientierung; echte Pigmente und Materialien können abweichen. Die Oberfläche unterstützt 12 Sprachen.']] },
+      'calendar-germany': { tagline: 'Deutsche Feiertage für Ihr Bundesland.', description: 'Ein Chrome-Kalender mit bundesweiten und regionalen Feiertagen. Wählen Sie Ihr Bundesland, erkunden Sie die interaktive Karte und entdecken Sie historische Inhalte.', sections: [['Ein Kalender für Ihre Region', 'Wählen Sie ein Bundesland, um dessen Feiertage zu sehen. Die interaktive Karte hilft bei der Orientierung.'], ['Mehr als Termine', 'Der historische Bereich umfasst 16 Zeitabschnitte mit mehrsprachigen Texten. Die Erweiterung wird aus einem entpackten Archiv installiert; die Anleitung steht unten.']] },
+      'link-manager': { tagline: 'Ihre Links. Ihre Ordnung. Ohne Cloud.', description: 'Linkora speichert nützliche Links lokal. Kategorien, Favoriten, Screenshots und Suche führen schnell zu den richtigen Inhalten, ohne Werbung, Tracking oder verpflichtendes Konto.', sections: [['Eine eigene Bibliothek aufbauen', 'Ordnen Sie Links nach Kategorien und ergänzen Sie Beschreibungen und Screenshots. Verschieben Sie Einträge per Drag-and-drop und markieren Sie wichtige Inhalte als Favoriten.'], ['Daten unter eigener Kontrolle', 'Suche und Vorschau beim Darüberfahren helfen bei der Auswahl. JSON-Import und -Export ermöglichen Umzug und Sicherung. Web- und portable Windows-Versionen sind verfügbar.']] },
+      linkvault: { tagline: 'Nützliche Links an einem Ort im Browser.', description: 'Speichern Sie Links, Notizen und Screenshots in einer lokalen Sammlung. LinkVault läuft in modernen Browsern ohne Server oder Konto unter Windows, macOS und Linux.', sections: [['Eine persönliche Sammlung ohne Server', 'Ordnen Sie Einträge nach Seiten und Kategorien und fügen Sie Beschreibungen und Bilder hinzu. Die Markierung von Duplikaten hilft, Dopplungen zu vermeiden.'], ['Sicherung nicht vergessen', 'Die Daten liegen in IndexedDB des jeweiligen Browsers. Nutzen Sie JSON-Export und -Import für den Umzug oder als Schutz vor gelöschten Browserdaten.']] }
+    }
+  }
+};
