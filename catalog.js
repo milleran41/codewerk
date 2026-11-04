@@ -53,6 +53,12 @@ window.CodeWerkCatalog = (() => {
     a.append(el('span', null, label));
     return a;
   };
+  const fileLink = (label, url, name = 'download', style = 'button button-primary') => {
+    const a = link(label, url, name, style);
+    a.removeAttribute('target');
+    a.setAttribute('download', '');
+    return a;
+  };
   const download = (p) => {
     if (p.downloadAvailable === false || (!p.downloadUrl && !p.storeUrl)) {
       const button = action(t('downloadUnavailable'), 'download', () => {}, 'button button-primary');
@@ -61,7 +67,8 @@ window.CodeWerkCatalog = (() => {
       return button;
     }
     if (p.storeUrl) return link(t('openStore'), p.storeUrl, 'external-link', 'button button-primary');
-    return link(p.downloadMode === 'request' ? t('requestDownload') : t('download'), p.downloadMode === 'request' ? buildDownloadRequestLink(p) : p.downloadUrl, 'download', 'button button-primary');
+    if (p.downloadMode === 'request') return link(t('requestDownload'), buildDownloadRequestLink(p), 'download', 'button button-primary');
+    return fileLink(t('download'), p.downloadUrl);
   };
   const image = (src, alt) => {
     const wrapper = el('div', 'catalog-image');
@@ -166,7 +173,7 @@ window.CodeWerkCatalog = (() => {
     const primaryDownload = download(p);
     if (p.id === 'cookbook' && p.downloadAvailable !== false && !p.storeUrl) primaryDownload.lastChild.textContent = t('installer');
     downloads.append(primaryDownload);
-    if (p.portablePreviewUrl) downloads.append(link(t('portablePreview'), p.portablePreviewUrl, 'flask-conical'));
+    if (p.portablePreviewUrl) downloads.append(fileLink(t('portablePreview'), p.portablePreviewUrl, 'flask-conical', 'button button-ghost'));
     if (p.videoUrl) downloads.append(link(t('youtube'), p.videoUrl, 'youtube'));
     if (p.showRepositoryLink !== false && p.githubUrl) downloads.append(link('GitHub', p.githubUrl, 'github'));
     intro.append(downloads);

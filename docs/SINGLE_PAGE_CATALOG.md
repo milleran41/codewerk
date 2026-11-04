@@ -50,7 +50,9 @@ For a manual deployment, open Actions > Publish CodeWerk catalog > Run workflow.
 
 `docs/download-request-apps-script.js` was retained from the current GitHub revision, including the category-view additions. It documents an external Google Apps Script service and is not deployed or modified automatically by Pages. Google Forms and the rating service remain the existing external services; do not send test submissions to them.
 
-On 2026-11-04, MixLab's configured EXE returned 404 and the calendar URL was a source archive. Their catalog download buttons are disabled; add verified release/store links and enable them after a later check. The original archive retains its previous links and behavior by owner request.
+On 2026-11-04, MixLab's configured EXE returned 404 and the calendar URL was a source archive. Their catalog download buttons are disabled; add verified release/store links and enable them after a later check.
+
+The owner subsequently approved routing all six archive download buttons to the corresponding `https://milleran41.github.io/codewerk/#id` detail view. The archive's share text uses that official download page as well. Archive design and other functions stay unchanged. Direct EXE/ZIP actions in this catalog use native file links without `target="_blank"`; store, video and repository links remain separate external actions. Ready-made files remain on their existing GitHub hosting. When updating a file URL, retain a proper downloadable file response; the HTML download attribute alone cannot force a cross-origin server to send an attachment.
 
 ## Verification
 
