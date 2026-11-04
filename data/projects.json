@@ -133,6 +133,7 @@
     "githubUrl": "https://github.com/milleran41/MixLab",
     "downloadMode": "request",
     "downloadUrl": null,
+    "storeUrl": "https://apps.microsoft.com/detail/9N1V9VRZJH6R",
     "qrImage": "assets/qr/mixlab.png",
     "qrTarget": "https://milleran41.github.io/codewerk/?v=20260709-4#mixlab",
     "order": 2,
@@ -157,12 +158,10 @@
     "languages": [],
     "licenseType": null,
     "price": null,
-    "storeUrl": null,
     "version": null,
     "updatedAt": null,
-    "downloadAvailable": false,
-    "downloadCheckedAt": "2026-11-04",
-    "downloadUnavailableReason": "downloadFileMissing"
+    "downloadAvailable": true,
+    "downloadCheckedAt": "2026-11-04"
   },
   {
     "id": "calendar-germany",
