@@ -59,6 +59,7 @@ window.CodeWerkCatalog = (() => {
     a.setAttribute('download', '');
     return a;
   };
+  const storeLink = (p) => link('Microsoft Store', p.storeUrl, 'shopping-bag');
   const download = (p) => {
     if (p.downloadAvailable === false || (!p.downloadUrl && !p.storeUrl)) {
       const button = action(t('downloadUnavailable'), 'download', () => {}, 'button button-primary');
@@ -66,7 +67,7 @@ window.CodeWerkCatalog = (() => {
       button.title = t(p.downloadUnavailableReason || 'downloadUnavailable');
       return button;
     }
-    if (p.storeUrl) return link(t('openStore'), p.storeUrl, 'external-link', 'button button-primary');
+    if (p.storeUrl && !p.downloadUrl) return storeLink(p);
     if (p.downloadMode === 'request') return link(t('requestDownload'), buildDownloadRequestLink(p), 'download', 'button button-primary');
     return fileLink(t('download'), p.downloadUrl);
   };
@@ -99,7 +100,12 @@ window.CodeWerkCatalog = (() => {
     const actions = el('div', 'catalog-program-actions');
     const details = action(t('details'), 'arrow-up-right', () => open(p.id), 'button button-primary');
     details.dataset.detailFor = p.id;
-    actions.append(details, download(p));
+    actions.append(details);
+    if (p.storeUrl && p.downloadUrl) {
+      actions.classList.add('has-store');
+      actions.append(storeLink(p));
+    }
+    actions.append(download(p));
     actions.lastChild.className = 'button button-ghost';
     if (p.qrImage) {
       const qr = el('details', 'catalog-qr');
@@ -172,6 +178,7 @@ window.CodeWerkCatalog = (() => {
     const downloads = el('div', 'detail-actions');
     const primaryDownload = download(p);
     if (p.id === 'cookbook' && p.downloadAvailable !== false && !p.storeUrl) primaryDownload.lastChild.textContent = t('installer');
+    if (p.storeUrl && p.downloadUrl) downloads.append(storeLink(p));
     downloads.append(primaryDownload);
     if (p.portablePreviewUrl) downloads.append(fileLink(t('portablePreview'), p.portablePreviewUrl, 'flask-conical', 'button button-ghost'));
     if (p.videoUrl) downloads.append(link(t('youtube'), p.videoUrl, 'youtube'));
