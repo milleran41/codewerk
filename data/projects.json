@@ -5,8 +5,8 @@
     "status": "published",
     "featured": true,
     "platform": "Windows 10 и 11",
-    "shortDescription": "Компактный Windows-таймер с круговым прогрессом, звуком и плавающим окном.",
-    "description": "Компактный настольный таймер для Windows с круговым индикатором прогресса, звуковыми уведомлениями и плавающим окном поверх остальных окон.",
+    "shortDescription": "Чёрно-бело-жёлтый Windows-таймер с круговым прогрессом и звуковым сигналом.",
+    "description": "Компактный таймер для Windows с чёрно-бело-жёлтым интерфейсом, анимациями, круговым прогрессом и звуковым сигналом. Плавающее окно запрашивает показ поверх обычных окон; отображение поверх полноэкранных игр не гарантируется.",
     "features": [
       "Круговой индикатор прогресса",
       "Звуковые уведомления",
@@ -14,7 +14,7 @@
       "Настройка времени двойным кликом",
       "Готовый Windows .exe без установки"
     ],
-    "screenshot": "assets/screenshots/timer.png",
+    "screenshot": "assets/screenshots/timer.png?v=20261119-1",
     "githubUrl": "https://github.com/milleran41/timer",
     "downloadMode": "direct",
     "downloadUrl": "https://github.com/milleran41/timer/raw/main/dist/timer.exe",
@@ -39,10 +39,10 @@
       "wecker",
       "kurzzeitmesser"
     ],
-    "languages": [],
+    "languages": ["English"],
     "licenseType": null,
     "price": null,
-    "version": null,
+    "version": "MSIX 1.0.1.0",
     "updatedAt": null,
     "downloadAvailable": true,
     "downloadCheckedAt": "2026-11-04"

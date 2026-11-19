@@ -388,7 +388,7 @@ const localProjectsFallback = [
     title: "Timer",
     status: "published",
     description:
-      "Компактный настольный таймер для Windows с круговым индикатором прогресса, звуковыми уведомлениями и плавающим окном поверх остальных окон.",
+      "Чёрно-бело-жёлтый таймер для Windows с круговым прогрессом, анимациями и звуковым сигналом. Показ поверх полноэкранных игр не гарантируется.",
     features: [
       "Круговой индикатор прогресса",
       "Звуковые уведомления",
@@ -396,7 +396,9 @@ const localProjectsFallback = [
       "Настройка времени двойным кликом",
       "Готовый Windows .exe без установки"
     ],
-    screenshot: "https://raw.githubusercontent.com/milleran41/timer/main/screenshot.png",
+    screenshot: "assets/screenshots/timer.png?v=20261119-1",
+    languages: ["English"],
+    version: "MSIX 1.0.1.0",
     githubUrl: "https://github.com/milleran41/timer",
     downloadMode: "direct",
     downloadUrl: "https://github.com/milleran41/timer/raw/main/dist/timer.exe",
@@ -508,7 +510,7 @@ const projectTranslations = {
     timer: {
       title: "Timer",
       description:
-        "A compact desktop timer for Windows with a circular progress indicator, sound notifications and a floating always-on-top window.",
+        "A black, white and yellow Windows timer with circular progress, animations and sound alerts. Visibility over fullscreen games is not guaranteed.",
       features: [
         "Circular progress indicator",
         "Sound notifications",
@@ -587,7 +589,7 @@ const projectTranslations = {
     timer: {
       title: "Timer",
       description:
-        "Ein kompakter Desktop-Timer für Windows mit rundem Fortschrittsindikator, akustischen Benachrichtigungen und einem schwebenden Always-on-top-Fenster.",
+        "Ein Windows-Timer mit schwarz-weiß-gelber Oberfläche, Kreisfortschritt, Animationen und Signalton. Die Anzeige über Vollbildspielen ist nicht garantiert.",
       features: [
         "Runder Fortschrittsindikator",
         "Akustische Benachrichtigungen",
