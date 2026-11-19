@@ -13,11 +13,6 @@
  */
 
 const PROGRAM_LINKS = {
-  "Taste & Trace / Кулинарная книга": {
-    title: "Taste & Trace / Кулинарная книга",
-    downloadUrl: "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.0/Taste.Trace-Portable-0.0.0-x64.exe",
-    pageUrl: "https://milleran41.github.io/codewerk/#cookbook"
-  },
   MixLab: {
     title: "MixLab",
     downloadUrl: "https://github.com/milleran41/MixLab/raw/main/MixLab.exe",

@@ -24,7 +24,7 @@
 7. Set `downloadAvailable: false` and `downloadUnavailableReason: "downloadFileMissing"` if a ready-to-run file is unavailable. Use `downloadPackageMissing` for a missing extension package. Do not put a GitHub source archive in `downloadUrl`. A confirmed `storeUrl` adds a Microsoft Store button to the left of the direct download in previews and details when both URLs exist; with only a store URL, it is the download action. Timer's Store listing was supplied by the owner: https://apps.microsoft.com/detail/9MWTDPLL3C5M.
 8. Optional metadata: `version`, `updatedAt` (YYYY-MM-DD), `languages` (actual app languages), `licenseType` (`free`, `freemium`, `paid`), and `price: {"amount": 4.99, "currency": "EUR"}`. Use null/empty arrays for unknown values. Metadata appears only inside the details dialog, not on preview cards. Prices are descriptive only; purchases use the supplied store link.
 
-All published programs use the same UI. No separate HTML page is needed. A URL such as `#cookbook` opens the matching dialog and is used by QR/share links.
+All published programs use the same UI. No separate HTML page is needed. A URL such as `#timer` opens the matching dialog and is used by QR/share links.
 
 The initial language is the first supported browser preference, with English as fallback. A valid stored `codewerkLanguage` overrides it. Storage failures do not prevent using the site. Changing language also updates an open detail window.
 
@@ -34,13 +34,11 @@ Search normalizes case, accents and Russian е/ё, searches text across all thre
 
 ## Content and Release Caveats
 
-The long Russian cookbook source draft is preserved in `projects.json` as reference. The new catalog uses shorter, independently written editorial sections in all three languages. The cookbook description is marked as development-version content because published binaries and the newer local project are not confirmed equivalent.
-
-Never label a preview as stable merely because it was published later. On 2026-11-04 the cookbook installer 0.1.3 and portable prerelease 0.0.1 were confirmed available. The newer local desktop project is not the same as these public binaries. Application builds and releases are not changed by this website's workflow.
+Never label a preview as stable merely because it was published later. Application builds and releases are not changed by this website's workflow.
 
 ## Local Preview
 
-Run `node scripts/build-site.mjs`, then serve the generated `dist` directory with a static HTTP server. The public site requires no local server or Node process on a visitor's computer. Resources use relative paths compatible with `/codewerk/`; program details use hash URLs such as `#cookbook`.
+Run `node scripts/build-site.mjs`, then serve the generated `dist` directory with a static HTTP server. The public site requires no local server or Node process on a visitor's computer. Resources use relative paths compatible with `/codewerk/`; program details use hash URLs such as `#timer`.
 
 ## Publish and Roll Back
 

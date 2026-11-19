@@ -42,7 +42,6 @@ const feedbackProgramEntry = "entry.853632586";
 const ratingSubmitUrl = "https://script.google.com/macros/s/AKfycbxVmeb0logeKWgl7Lw8F7wDQvLyVtvgQ82GqSx15EFuF7Rmc2iBLLNSxEfL_Ke-sM0L/exec";
 const ratingStoragePrefix = "codewerkRatingScore:";
 const updatesProgramNames = {
-  cookbook: "Taste & Trace / Кулинарная книга",
   timer: "Timer",
   mixlab: "MixLab",
   "calendar-germany": "Kalender Deutschland",
@@ -385,30 +384,6 @@ for (const language of supportedLanguages) {
 
 const localProjectsFallback = [
   {
-    id: "cookbook",
-    title: "Taste & Trace / Кулинарная книга",
-    status: "published",
-    description:
-      "Windows-программа для ведения личной кулинарной книги: рецепты, категории, заметки, фотографии и детали приготовления в одном месте.",
-    features: [
-      "Личная база рецептов",
-      "Категории, заметки и фотографии",
-      "Хранение деталей приготовления",
-      "Портативная Windows-сборка",
-      "Проект подготовлен для дальнейшего развития"
-    ],
-    screenshot: "assets/screenshots/cookbook.png",
-    githubUrl: "https://github.com/milleran41/taste-and-trace-download",
-    version: "0.1.3",
-    showRepositoryLink: false,
-    contentDraft: true,
-    downloadMode: "direct",
-    downloadUrl: "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.1.3/Taste.Trace-Setup-0.1.3-x64.exe",
-    portablePreviewUrl: "https://github.com/milleran41/taste-and-trace-download/releases/download/v0.0.1/Taste.Trace-Portable-0.0.1-x64.exe",
-    qrImage: "assets/qr/cookbook.png",
-    qrTarget: "https://milleran41.github.io/codewerk/?v=20260709-4#cookbook"
-  },
-  {
     id: "timer",
     title: "Timer",
     status: "published",
@@ -530,18 +505,6 @@ const localRatingsFallback = [];
 
 const projectTranslations = {
   en: {
-    cookbook: {
-      title: "Taste & Trace / Cookbook",
-      description:
-        "A Windows app for keeping a personal cookbook: recipes, categories, notes, photos and cooking details in one place.",
-      features: [
-        "Personal recipe database",
-        "Categories, notes and photos",
-        "Cooking details storage",
-        "Portable Windows build",
-        "Prepared for future development"
-      ]
-    },
     timer: {
       title: "Timer",
       description:
@@ -621,18 +584,6 @@ const projectTranslations = {
     }
   },
   de: {
-    cookbook: {
-      title: "Taste & Trace / Kochbuch",
-      description:
-        "Eine Windows-App für ein persönliches Kochbuch: Rezepte, Kategorien, Notizen, Fotos und Zubereitungsdetails an einem Ort.",
-      features: [
-        "Persönliche Rezeptdatenbank",
-        "Kategorien, Notizen und Fotos",
-        "Speicherung von Zubereitungsdetails",
-        "Portable Windows-Version",
-        "Für die weitere Entwicklung vorbereitet"
-      ]
-    },
     timer: {
       title: "Timer",
       description:
@@ -1034,12 +985,6 @@ const buildProjectCard = (project) => {
     install.type = "button";
     install.addEventListener("click", () => openProjectInstructions(project));
     contentActions.append(install);
-  }
-
-  if (project.pageUrl && project.id === "cookbook") {
-    const details = createElement("a", "button button-ghost", t("details"));
-    details.href = project.pageUrl;
-    contentActions.append(details);
   }
 
   const sendToDesktop = createElement("button", "button button-ghost send-desktop", t("openDesktop"));

@@ -32,7 +32,7 @@ window.CodeWerkCatalog = (() => {
     if (project.id === 'calendar-germany') return 'Chrome';
     if (project.crossPlatform) return 'Windows · macOS · Linux';
     if (project.id === 'link-manager') return `Windows · ${t('browser')}`;
-    return project.id === 'cookbook' ? 'Windows 10 / 11 · x64' : 'Windows 10 / 11';
+    return 'Windows 10 / 11';
   };
   const categories = (p) => p.categories || (p.id === 'calendar-germany' ? ['extension'] : p.crossPlatform ? ['browser'] : p.id === 'link-manager' ? ['windows', 'browser'] : ['windows']);
 
@@ -185,7 +185,6 @@ window.CodeWerkCatalog = (() => {
     intro.append(el('p', 'catalog-meta', platform(p)), el('h2', null, p.tagline), el('p', 'detail-lead', p.description));
     const downloads = el('div', 'detail-actions');
     const primaryDownload = download(p);
-    if (p.id === 'cookbook' && p.downloadAvailable !== false && !p.storeUrl) primaryDownload.lastChild.textContent = t('installer');
     if (p.storeUrl && p.downloadUrl) downloads.append(storeLink(p));
     downloads.append(primaryDownload);
     if (p.portablePreviewUrl) downloads.append(fileLink(t('portablePreview'), p.portablePreviewUrl, 'flask-conical', 'button button-ghost'));
@@ -232,15 +231,12 @@ window.CodeWerkCatalog = (() => {
       section.append(el('span', 'section-number', String(index + 1).padStart(2, '0')), el('h3', null, title), el('p', null, text));
       content.append(section);
     });
-    if (p.id === 'cookbook' || (p.downloadAvailable !== false && p.installSteps?.length)) {
+    if (p.downloadAvailable !== false && p.installSteps?.length) {
       const help = el('details', 'detail-help');
       help.append(el('summary', null, t('requirementsTitle')));
-      if (p.id === 'cookbook') help.append(el('p', null, t('cookbookInstall')), el('p', null, t('dllHelp')), link(t('runtime'), 'https://aka.ms/vc14/vc_redist.x64.exe', 'external-link'));
-      else {
-        const steps = el('ol');
-        p.installSteps.forEach(step => steps.append(el('li', null, step)));
-        help.append(steps);
-      }
+      const steps = el('ol');
+      p.installSteps.forEach(step => steps.append(el('li', null, step)));
+      help.append(steps);
       content.append(help);
     }
     const actions = el('section', 'detail-feedback');
