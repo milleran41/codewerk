@@ -388,17 +388,18 @@ const localProjectsFallback = [
     title: "Timer",
     status: "published",
     description:
-      "Чёрно-бело-жёлтый таймер для Windows с круговым прогрессом, анимациями и звуковым сигналом. Показ поверх полноэкранных игр не гарантируется.",
+      "Windows-таймер с активным удержанием поверх окон и игр в оконном или безрамочном режиме. Истинный эксклюзивный полноэкранный режим не поддерживается.",
     features: [
       "Круговой индикатор прогресса",
       "Звуковые уведомления",
-      "Плавающее окно always-on-top",
+      "Поверх окон и игр в оконном / безрамочном режиме",
       "Настройка времени двойным кликом",
       "Готовый Windows .exe без установки"
     ],
     screenshot: "assets/screenshots/timer.png",
     languages: ["English"],
-    version: "MSIX 1.0.1.0",
+    version: "Portable 2026-11-20",
+    updatedAt: "2026-11-20",
     githubUrl: "https://github.com/milleran41/timer",
     downloadMode: "direct",
     downloadUrl: "https://github.com/milleran41/timer/raw/main/dist/timer.exe",
@@ -510,11 +511,11 @@ const projectTranslations = {
     timer: {
       title: "Timer",
       description:
-        "A black, white and yellow Windows timer with circular progress, animations and sound alerts. Visibility over fullscreen games is not guaranteed.",
+        "A Windows timer that actively stays above ordinary windows and windowed or borderless games. True exclusive fullscreen is not supported.",
       features: [
         "Circular progress indicator",
         "Sound notifications",
-        "Always-on-top floating window",
+        "Above ordinary windows and windowed / borderless games",
         "Double-click time adjustment",
         "Ready-to-use Windows .exe without installation"
       ]
@@ -589,11 +590,11 @@ const projectTranslations = {
     timer: {
       title: "Timer",
       description:
-        "Ein Windows-Timer mit schwarz-weiß-gelber Oberfläche, Kreisfortschritt, Animationen und Signalton. Die Anzeige über Vollbildspielen ist nicht garantiert.",
+        "Ein Windows-Timer, der aktiv über normalen Fenstern und Spielen im Fenster- oder rahmenlosen Vollbildmodus bleibt. Echtes exklusives Vollbild wird nicht unterstützt.",
       features: [
         "Runder Fortschrittsindikator",
         "Akustische Benachrichtigungen",
-        "Schwebendes Always-on-top-Fenster",
+        "Über normalen Fenstern und Spielen im Fenster- / rahmenlosen Modus",
         "Zeiteinstellung per Doppelklick",
         "Fertige Windows-.exe ohne Installation"
       ]
