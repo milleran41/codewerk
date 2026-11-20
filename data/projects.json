@@ -14,7 +14,7 @@
       "Настройка времени двойным кликом",
       "Готовый Windows .exe без установки"
     ],
-    "screenshot": "assets/screenshots/timer.png?v=20261119-1",
+    "screenshot": "assets/screenshots/timer.png",
     "githubUrl": "https://github.com/milleran41/timer",
     "downloadMode": "direct",
     "downloadUrl": "https://github.com/milleran41/timer/raw/main/dist/timer.exe",

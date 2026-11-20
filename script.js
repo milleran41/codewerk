@@ -396,7 +396,7 @@ const localProjectsFallback = [
       "Настройка времени двойным кликом",
       "Готовый Windows .exe без установки"
     ],
-    screenshot: "assets/screenshots/timer.png?v=20261119-1",
+    screenshot: "assets/screenshots/timer.png",
     languages: ["English"],
     version: "MSIX 1.0.1.0",
     githubUrl: "https://github.com/milleran41/timer",
